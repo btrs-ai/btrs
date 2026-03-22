@@ -1,28 +1,13 @@
 {
   "name": "btrs",
-  "version": "1.0.0",
   "description": "AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: /btrs.",
+  "category": "development",
   "author": {
-    "name": "BTRS AI",
-    "url": "https://github.com/btrs-ai"
+    "name": "BTRS AI"
   },
   "homepage": "https://btrs-ai.github.io/btrs/",
-  "repository": "https://github.com/btrs-ai/btrs",
-  "license": "MIT",
-  "keywords": [
-    "agents",
-    "orchestration",
-    "multi-agent",
-    "code-review",
-    "planning",
-    "security",
-    "devops",
-    "testing",
-    "documentation",
-    "tech-debt",
-    "conventions",
-    "obsidian"
-  ],
-  "skills": "./skills/",
-  "agents": "./agents/"
+  "source": {
+    "source": "url",
+    "url": "https://github.com/btrs-ai/btrs.git"
+  }
 }
