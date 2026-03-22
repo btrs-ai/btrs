@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTRS Agents - Documentation</title>
+<meta name="description" content="24 specialist AI agents. 1 command. Documentation for the BTRS Agents system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#0f1117;--bg-sidebar:#161822;--bg-card:#1a1d2e;--bg-card-hover:#1e2236;
+--bg-code:#12141f;--bg-code-inline:#1e2236;
+--text:#e4e4e7;--text-muted:#a1a1aa;--text-dim:#71717a;
+--accent:#d4a017;--accent-light:#e6b422;--accent-dim:rgba(212,160,23,0.12);
+--border:#27293a;--border-light:#2e3148;
+--blue:#3b82f6;--yellow:#eab308;--red:#ef4444;--purple:#a78bfa;--orange:#d4a017;
+--sidebar-w:280px;--toc-w:220px;--content-max:780px;
+--header-h:56px;
+--radius:8px;--radius-lg:12px;
+}
+[data-theme="light"]{
+--bg:#ffffff;--bg-sidebar:#f8f9fa;--bg-card:#f1f3f5;--bg-card-hover:#e9ecef;
+--bg-code:#f1f3f5;--bg-code-inline:#e9ecef;
+--text:#1a1a2e;--text-muted:#52525b;--text-dim:#71717a;
+--border:#e4e4e7;--border-light:#d4d4d8;
+--accent-dim:rgba(212,160,23,0.1);
+}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 24px)}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;overflow-x:hidden;transition:background .25s,color .25s}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--bg-sidebar);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.header-left{display:flex;align-items:center;gap:12px}
+.header-logo{font-weight:700;font-size:1.15rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+.header-logo span{color:var(--accent)}
+.header-right{display:flex;align-items:center;gap:12px}
+.gh-link{color:var(--text-muted);text-decoration:none;display:flex;align-items:center;gap:6px;font-size:.875rem;padding:6px 12px;border-radius:var(--radius);border:1px solid var(--border);transition:all .2s}
+.gh-link:hover{color:var(--text);border-color:var(--text-muted)}
+.theme-toggle{background:none;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;padding:6px 10px;border-radius:var(--radius);font-size:1rem;transition:all .2s;display:flex;align-items:center}
+.theme-toggle:hover{color:var(--text);border-color:var(--text-muted)}
+.hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:8px;font-size:1.25rem}
+
+/* SIDEBAR */
+.sidebar{position:fixed;top:var(--header-h);left:0;width:var(--sidebar-w);height:calc(100vh - var(--header-h));background:var(--bg-sidebar);border-right:1px solid var(--border);overflow-y:auto;padding:20px 0;z-index:90;transition:transform .3s ease}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-track{background:transparent}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+.sidebar-section{margin-bottom:4px}
+.sidebar-heading{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);padding:12px 24px 6px;user-select:none}
+.sidebar-link{display:block;padding:7px 24px 7px 24px;font-size:.875rem;color:var(--text-muted);text-decoration:none;transition:all .15s;border-left:2px solid transparent;line-height:1.4}
+.sidebar-link:hover{color:var(--text);background:var(--accent-dim)}
+.sidebar-link.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-dim)}
+.sidebar-link.sub{padding-left:40px;font-size:.82rem}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:89}
+
+/* TOC (right) */
+.toc{position:fixed;top:var(--header-h);right:0;width:var(--toc-w);height:calc(100vh - var(--header-h));padding:24px 16px;overflow-y:auto;font-size:.78rem}
+.toc-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:12px}
+.toc a{display:block;padding:4px 0 4px 12px;color:var(--text-dim);text-decoration:none;border-left:1px solid var(--border);transition:all .15s;line-height:1.4}
+.toc a:hover{color:var(--text-muted)}
+.toc a.active{color:var(--accent);border-left-color:var(--accent)}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);margin-right:var(--toc-w);padding:calc(var(--header-h) + 32px) 48px 80px;min-height:100vh}
+.content{max-width:var(--content-max);margin:0 auto}
+
+/* HERO */
+.hero{text-align:center;padding:48px 0 56px}
+.hero-badge{display:inline-block;font-size:.8rem;font-weight:500;color:var(--accent);background:var(--accent-dim);padding:4px 14px;border-radius:999px;margin-bottom:16px;border:1px solid rgba(212,160,23,0.2)}
+.hero h1{font-size:2.8rem;font-weight:700;margin-bottom:12px;letter-spacing:-.02em;line-height:1.15}
+.hero h1 span{color:var(--accent)}
+.hero .tagline{font-size:1.25rem;color:var(--text-muted);margin-bottom:8px;font-weight:500}
+.hero .desc{font-size:1rem;color:var(--text-dim);max-width:560px;margin:0 auto 32px;line-height:1.7}
+.hero-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-weight:600;font-size:.95rem;padding:12px 28px;border-radius:var(--radius);text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.hero-btn:hover{background:var(--accent-light);transform:translateY(-1px);box-shadow:0 4px 20px rgba(212,160,23,0.3)}
+
+/* SECTIONS */
+section{margin-bottom:56px}
+section > .section-anchor{display:block;height:0;visibility:hidden}
+h2.section-title{font-size:1.5rem;font-weight:600;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);line-height:1.3}
+h3.sub-title{font-size:1.25rem;font-weight:500;margin:28px 0 12px;line-height:1.3}
+p{margin-bottom:14px;color:var(--text-muted)}
+strong{color:var(--text);font-weight:600}
+
+/* CODE BLOCKS */
+.code-block{position:relative;background:var(--bg-code);border:1px solid var(--border);border-radius:var(--radius-lg);margin:16px 0 20px;overflow:hidden}
+.code-header{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:rgba(255,255,255,0.02);border-bottom:1px solid var(--border);font-size:.75rem;color:var(--text-dim)}
+.code-lang{font-family:'JetBrains Mono',monospace;font-weight:500}
+.copy-btn{background:none;border:1px solid var(--border);color:var(--text-dim);cursor:pointer;padding:3px 10px;border-radius:4px;font-size:.72rem;font-family:'Inter',sans-serif;transition:all .2s;display:flex;align-items:center;gap:4px}
+.copy-btn:hover{color:var(--text);border-color:var(--text-muted)}
+.copy-btn.copied{color:var(--accent);border-color:var(--accent)}
+.code-block pre{padding:16px;margin:0;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.855rem;line-height:1.65;color:var(--text)}
+.code-block pre::-webkit-scrollbar{height:4px}
+.code-block pre::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+code{font-family:'JetBrains Mono',monospace}
+code:not(pre code){background:var(--bg-code-inline);padding:2px 7px;border-radius:4px;font-size:.88em;color:var(--accent-light)}
+
+/* Syntax colors */
+.kw{color:#c084fc}.str{color:#fbbf24}.cmt{color:#525273;font-style:italic}.fn{color:#60a5fa}.fl{color:#f97316}.cmd{color:#f9a8d4}.flag{color:#fbbf24}.var{color:#67e8f9}
+
+/* CALLOUTS */
+.callout{display:flex;gap:12px;padding:14px 18px;border-radius:var(--radius);margin:16px 0 20px;border-left:3px solid;font-size:.9rem;line-height:1.6}
+.callout-icon{font-size:1.1rem;flex-shrink:0;margin-top:2px}
+.callout-body{flex:1}
+.callout-body p{margin:0;color:var(--text-muted)}
+.callout-body strong{display:block;margin-bottom:2px;font-size:.85rem}
+.callout.tip{background:rgba(212,160,23,0.06);border-color:var(--accent)}
+.callout.tip strong{color:var(--accent)}
+.callout.info{background:rgba(59,130,246,0.06);border-color:var(--blue)}
+.callout.info strong{color:var(--blue)}
+.callout.warn{background:rgba(234,179,8,0.06);border-color:var(--yellow)}
+.callout.warn strong{color:var(--yellow)}
+.callout.danger{background:rgba(239,68,68,0.06);border-color:var(--red)}
+.callout.danger strong{color:var(--red)}
+
+/* CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:16px 0 20px}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;transition:all .2s;cursor:default}
+.card:hover{background:var(--bg-card-hover);border-color:var(--border-light);transform:translateY(-1px)}
+.card-icon{font-size:1.5rem;margin-bottom:8px}
+.card h4{font-size:.95rem;font-weight:600;margin-bottom:4px;color:var(--text)}
+.card p{font-size:.82rem;color:var(--text-dim);margin:0;line-height:1.5}
+.card .examples{margin-top:8px;font-size:.78rem;color:var(--text-dim);line-height:1.6}
+.card .examples span{display:block}
+
+/* BADGES */
+.badge{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:999px;margin-right:4px;margin-bottom:4px}
+.badge-green{background:rgba(212,160,23,0.12);color:var(--accent)}
+.badge-blue{background:rgba(59,130,246,0.12);color:var(--blue)}
+.badge-purple{background:rgba(167,139,250,0.12);color:var(--purple)}
+.badge-orange{background:rgba(212,160,23,0.12);color:var(--orange)}
+.badge-red{background:rgba(239,68,68,0.12);color:var(--red)}
+.badge-yellow{background:rgba(234,179,8,0.12);color:var(--yellow)}
+
+/* TABS */
+.tabs{margin:16px 0 20px}
+.tab-buttons{display:flex;gap:0;border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab-buttons::-webkit-scrollbar{display:none}
+.tab-btn{background:none;border:none;color:var(--text-dim);font-size:.85rem;font-family:'Inter',sans-serif;padding:10px 18px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s}
+.tab-btn:hover{color:var(--text-muted)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none;padding:16px 0 0}
+.tab-panel.active{display:block}
+
+/* ACCORDION */
+.accordion{margin:16px 0 20px}
+.acc-item{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden}
+.acc-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;font-size:.92rem;font-weight:500;color:var(--text);transition:background .15s;user-select:none}
+.acc-header:hover{background:var(--bg-card)}
+.acc-chevron{font-size:.8rem;color:var(--text-dim);transition:transform .2s}
+.acc-item.open .acc-chevron{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc-item.open .acc-body{max-height:600px}
+.acc-content{padding:0 18px 16px;font-size:.9rem;color:var(--text-muted);line-height:1.7}
+
+/* STEPS */
+.steps{counter-reset:step;margin:16px 0 20px}
+.step{display:flex;gap:16px;margin-bottom:20px;position:relative}
+.step::before{counter-increment:step;content:counter(step);display:flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:.85rem;border-radius:50%;flex-shrink:0;border:1px solid rgba(212,160,23,0.25)}
+.step-body h4{font-size:.95rem;font-weight:600;margin-bottom:4px;color:var(--text)}
+.step-body p{font-size:.88rem;color:var(--text-muted);margin:0}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;margin:16px 0 20px;border:1px solid var(--border);border-radius:var(--radius-lg)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;padding:10px 16px;font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--text-dim);background:var(--bg-card);border-bottom:1px solid var(--border)}
+td{padding:10px 16px;border-bottom:1px solid var(--border);color:var(--text-muted);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg-card)}
+
+/* DIRECTORY TREE */
+.tree{background:var(--bg-code);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.8;color:var(--text-muted);margin:16px 0 20px;overflow-x:auto}
+.tree .dir{color:var(--accent-light)}.tree .file{color:var(--text-dim)}
+
+/* VISUAL DIAGRAM */
+.diagram{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;margin:20px 0;padding:24px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.diagram-center{background:var(--accent-dim);border:2px solid var(--accent);color:var(--accent);font-weight:600;padding:14px 24px;border-radius:var(--radius-lg);font-size:.92rem;text-align:center}
+.diagram-arrow{color:var(--text-dim);font-size:1.2rem}
+.diagram-node{background:var(--bg-code);border:1px solid var(--border);padding:8px 14px;border-radius:var(--radius);font-size:.82rem;color:var(--text-muted);text-align:center}
+
+/* CHECK LIST */
+.checklist{list-style:none;margin:16px 0 20px}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:.92rem;color:var(--text-muted)}
+.checklist li::before{content:"";display:inline-block;width:20px;height:20px;background:var(--accent-dim);border:1.5px solid var(--accent);border-radius:50%;flex-shrink:0;margin-top:3px;position:relative}
+.checklist li.checked::before{background:var(--accent);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");background-size:12px;background-position:center;background-repeat:no-repeat}
+
+/* FOOTER */
+.footer{margin-left:var(--sidebar-w);margin-right:var(--toc-w);border-top:1px solid var(--border);padding:32px 48px;text-align:center;font-size:.85rem;color:var(--text-dim)}
+.footer a{color:var(--accent);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.footer p{margin-bottom:4px}
+
+/* SCROLLBAR (main) */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* RESPONSIVE */
+@media(max-width:1200px){
+.toc{display:none}
+.main{margin-right:0}
+.footer{margin-right:0}
+}
+@media(max-width:860px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.open{transform:translateX(0)}
+.sidebar-overlay.open{display:block}
+.main{margin-left:0;padding:calc(var(--header-h) + 24px) 20px 60px}
+.footer{margin-left:0;padding:24px 20px}
+.hamburger{display:block}
+.hero h1{font-size:2rem}
+.hero .tagline{font-size:1.05rem}
+.card-grid{grid-template-columns:1fr}
+.tab-btn{padding:8px 12px;font-size:.8rem}
+}
+
+/* Smooth transitions for theme */
+.sidebar,.header,.main,.card,.code-block,.callout,.acc-item,.tab-btn,.footer,.toc{transition:background .25s,border-color .25s,color .25s}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+<div class="header-left">
+<button class="hamburger" id="hamburger" aria-label="Open navigation">&#9776;</button>
+<a href="#top" class="header-logo"><span>BTRS</span> Agents</a>
+<span class="badge badge-green" style="margin-left:4px">v1.0</span>
+</div>
+<div class="header-right">
+<a href="https://github.com/btrs-ai/btrs" class="gh-link" target="_blank" rel="noopener">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z"/></svg>
+GitHub
+</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Theme: dark">&#9789;</button>
+</div>
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-section">
+<div class="sidebar-heading">Getting Started</div>
+<a href="#quick-start" class="sidebar-link" data-section="quick-start">Quick Start</a>
+<a href="#installation" class="sidebar-link" data-section="installation">Installation</a>
+<a href="#first-run" class="sidebar-link" data-section="first-run">First Run</a>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-heading">Usage</div>
+<a href="#how-it-works" class="sidebar-link" data-section="how-it-works">How It Works</a>
+<a href="#btrs-command" class="sidebar-link" data-section="btrs-command">The /btrs Command</a>
+<a href="#follow-up" class="sidebar-link" data-section="follow-up">Follow-Up Conversations</a>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-heading">Agents (24)</div>
+<a href="#agents-management" class="sidebar-link" data-section="agents-management">Management</a>
+<a href="#agents-technical" class="sidebar-link" data-section="agents-technical">Technical</a>
+<a href="#agents-engineering" class="sidebar-link" data-section="agents-engineering">Engineering</a>
+<a href="#agents-security" class="sidebar-link" data-section="agents-security">Security</a>
+<a href="#agents-operations" class="sidebar-link" data-section="agents-operations">Operations</a>
+<a href="#agents-business" class="sidebar-link" data-section="agents-business">Business</a>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-heading">Skills (15)</div>
+<a href="#skills-core" class="sidebar-link" data-section="skills-core">Core</a>
+<a href="#skills-planning" class="sidebar-link" data-section="skills-planning">Planning</a>
+<a href="#skills-building" class="sidebar-link" data-section="skills-building">Building</a>
+<a href="#skills-quality" class="sidebar-link" data-section="skills-quality">Quality</a>
+<a href="#skills-knowledge" class="sidebar-link" data-section="skills-knowledge">Knowledge</a>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-heading">Features</div>
+<a href="#convention-system" class="sidebar-link" data-section="convention-system">Convention System</a>
+<a href="#self-verification" class="sidebar-link" data-section="self-verification">Self-Verification</a>
+<a href="#multi-solution" class="sidebar-link" data-section="multi-solution">Multi-Solution Exploration</a>
+<a href="#obsidian-vault" class="sidebar-link" data-section="obsidian-vault">Obsidian Vault</a>
+<a href="#cross-ai" class="sidebar-link" data-section="cross-ai">Cross-AI Compatibility</a>
+</div>
+<div class="sidebar-section">
+<div class="sidebar-heading">Help</div>
+<a href="#faq" class="sidebar-link" data-section="faq">FAQ</a>
+</div>
+</nav>
+
+<!-- TOC -->
+<aside class="toc" id="toc">
+<div class="toc-title">On this page</div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+<div class="content" id="top">
+
+<!-- HERO -->
+<div class="hero">
+<div class="hero-badge">Open Source &middot; MIT License</div>
+<h1><span>BTRS</span> Agents</h1>
+<p class="tagline">24 specialist AI agents. 1 command.</p>
+<p class="desc">A multi-agent system for AI-assisted development. BTRS auto-detects your project conventions and dispatches specialist agents that follow your rules, verify their own work, and document everything.</p>
+<a href="#quick-start" class="hero-btn">Get Started &rarr;</a>
+</div>
+
+<!-- FEATURE CARDS (top) -->
+<div class="card-grid" style="margin-bottom:56px">
+<div class="card">
+<div class="card-icon">&#9889;</div>
+<h4>One Command</h4>
+<p>Type <code>/btrs</code> and describe what you need. The router handles the rest.</p>
+</div>
+<div class="card">
+<div class="card-icon">&#129302;</div>
+<h4>24 Specialists</h4>
+<p>Architects, engineers, security, ops, and business agents &mdash; each with deep domain knowledge.</p>
+</div>
+<div class="card">
+<div class="card-icon">&#128736;</div>
+<h4>Convention-Aware</h4>
+<p>Auto-detects your project patterns. Agents follow YOUR style, not generic templates.</p>
+</div>
+<div class="card">
+<div class="card-icon">&#9989;</div>
+<h4>Self-Verifying</h4>
+<p>Every agent checks its own work with evidence before reporting done.</p>
+</div>
+<div class="card">
+<div class="card-icon">&#128218;</div>
+<h4>Obsidian Vault</h4>
+<p>All decisions and documentation auto-written to a linked knowledge base.</p>
+</div>
+<div class="card">
+<div class="card-icon">&#128256;</div>
+<h4>Any AI Tool</h4>
+<p>Works with Claude Code, Cursor, Copilot, Windsurf, Codex, and more.</p>
+</div>
+</div>
+
+<!-- ===== GETTING STARTED ===== -->
+
+<!-- QUICK START -->
+<section>
+<span class="section-anchor" id="quick-start"></span>
+<h2 class="section-title">Quick Start</h2>
+<p>Get BTRS running in under 60 seconds.</p>
+
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cmt"># Clone &amp; install (one-time setup)</span>
+<span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
+~/.claude/btrs/<span class="fn">install.sh</span>
+
+<span class="cmt"># Then in any project:</span>
+<span class="cmd">/btrs</span> <span class="str">build me a user dashboard</span></pre>
+</div>
+
+<div class="callout tip">
+<span class="callout-icon">&#128161;</span>
+<div class="callout-body">
+<strong>Tip</strong>
+<p>First time in a project? BTRS auto-scans your codebase. No setup needed.</p>
+</div>
+</div>
+</section>
+
+<!-- INSTALLATION -->
+<section>
+<span class="section-anchor" id="installation"></span>
+<h2 class="section-title">Installation</h2>
+<p>BTRS supports all major AI development tools. Pick yours below.</p>
+
+<div class="tabs">
+<div class="tab-buttons">
+<button class="tab-btn active" onclick="switchTab(event,'tab-claude')">Claude Code</button>
+<button class="tab-btn" onclick="switchTab(event,'tab-cursor')">Cursor</button>
+<button class="tab-btn" onclick="switchTab(event,'tab-copilot')">GitHub Copilot</button>
+<button class="tab-btn" onclick="switchTab(event,'tab-windsurf')">Windsurf</button>
+<button class="tab-btn" onclick="switchTab(event,'tab-codex')">OpenAI Codex</button>
+<button class="tab-btn" onclick="switchTab(event,'tab-web')">Claude AI (Web)</button>
+</div>
+
+<div class="tab-panel active" id="tab-claude">
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
+~/.claude/btrs/<span class="fn">install.sh</span></pre>
+</div>
+<p><strong>What <code>install.sh</code> does:</strong> Symlinks all 15 skills and 24 agents into <code>~/.claude/</code>. Skills become available as slash commands in any project. Agents are loaded on demand by the router.</p>
+<div class="callout info">
+<span class="callout-icon">&#8505;&#65039;</span>
+<div class="callout-body"><strong>Note</strong><p>After install, <code>/btrs</code> is available globally in every project you open with Claude Code.</p></div>
+</div>
+</div>
+
+<div class="tab-panel" id="tab-cursor">
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+</div>
+<p>The <code>.cursorrules</code> file auto-loads when Cursor detects the repo. Use <code>@file</code> to reference specific agent files as context for your conversations.</p>
+</div>
+
+<div class="tab-panel" id="tab-copilot">
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+</div>
+<p>The <code>.github/copilot-instructions.md</code> file auto-loads in GitHub Copilot Chat. Copilot picks up the agent instructions automatically.</p>
+</div>
+
+<div class="tab-panel" id="tab-windsurf">
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+</div>
+<p>The <code>.windsurfrules</code> file auto-loads in Cascade. Use <code>@file</code> to reference agent files in your conversations.</p>
+</div>
+
+<div class="tab-panel" id="tab-codex">
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+</div>
+<p><code>AGENTS.md</code> is the native format for OpenAI Codex. Clone the repo and it works out of the box.</p>
+</div>
+
+<div class="tab-panel" id="tab-web">
+<p>Upload <code>AGENTS.md</code> as project context in Claude AI. Load individual agent files (from <code>.claude/agents/</code>) as needed for specialized tasks.</p>
+<div class="callout info">
+<span class="callout-icon">&#8505;&#65039;</span>
+<div class="callout-body"><strong>Note</strong><p>The web interface does not support slash commands. Paste agent instructions directly into your conversation context.</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FIRST RUN -->
+<section>
+<span class="section-anchor" id="first-run"></span>
+<h2 class="section-title">First Run</h2>
+<p>When you use <code>/btrs</code> in a project for the first time, the system will:</p>
+<div class="steps">
+<div class="step"><div class="step-body"><h4>Scan your project</h4><p>BTRS reads your file structure, dependencies, and existing patterns to build a conventions profile.</p></div></div>
+<div class="step"><div class="step-body"><h4>Generate conventions</h4><p>A <code>.btrs/conventions/</code> folder is created with your project's detected patterns &mdash; naming, structure, style, and anti-patterns.</p></div></div>
+<div class="step"><div class="step-body"><h4>Initialize the vault</h4><p>The <code>.btrs/</code> Obsidian-compatible vault is set up for decision logs, ADRs, and documentation.</p></div></div>
+<div class="step"><div class="step-body"><h4>Ready to work</h4><p>Every subsequent <code>/btrs</code> call in this project uses the conventions automatically. No repeated setup.</p></div></div>
+</div>
+</section>
+
+<!-- ===== USAGE ===== -->
+
+<!-- HOW IT WORKS -->
+<section>
+<span class="section-anchor" id="how-it-works"></span>
+<h2 class="section-title">How It Works</h2>
+
+<div class="steps">
+<div class="step"><div class="step-body"><h4>You describe what you need</h4><p>Type <code>/btrs</code> followed by a natural language request. No special syntax required.</p></div></div>
+<div class="step"><div class="step-body"><h4>BTRS classifies the request</h4><p>The router analyzes your request to determine which domain(s) it belongs to &mdash; architecture, frontend, security, ops, etc.</p></div></div>
+<div class="step"><div class="step-body"><h4>Specialist agents are dispatched</h4><p>The appropriate agents are loaded with your project's conventions injected as mandatory context. Complex tasks may involve multiple agents in sequence.</p></div></div>
+<div class="step"><div class="step-body"><h4>Agents verify their own work</h4><p>Each agent runs a 5-point self-verification check before reporting completion. If anything fails, the agent self-corrects.</p></div></div>
+<div class="step"><div class="step-body"><h4>Documentation is auto-updated</h4><p>Decisions, changes, and rationale are written to the <code>.btrs/</code> Obsidian vault automatically.</p></div></div>
+</div>
+</section>
+
+<!-- THE /btrs COMMAND -->
+<section>
+<span class="section-anchor" id="btrs-command"></span>
+<h2 class="section-title">The /btrs Command</h2>
+<p>The <code>/btrs</code> command is the universal entry point. Here are examples of different request types:</p>
+
+<div class="code-block">
+<div class="code-header"><span class="code-lang">examples</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cmt"># Building</span>
+<span class="cmd">/btrs</span> <span class="str">build a notification system with email and push</span>
+
+<span class="cmt"># Fixing</span>
+<span class="cmd">/btrs</span> <span class="str">the login page crashes on mobile Safari</span>
+
+<span class="cmt"># Planning</span>
+<span class="cmd">/btrs</span> <span class="str">plan the Q2 product roadmap</span>
+
+<span class="cmt"># Security</span>
+<span class="cmd">/btrs</span> <span class="str">audit the API for vulnerabilities</span>
+
+<span class="cmt"># DevOps</span>
+<span class="cmd">/btrs</span> <span class="str">set up CI/CD with GitHub Actions</span>
+
+<span class="cmt"># Research</span>
+<span class="cmd">/btrs</span> <span class="str">compare Postgres vs CockroachDB for our use case</span>
+
+<span class="cmt"># Documentation</span>
+<span class="cmd">/btrs</span> <span class="str">document the payments API with examples</span></pre>
+</div>
+
+<div class="callout tip">
+<span class="callout-icon">&#128161;</span>
+<div class="callout-body"><strong>Tip</strong><p>You can be as specific or as vague as you want. BTRS will ask clarifying questions if needed.</p></div>
+</div>
+</section>
+
+<!-- FOLLOW-UP -->
+<section>
+<span class="section-anchor" id="follow-up"></span>
+<h2 class="section-title">Follow-Up Conversations</h2>
+<p>After your initial <code>/btrs</code> command, you do not need to prefix every message. Just keep talking naturally.</p>
+
+<div class="code-block">
+<div class="code-header"><span class="code-lang">conversation</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cmt"># Start with /btrs</span>
+<span class="cmd">/btrs</span> <span class="str">build a user settings page</span>
+
+<span class="cmt"># Then just follow up normally</span>
+<span class="str">Add a dark mode toggle to that page</span>
+<span class="str">Actually, make it a dropdown with 3 options: light, dark, system</span>
+<span class="str">Now add tests for the theme switching logic</span></pre>
+</div>
+
+<p>The active agent retains context from the conversation. Use <code>/btrs</code> again when you want to switch to a completely different task.</p>
+</section>
+
+<!-- ===== AGENTS ===== -->
+
+<!-- MANAGEMENT -->
+<section>
+<span class="section-anchor" id="agents-management"></span>
+<h2 class="section-title">Agents &mdash; Management</h2>
+<span class="badge badge-green">1 Agent</span>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-icon">&#128188;</div>
+<h4>Boss Agent</h4>
+<p>Central coordinator. Breaks down requests, dispatches agents, tracks progress.</p>
+<div class="examples"><span>&#8226; <code>/btrs build a full-stack app</code></span><span>&#8226; <code>/btrs plan the migration to microservices</code></span></div>
+</div>
+</div>
+</section>
+
+<!-- TECHNICAL -->
+<section>
+<span class="section-anchor" id="agents-technical"></span>
+<h2 class="section-title">Agents &mdash; Technical</h2>
+<span class="badge badge-blue">4 Agents</span>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-icon">&#127959;</div>
+<h4>Architect</h4>
+<p>System design, architecture decisions, ADRs, technology selection.</p>
+<div class="examples"><span>&#8226; <code>/btrs design the auth system</code></span><span>&#8226; <code>/btrs propose a caching strategy</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#129514;</div>
+<h4>QA &amp; Test Engineering</h4>
+<p>Unit, integration, e2e, performance, and security testing.</p>
+<div class="examples"><span>&#8226; <code>/btrs write tests for the payment flow</code></span><span>&#8226; <code>/btrs set up e2e testing with Playwright</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128221;</div>
+<h4>Documentation</h4>
+<p>Technical writing, API docs, guides, changelogs.</p>
+<div class="examples"><span>&#8226; <code>/btrs document the REST API</code></span><span>&#8226; <code>/btrs write the onboarding guide</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128300;</div>
+<h4>Research</h4>
+<p>Technology evaluation, competitive analysis, innovation scouting.</p>
+<div class="examples"><span>&#8226; <code>/btrs compare React vs Vue for our needs</code></span><span>&#8226; <code>/btrs research real-time sync solutions</code></span></div>
+</div>
+</div>
+</section>
+
+<!-- ENGINEERING -->
+<section>
+<span class="section-anchor" id="agents-engineering"></span>
+<h2 class="section-title">Agents &mdash; Engineering</h2>
+<span class="badge badge-purple">6 Agents</span>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-icon">&#128268;</div>
+<h4>API Engineer</h4>
+<p>Backend APIs, REST, GraphQL, microservices, server logic.</p>
+<div class="examples"><span>&#8226; <code>/btrs build a REST API for orders</code></span><span>&#8226; <code>/btrs add GraphQL subscriptions</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#127760;</div>
+<h4>Web Engineer</h4>
+<p>React, Vue, frontend applications, SPAs, SSR.</p>
+<div class="examples"><span>&#8226; <code>/btrs build a dashboard with React</code></span><span>&#8226; <code>/btrs fix the responsive layout</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128241;</div>
+<h4>Mobile Engineer</h4>
+<p>React Native, Flutter, iOS, Android development.</p>
+<div class="examples"><span>&#8226; <code>/btrs build the onboarding screens</code></span><span>&#8226; <code>/btrs fix push notifications on iOS</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128421;</div>
+<h4>Desktop Engineer</h4>
+<p>Electron, Tauri, native desktop applications.</p>
+<div class="examples"><span>&#8226; <code>/btrs build a system tray app</code></span><span>&#8226; <code>/btrs add auto-update functionality</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#127912;</div>
+<h4>UI Engineer</h4>
+<p>Component libraries, design systems, Storybook, visual polish.</p>
+<div class="examples"><span>&#8226; <code>/btrs create a button component system</code></span><span>&#8226; <code>/btrs build the design tokens</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128451;</div>
+<h4>Database Engineer</h4>
+<p>Schema design, optimization, migrations, query tuning.</p>
+<div class="examples"><span>&#8226; <code>/btrs design the schema for multi-tenancy</code></span><span>&#8226; <code>/btrs optimize the slow queries</code></span></div>
+</div>
+</div>
+</section>
+
+<!-- SECURITY -->
+<section>
+<span class="section-anchor" id="agents-security"></span>
+<h2 class="section-title">Agents &mdash; Security</h2>
+<span class="badge badge-red">2 Agents</span>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-icon">&#128272;</div>
+<h4>Code Security</h4>
+<p>SAST/DAST, vulnerability scanning, secure coding practices, OWASP compliance.</p>
+<div class="examples"><span>&#8226; <code>/btrs audit the auth code for vulns</code></span><span>&#8226; <code>/btrs add input sanitization</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128737;</div>
+<h4>Security Ops</h4>
+<p>Infrastructure security, compliance (GDPR, SOC2, HIPAA), access controls.</p>
+<div class="examples"><span>&#8226; <code>/btrs review our AWS IAM policies</code></span><span>&#8226; <code>/btrs prepare for SOC2 audit</code></span></div>
+</div>
+</div>
+</section>
+
+<!-- OPERATIONS -->
+<section>
+<span class="section-anchor" id="agents-operations"></span>
+<h2 class="section-title">Agents &mdash; Operations</h2>
+<span class="badge badge-orange">4 Agents</span>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-icon">&#9729;</div>
+<h4>Cloud Ops</h4>
+<p>AWS, Azure, GCP, infrastructure as code, networking.</p>
+<div class="examples"><span>&#8226; <code>/btrs set up the staging environment</code></span><span>&#8226; <code>/btrs migrate from Heroku to AWS</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128640;</div>
+<h4>CI/CD Ops</h4>
+<p>Deployment pipelines, GitHub Actions, automated releases.</p>
+<div class="examples"><span>&#8226; <code>/btrs set up CI/CD with GitHub Actions</code></span><span>&#8226; <code>/btrs add preview deploys for PRs</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128230;</div>
+<h4>Container Ops</h4>
+<p>Docker, Kubernetes, orchestration, container security.</p>
+<div class="examples"><span>&#8226; <code>/btrs dockerize the application</code></span><span>&#8226; <code>/btrs set up Kubernetes manifests</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128200;</div>
+<h4>Monitoring Ops</h4>
+<p>Prometheus, Grafana, alerting, observability, log aggregation.</p>
+<div class="examples"><span>&#8226; <code>/btrs set up monitoring and alerts</code></span><span>&#8226; <code>/btrs add distributed tracing</code></span></div>
+</div>
+</div>
+</section>
+
+<!-- BUSINESS -->
+<section>
+<span class="section-anchor" id="agents-business"></span>
+<h2 class="section-title">Agents &mdash; Business</h2>
+<span class="badge badge-yellow">6 Agents</span>
+
+<div class="card-grid">
+<div class="card">
+<div class="card-icon">&#128202;</div>
+<h4>Product</h4>
+<p>Product strategy, roadmap, requirements, user stories.</p>
+<div class="examples"><span>&#8226; <code>/btrs write user stories for onboarding</code></span><span>&#8226; <code>/btrs plan the Q2 roadmap</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128227;</div>
+<h4>Marketing</h4>
+<p>Campaigns, growth strategies, SEO, content marketing.</p>
+<div class="examples"><span>&#8226; <code>/btrs write the launch email sequence</code></span><span>&#8226; <code>/btrs optimize our landing page SEO</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128176;</div>
+<h4>Sales</h4>
+<p>Sales strategy, pipeline optimization, revenue analysis.</p>
+<div class="examples"><span>&#8226; <code>/btrs build the sales pitch deck outline</code></span><span>&#8226; <code>/btrs analyze the conversion funnel</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128178;</div>
+<h4>Accounting</h4>
+<p>Financial management, bookkeeping, revenue tracking.</p>
+<div class="examples"><span>&#8226; <code>/btrs set up the billing system logic</code></span><span>&#8226; <code>/btrs model the subscription pricing tiers</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#129309;</div>
+<h4>Customer Success</h4>
+<p>Retention strategies, support workflows, NPS tracking.</p>
+<div class="examples"><span>&#8226; <code>/btrs design the customer onboarding flow</code></span><span>&#8226; <code>/btrs build a churn prediction model</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128208;</div>
+<h4>Data Analyst</h4>
+<p>Business intelligence, analytics, dashboards, data modeling.</p>
+<div class="examples"><span>&#8226; <code>/btrs build a KPI dashboard</code></span><span>&#8226; <code>/btrs analyze user engagement metrics</code></span></div>
+</div>
+</div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+
+<!-- SKILLS: CORE -->
+<section>
+<span class="section-anchor" id="skills-core"></span>
+<h2 class="section-title">Skills &mdash; Core</h2>
+<span class="badge badge-green">2 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs</code></td><td>Universal router. Classifies your request and dispatches the right agent(s).</td><td>Starting any new task. This is your default entry point.</td></tr>
+<tr><td><code>/btrs-init</code></td><td>Initializes BTRS in the current project. Scans conventions, creates vault.</td><td>First time using BTRS in a project (auto-runs on first <code>/btrs</code>).</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- SKILLS: PLANNING -->
+<section>
+<span class="section-anchor" id="skills-planning"></span>
+<h2 class="section-title">Skills &mdash; Planning</h2>
+<span class="badge badge-blue">3 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs-plan</code></td><td>Creates a detailed implementation plan with task breakdown and agent assignments.</td><td>Before starting complex, multi-step work.</td></tr>
+<tr><td><code>/btrs-propose</code></td><td>Generates a proposal with multiple solution approaches (minimal, conventional, scalable).</td><td>When you need to evaluate options before committing to an approach.</td></tr>
+<tr><td><code>/btrs-spec</code></td><td>Writes a technical specification with requirements, constraints, and acceptance criteria.</td><td>Before building a new feature or system.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- SKILLS: BUILDING -->
+<section>
+<span class="section-anchor" id="skills-building"></span>
+<h2 class="section-title">Skills &mdash; Building</h2>
+<span class="badge badge-purple">2 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs-implement</code></td><td>Implements a plan or spec. Dispatches engineering agents with conventions enforced.</td><td>When you have a plan and are ready to build.</td></tr>
+<tr><td><code>/btrs-deploy</code></td><td>Handles deployment configuration, CI/CD setup, and release management.</td><td>When code is ready to ship.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- SKILLS: QUALITY -->
+<section>
+<span class="section-anchor" id="skills-quality"></span>
+<h2 class="section-title">Skills &mdash; Quality</h2>
+<span class="badge badge-red">4 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs-review</code></td><td>Code review with convention compliance, best practices, and security checks.</td><td>Before merging code. After implementation.</td></tr>
+<tr><td><code>/btrs-audit</code></td><td>Deep security and compliance audit of code and infrastructure.</td><td>Before releases. Periodic security checks.</td></tr>
+<tr><td><code>/btrs-verify</code></td><td>Verifies convention compliance across the project. Catches drift.</td><td>Periodically, or after large changes.</td></tr>
+<tr><td><code>/btrs-health</code></td><td>Project health check &mdash; dependency freshness, tech debt, test coverage.</td><td>Regular maintenance. Sprint planning.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- SKILLS: KNOWLEDGE -->
+<section>
+<span class="section-anchor" id="skills-knowledge"></span>
+<h2 class="section-title">Skills &mdash; Knowledge</h2>
+<span class="badge badge-orange">4 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs-research</code></td><td>Deep research on technologies, patterns, or business topics with citations.</td><td>Evaluating new tools. Making technology decisions.</td></tr>
+<tr><td><code>/btrs-analyze</code></td><td>Data analysis, metrics review, and insights generation.</td><td>Understanding user behavior. Measuring impact.</td></tr>
+<tr><td><code>/btrs-doc</code></td><td>Generates or updates documentation (API docs, guides, READMEs).</td><td>After building features. Onboarding new team members.</td></tr>
+<tr><td><code>/btrs-handoff</code></td><td>Creates a context handoff document for continuing work in a new session.</td><td>End of session. Passing work to another developer.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+
+<!-- CONVENTION SYSTEM -->
+<section>
+<span class="section-anchor" id="convention-system"></span>
+<h2 class="section-title">Convention System</h2>
+<p>Conventions are how BTRS prevents AI drift &mdash; the tendency for AI tools to generate code that ignores your project's existing patterns.</p>
+
+<h3 class="sub-title">How Conventions Work</h3>
+<div class="steps">
+<div class="step"><div class="step-body"><h4>Auto-detected from your project</h4><p>BTRS scans file structure, naming patterns, imports, component styles, and configuration to build a conventions profile specific to YOUR project.</p></div></div>
+<div class="step"><div class="step-body"><h4>Injected into agent context</h4><p>Conventions are loaded as mandatory context for every agent dispatch. Agents cannot ignore them &mdash; they are part of the prompt.</p></div></div>
+<div class="step"><div class="step-body"><h4>Component registry prevents duplicates</h4><p>A registry of existing components, utilities, and services means agents reuse what exists instead of recreating it.</p></div></div>
+<div class="step"><div class="step-body"><h4>Anti-pattern lists prevent mistakes</h4><p>Known bad patterns from your codebase are explicitly flagged so agents avoid them.</p></div></div>
+<div class="step"><div class="step-body"><h4>/btrs-verify catches violations</h4><p>Run <code>/btrs-verify</code> to scan the entire project for convention violations and get automated fix suggestions.</p></div></div>
+</div>
+
+<div class="callout warn">
+<span class="callout-icon">&#9888;&#65039;</span>
+<div class="callout-body"><strong>Important</strong><p>Conventions are project-specific. Each project gets its own conventions profile. Moving between projects automatically switches context.</p></div>
+</div>
+</section>
+
+<!-- SELF-VERIFICATION -->
+<section>
+<span class="section-anchor" id="self-verification"></span>
+<h2 class="section-title">Self-Verification</h2>
+<p>Every agent performs a 5-point verification check before reporting work as complete. This is not optional &mdash; it is built into every agent's instructions.</p>
+
+<h3 class="sub-title">The 5-Point Check</h3>
+<ul class="checklist">
+<li class="checked"><strong>Convention compliance</strong> &mdash; Does the output follow all detected project conventions?</li>
+<li class="checked"><strong>Functional correctness</strong> &mdash; Does the code compile, run, and produce correct results?</li>
+<li class="checked"><strong>Integration safety</strong> &mdash; Does it break any existing functionality?</li>
+<li class="checked"><strong>Security baseline</strong> &mdash; Are there any obvious security issues (injection, exposure, etc.)?</li>
+<li class="checked"><strong>Evidence provided</strong> &mdash; Can the agent show proof of verification (test output, build success, etc.)?</li>
+</ul>
+
+<div class="callout tip">
+<span class="callout-icon">&#128161;</span>
+<div class="callout-body"><strong>Tip</strong><p>If any check fails, the agent fixes the issue and re-verifies. You only see the final, verified result.</p></div>
+</div>
+</section>
+
+<!-- MULTI-SOLUTION EXPLORATION -->
+<section>
+<span class="section-anchor" id="multi-solution"></span>
+<h2 class="section-title">Multi-Solution Exploration</h2>
+<p>When you use <code>/btrs-propose</code>, the system generates three distinct approaches to solve your problem, ranked by complexity and scalability.</p>
+
+<h3 class="sub-title">The 3-Approach Pattern</h3>
+<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))">
+<div class="card" style="border-top:3px solid var(--accent)">
+<div class="card-icon">&#128994;</div>
+<h4>Approach A: Minimal</h4>
+<p>Fewest changes. Solves the immediate problem. Low risk, fast to ship. Best when time is critical.</p>
+</div>
+<div class="card" style="border-top:3px solid var(--blue)">
+<div class="card-icon">&#128309;</div>
+<h4>Approach B: Conventional</h4>
+<p>Industry-standard solution. Balanced effort and quality. Good documentation and community support.</p>
+</div>
+<div class="card" style="border-top:3px solid var(--purple)">
+<div class="card-icon">&#128995;</div>
+<h4>Approach C: Scalable</h4>
+<p>Future-proof architecture. Higher upfront cost but handles 10x growth. Best for core systems.</p>
+</div>
+</div>
+
+<p>Each approach includes estimated effort, tradeoffs, and a recommendation. You pick the one that fits your situation.</p>
+</section>
+
+<!-- OBSIDIAN VAULT -->
+<section>
+<span class="section-anchor" id="obsidian-vault"></span>
+<h2 class="section-title">Obsidian Vault</h2>
+<p>BTRS automatically maintains a <code>.btrs/</code> directory in your project that serves as a linked knowledge base. It is plain Markdown, compatible with Obsidian for visual graph exploration.</p>
+
+<h3 class="sub-title">Vault Structure</h3>
+<div class="tree">
+<span class="dir">.btrs/</span>
+<br>&nbsp;&nbsp;<span class="dir">conventions/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">naming.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Naming patterns detected</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">structure.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># File/folder structure rules</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">components.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Component registry</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">anti-patterns.md</span> &nbsp;&nbsp;<span class="cmt"># Known bad patterns to avoid</span>
+<br>&nbsp;&nbsp;<span class="dir">decisions/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ADR-001-auth.md</span> &nbsp;&nbsp;&nbsp;<span class="cmt"># Architecture Decision Records</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ADR-002-db.md</span>
+<br>&nbsp;&nbsp;<span class="dir">docs/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">api-reference.md</span> &nbsp;&nbsp;<span class="cmt"># Auto-generated API docs</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">setup-guide.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Project setup documentation</span>
+<br>&nbsp;&nbsp;<span class="dir">logs/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">2026-03-21.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Daily activity logs</span>
+<br>&nbsp;&nbsp;<span class="dir">handoffs/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">session-abc.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Context handoff documents</span>
+</div>
+
+<div class="callout info">
+<span class="callout-icon">&#8505;&#65039;</span>
+<div class="callout-body"><strong>Note</strong><p>You do not need Obsidian installed. The vault is plain Markdown files. Obsidian just gives you a nice visual graph view of how decisions and documentation are interconnected.</p></div>
+</div>
+</section>
+
+<!-- CROSS-AI COMPATIBILITY -->
+<section>
+<span class="section-anchor" id="cross-ai"></span>
+<h2 class="section-title">Cross-AI Compatibility</h2>
+<p>BTRS is designed to work across all major AI development tools. The core instructions live in <code>AGENTS.md</code>, with adapter files for each platform.</p>
+
+<div class="diagram">
+<div class="diagram-node">.cursorrules</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">.windsurfrules</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-center">AGENTS.md<br><span style="font-weight:400;font-size:.8rem;opacity:.7">Universal Source</span></div>
+<div class="diagram-arrow">&larr;</div>
+<div class="diagram-node">copilot-instructions.md</div>
+<div class="diagram-arrow">&larr;</div>
+<div class="diagram-node">CLAUDE.md</div>
+</div>
+
+<p>Each adapter file translates the universal agent instructions into the format expected by that platform. When you update <code>AGENTS.md</code>, the adapters stay in sync.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Platform</th><th>Adapter File</th><th>Auto-loads?</th></tr></thead>
+<tbody>
+<tr><td>Claude Code</td><td><code>CLAUDE.md</code> + <code>~/.claude/</code> symlinks</td><td>Yes</td></tr>
+<tr><td>Cursor</td><td><code>.cursorrules</code></td><td>Yes</td></tr>
+<tr><td>GitHub Copilot</td><td><code>.github/copilot-instructions.md</code></td><td>Yes</td></tr>
+<tr><td>Windsurf</td><td><code>.windsurfrules</code></td><td>Yes</td></tr>
+<tr><td>OpenAI Codex</td><td><code>AGENTS.md</code> (native)</td><td>Yes</td></tr>
+<tr><td>Claude AI (Web)</td><td>Manual upload</td><td>No</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- FAQ -->
+<section>
+<span class="section-anchor" id="faq"></span>
+<h2 class="section-title">FAQ</h2>
+
+<div class="accordion">
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">Do I need to type /btrs before every message?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">No. Type it once to start a task, then just keep talking naturally. The active agent retains context from the conversation. Use <code>/btrs</code> again when you want to switch to a completely different task.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">Does it work with my existing project?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">Yes. <code>/btrs</code> auto-scans your project on first use. No configuration file to write, no setup wizard. It detects your conventions from the codebase itself.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">What if I don't use Claude Code?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content"><code>AGENTS.md</code> works with any AI tool. Cursor, Copilot, Windsurf, and Codex all have adapter files that auto-load. For tools without native support, upload the agent files as context manually.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">Do I need Obsidian?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">No. The <code>.btrs/</code> vault is plain Markdown files that work with any text editor. Obsidian just provides a nice visual graph view and linked note browsing. It is entirely optional.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">Can I use individual agents without the /btrs router?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">Yes. Load any agent's <code>AGENT.md</code> file as context in your AI tool and interact with it directly. The <code>/btrs</code> router is a convenience layer, not a requirement.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">How do I update?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">Run <code>~/.claude/btrs/install.sh</code> again. It pulls the latest changes from the repository and re-creates all symlinks.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">How do I uninstall?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">Run <code>~/.claude/btrs/uninstall.sh</code>. It removes all symlinks from <code>~/.claude/</code> cleanly. Your projects are not affected.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">Does it cost anything?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">No. BTRS is free and open source under the MIT License. You just need access to an AI tool (Claude Code, Cursor, etc.) which may have its own subscription costs.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">Will agents overwrite my code style?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">No. Conventions are auto-detected from YOUR project. Agents follow your existing patterns &mdash; naming conventions, file structure, component styles, and import patterns. They adapt to you, not the other way around.</div></div>
+</div>
+
+<div class="acc-item">
+<div class="acc-header" onclick="toggleAccordion(this)">What happens if an agent makes a mistake?<span class="acc-chevron">&#9660;</span></div>
+<div class="acc-body"><div class="acc-content">Every agent self-verifies with evidence before reporting done. The 5-point check covers convention compliance, functional correctness, integration safety, security baseline, and evidence. If any check fails, the agent fixes the issue and re-verifies automatically.</div></div>
+</div>
+
+</div>
+</section>
+
+</div><!-- /.content -->
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p><a href="https://github.com/btrs-ai/btrs" target="_blank" rel="noopener">GitHub</a> &middot; MIT License</p>
+<p style="margin-top:8px">Built for developers who want AI that follows the rules.</p>
+</footer>
+
+<script>
+// ===== THEME (dark / light / system) =====
+const themeBtn = document.getElementById('themeToggle');
+const themeIcons = { dark: '\u263D', light: '\u2600', system: '\uD83D\uDDA5' };
+const themeTitles = { dark: 'Theme: dark', light: 'Theme: light', system: 'Theme: system' };
+const themeOrder = ['dark', 'light', 'system'];
+
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(mode) {
+  const resolved = mode === 'system' ? getSystemTheme() : mode;
+  document.documentElement.setAttribute('data-theme', resolved);
+  themeBtn.textContent = themeIcons[mode];
+  themeBtn.title = themeTitles[mode];
+  themeBtn.setAttribute('data-mode', mode);
+}
+
+// Init from localStorage
+(function(){
+  const saved = localStorage.getItem('btrs-theme') || 'dark';
+  applyTheme(saved);
+})();
+
+// Cycle: dark → light → system → dark
+themeBtn.addEventListener('click', function(){
+  const current = this.getAttribute('data-mode') || 'dark';
+  const next = themeOrder[(themeOrder.indexOf(current) + 1) % themeOrder.length];
+  localStorage.setItem('btrs-theme', next);
+  applyTheme(next);
+});
+
+// Listen for OS theme changes when in system mode
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+  if (themeBtn.getAttribute('data-mode') === 'system') applyTheme('system');
+});
+
+// ===== MOBILE SIDEBAR =====
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('sidebarOverlay');
+
+hamburger.addEventListener('click', function(){
+sidebar.classList.toggle('open');
+overlay.classList.toggle('open');
+});
+overlay.addEventListener('click', function(){
+sidebar.classList.remove('open');
+overlay.classList.remove('open');
+});
+
+// Close sidebar on link click (mobile)
+sidebar.querySelectorAll('.sidebar-link').forEach(function(link){
+link.addEventListener('click', function(){
+if(window.innerWidth <= 860){
+sidebar.classList.remove('open');
+overlay.classList.remove('open');
+}
+});
+});
+
+// ===== COPY CODE =====
+function copyCode(btn){
+const pre = btn.closest('.code-block').querySelector('pre');
+const text = pre.textContent;
+navigator.clipboard.writeText(text).then(function(){
+btn.textContent = 'Copied!';
+btn.classList.add('copied');
+setTimeout(function(){
+btn.textContent = 'Copy';
+btn.classList.remove('copied');
+}, 2000);
+});
+}
+window.copyCode = copyCode;
+
+// ===== TABS =====
+function switchTab(e, id){
+const tabs = e.target.closest('.tabs');
+tabs.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+tabs.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+e.target.classList.add('active');
+document.getElementById(id).classList.add('active');
+}
+window.switchTab = switchTab;
+
+// ===== ACCORDION =====
+function toggleAccordion(header){
+const item = header.parentElement;
+item.classList.toggle('open');
+}
+window.toggleAccordion = toggleAccordion;
+
+// ===== ACTIVE SIDEBAR LINK ON SCROLL =====
+(function(){
+const links = document.querySelectorAll('.sidebar-link[data-section]');
+const sections = [];
+links.forEach(function(link){
+const id = link.getAttribute('data-section');
+const el = document.getElementById(id);
+if(el) sections.push({id: id, el: el, link: link});
+});
+
+function updateActive(){
+const scrollY = window.scrollY + 100;
+let current = null;
+for(let i = sections.length - 1; i >= 0; i--){
+if(sections[i].el.offsetTop <= scrollY){
+current = sections[i];
+break;
+}
+}
+links.forEach(function(l){ l.classList.remove('active'); });
+if(current) current.link.classList.add('active');
+}
+
+let ticking = false;
+window.addEventListener('scroll', function(){
+if(!ticking){
+requestAnimationFrame(function(){
+updateActive();
+ticking = false;
+});
+ticking = true;
+}
+});
+updateActive();
+})();
+
+// ===== DYNAMIC TOC =====
+(function(){
+const toc = document.getElementById('toc');
+const titles = document.querySelectorAll('h2.section-title');
+titles.forEach(function(h2){
+const section = h2.closest('section');
+const anchor = section ? section.querySelector('.section-anchor') : null;
+if(!anchor) return;
+const a = document.createElement('a');
+a.href = '#' + anchor.id;
+a.textContent = h2.textContent;
+a.setAttribute('data-toc-id', anchor.id);
+toc.appendChild(a);
+});
+
+function updateToc(){
+const scrollY = window.scrollY + 120;
+const anchors = document.querySelectorAll('.section-anchor');
+let currentId = null;
+for(let i = anchors.length -1; i >= 0; i--){
+if(anchors[i].offsetTop <= scrollY){
+currentId = anchors[i].id;
+break;
+}
+}
+toc.querySelectorAll('a').forEach(function(a){
+a.classList.toggle('active', a.getAttribute('data-toc-id') === currentId);
+});
+}
+
+let ticking = false;
+window.addEventListener('scroll', function(){
+if(!ticking){
+requestAnimationFrame(function(){
+updateToc();
+ticking = false;
+});
+ticking = true;
+}
+});
+updateToc();
+})();
+</script>
+</body>
+</html>

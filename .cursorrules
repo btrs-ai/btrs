@@ -1,0 +1,49 @@
+# BTRS Agents -- Cursor Instructions
+
+See **AGENTS.md** for the full BTRS instruction set. This file adds Cursor-specific patterns.
+
+## How to Use BTRS in Cursor
+
+### Loading Agent Context
+Use @file to load agent instructions as context:
+- @agents/btrs-architect/AGENT.md -- for architecture work
+- @agents/btrs-api-engineer/AGENT.md -- for backend work
+- @agents/btrs-web-engineer/AGENT.md -- for frontend work
+- (see AGENTS.md for the full list of 24 agents)
+
+### Loading Project Context
+- @AGENTS.md -- universal instructions (load this first)
+- @AI/memory/global/project-state.json -- current project state
+- @AI/config/agent-roles.json -- agent role definitions
+
+### Using Composer
+When using Composer for multi-file changes:
+1. Load the relevant agent's AGENT.md as context
+2. Reference AGENTS.md for conventions and verification protocol
+3. Follow plan mode: describe what you want, review the plan, then approve
+
+### Using @codebase
+For broad searches or understanding project structure:
+- @codebase works well for finding existing patterns and utilities
+- Always check existing patterns before creating new ones (see AGENTS.md anti-patterns)
+
+## Key Directories
+- `agents/btrs-*/AGENT.md` -- Agent definitions (load via @file)
+- `skills/btrs-*/SKILL.md` -- Skill definitions for slash commands
+- `AI/memory/` -- Persistent memory (per-agent, global, sessions)
+- `AI/docs/` -- Internal documentation and workflow guides
+
+## Conventions (Mandatory)
+1. Always load AGENTS.md before starting implementation work
+2. Check the registry before creating new components or utilities
+3. Follow the 5-point verification protocol after changes
+4. Match existing codebase patterns exactly
+5. Update AI/memory/ files after completing work
+
+## Workflow
+1. Load relevant agent AGENT.md + AGENTS.md as context
+2. Plan the work (Cursor Chat or Composer)
+3. Get approval before executing
+4. Implement following the agent's scope and conventions
+5. Verify using the 5-point protocol from AGENTS.md
+6. Update memory files
