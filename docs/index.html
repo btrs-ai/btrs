@@ -346,10 +346,10 @@ GitHub
 <p>Get BTRS running in under 60 seconds.</p>
 
 <div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="cmt"># Clone &amp; install (one-time setup)</span>
-<span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
-~/.claude/btrs/<span class="fn">install.sh</span>
+<div class="code-header"><span class="code-lang">Claude Code</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cmt"># Install as a plugin (recommended)</span>
+<span class="cmd">/plugin</span> marketplace add btrs-ai/btrs
+<span class="cmd">/plugin</span> install btrs
 
 <span class="cmt"># Then in any project:</span>
 <span class="cmd">/btrs</span> <span class="str">build me a user dashboard</span></pre>
@@ -381,12 +381,21 @@ GitHub
 </div>
 
 <div class="tab-panel active" id="tab-claude">
+<p><strong>Option 1: Plugin (recommended)</strong></p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang">Claude Code</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>/plugin marketplace add btrs-ai/btrs
+/plugin install btrs</pre>
+</div>
+<p>Auto-updates when new versions are released.</p>
+
+<p><strong>Option 2: Manual install</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
-~/.claude/btrs/<span class="fn">install.sh</span></pre>
+<pre>git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
+~/.claude/btrs/install.sh</pre>
 </div>
-<p><strong>What <code>install.sh</code> does:</strong> Symlinks all 15 skills and 24 agents into <code>~/.claude/</code>. Skills become available as slash commands in any project. Agents are loaded on demand by the router.</p>
+<p>Symlinks all 16 skills and 24 agents into <code>~/.claude/</code>. Run <code>install.sh</code> again to update.</p>
 <div class="callout info">
 <span class="callout-icon">&#8505;&#65039;</span>
 <div class="callout-body"><strong>Note</strong><p>After install, <code>/btrs</code> is available globally in every project you open with Claude Code.</p></div>
@@ -985,7 +994,7 @@ GitHub
 
 <div class="acc-item">
 <div class="acc-header" onclick="toggleAccordion(this)">How do I update?<span class="acc-chevron">&#9660;</span></div>
-<div class="acc-body"><div class="acc-content">Run <code>~/.claude/btrs/install.sh</code> again. It pulls the latest changes from the repository and re-creates all symlinks.</div></div>
+<div class="acc-body"><div class="acc-content">If installed as a plugin, it auto-updates. For manual installs, run <code>~/.claude/btrs/install.sh</code> again — it pulls the latest and re-links everything.</div></div>
 </div>
 
 <div class="acc-item">
