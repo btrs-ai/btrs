@@ -1,7 +1,7 @@
 {
   "name": "btrs",
   "version": "2.0.0",
-  "description": "24 specialist AI agents orchestrated by a single /btrs command. Type /btrs + what you want. It figures out the rest.",
+  "description": "AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: /btrs.",
   "author": {
     "name": "BTRS AI",
     "url": "https://github.com/btrs-ai"

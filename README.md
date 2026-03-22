@@ -6,7 +6,7 @@
 /btrs build me a user dashboard with analytics
 ```
 
-That's it. BTRS figures out which specialists to use, follows your project's patterns, verifies its own work, and updates your docs automatically.
+AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: `/btrs`.
 
 Works with Claude Code, Cursor, GitHub Copilot, Windsurf, OpenAI Codex, and any AI assistant that reads markdown.
 
