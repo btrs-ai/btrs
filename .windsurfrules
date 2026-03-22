@@ -2,46 +2,57 @@
 
 See **AGENTS.md** for the full BTRS instruction set. This file adds Windsurf/Codeium-specific patterns.
 
+## Setup
+
+### Option 1: Global (all projects)
+
+```bash
+# Clone BTRS
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+
+# Symlink rules so they auto-load
+ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules
+```
+
+Then in Cascade, reference agents with `@~/.btrs/agents/btrs-architect/AGENT.md`.
+
+### Option 2: Per-project
+
+```bash
+git clone https://github.com/btrs-ai/btrs.git .btrs-agents
+```
+
+The `.windsurfrules` file auto-loads. Reference agents with `@.btrs-agents/agents/btrs-architect/AGENT.md`.
+
 ## How to Use BTRS in Windsurf
 
 ### Loading Agent Context with Cascade
 Use @file to bring agent instructions into Cascade context:
-- @agents/btrs-architect/AGENT.md -- for architecture work
-- @agents/btrs-api-engineer/AGENT.md -- for backend work
-- @agents/btrs-web-engineer/AGENT.md -- for frontend work
-- @AGENTS.md -- universal instructions (load this for every session)
-- (see AGENTS.md for the full list of 24 agents)
+- `@agents/btrs-architect/AGENT.md` -- for architecture work
+- `@agents/btrs-api-engineer/AGENT.md` -- for backend APIs
+- `@agents/btrs-web-engineer/AGENT.md` -- for frontend work
+- `@agents/btrs-database-engineer/AGENT.md` -- for database work
+- `@agents/btrs-code-security/AGENT.md` -- for security review
+- `@AGENTS.md` -- universal instructions (load this for every session)
+
+See AGENTS.md for the full list of 24 agents.
 
 ### Cascade Workflow
-1. Start a Cascade flow by loading @AGENTS.md for conventions
-2. Load the relevant agent's AGENT.md for the domain you are working in
+1. Start by loading `@AGENTS.md` for conventions
+2. Load the relevant agent's AGENT.md for the domain you're working in
 3. Ask Cascade to plan the work before implementing
 4. Review the plan and approve
 5. Cascade implements following agent scope and conventions
 6. Verify using the 5-point protocol from AGENTS.md
-7. Update memory files at AI/memory/
-
-### Using @codebase in Cascade
-When Cascade indexes the codebase:
-- It will find existing patterns and utilities automatically
-- Always confirm with the registry before creating new components
-- Follow anti-pattern rules from AGENTS.md
 
 ### Multi-File Edits
 When Cascade proposes multi-file changes:
 - Ensure changes stay within the assigned agent's scope
 - Check that imports resolve and types are consistent
-- Verify no dead code is introduced
+- Verify new code follows `.btrs/conventions/` rules
 
-## Key Directories
-- `agents/btrs-*/AGENT.md` -- Agent definitions (load via @file)
-- `skills/btrs-*/SKILL.md` -- Skill definitions
-- `AI/memory/` -- Persistent memory (per-agent, global, sessions)
-- `AI/docs/` -- Internal documentation and workflow guides
-
-## Conventions (Mandatory)
-1. Always load AGENTS.md before starting implementation work
-2. Check the registry before creating new components or utilities
-3. Follow the 5-point verification protocol after changes
-4. Match existing codebase patterns exactly
-5. Update AI/memory/ files after completing work
+## Conventions (from AGENTS.md)
+1. Check `.btrs/conventions/registry.md` before creating new components or utilities
+2. Follow the 5-point verification protocol after changes
+3. Match existing codebase patterns exactly
+4. Update `.btrs/` vault files after completing work (code-map, todos, changelog)

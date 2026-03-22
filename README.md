@@ -201,39 +201,65 @@ Note: The full plugin features (slash command skills, auto-dispatch routing) req
 
 In Claude Cowork:
 
-1. `AGENTS.md` provides the base instruction set
-2. Agent files can be loaded as context for specialized tasks
+1. Upload `AGENTS.md` as context for the full instruction set
+2. Load agent files (`agents/btrs-*/AGENT.md`) for specialized domain expertise
 3. The orchestration pattern (Boss delegates to specialists) works through conversation
-4. Memory files in `AI/memory/` provide session continuity
 
 ### Cursor
 
+**Global (all projects):**
 ```bash
-# Clone into your project (or reference globally)
-git clone https://github.com/btrs-ai/btrs.git
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+ln -sf ~/.btrs/.cursorrules ~/.cursorrules
 ```
 
-- `.cursorrules` auto-loads when present in your project root
-- Use `@file` to reference specific agents: `@agents/btrs-architect/AGENT.md`
-- `AGENTS.md` provides the full system overview for Cursor Chat
+**Per-project:**
+```bash
+git clone https://github.com/btrs-ai/btrs.git .btrs-agents
+```
+
+Then use `@file` to load agents: `@agents/btrs-architect/AGENT.md`
 
 ### GitHub Copilot
 
-- `.github/copilot-instructions.md` auto-loads in VS Code with Copilot
-- Reference `AGENTS.md` in Copilot Chat for the full agent system
-- Agent instruction files work as context in Copilot Chat
+**Global:**
+```bash
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+mkdir -p ~/.github
+cp ~/.btrs/.github/copilot-instructions.md ~/.github/copilot-instructions.md
+```
+
+**Per-repo:**
+```bash
+git clone https://github.com/btrs-ai/btrs.git .btrs-agents
+cp .btrs-agents/.github/copilot-instructions.md .github/copilot-instructions.md
+```
+
+Reference agent files in Copilot Chat for domain expertise.
 
 ### Windsurf
 
-- `.windsurfrules` auto-loads when present in your project root
-- Use `@file` in Cascade to reference specific agent instructions
-- `AGENTS.md` provides the full system context
+**Global (all projects):**
+```bash
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules
+```
+
+**Per-project:**
+```bash
+git clone https://github.com/btrs-ai/btrs.git .btrs-agents
+```
+
+Use `@file` in Cascade to load agents: `@agents/btrs-api-engineer/AGENT.md`
 
 ### OpenAI Codex
 
-- `AGENTS.md` is the native format -- Codex reads it directly
-- `.codex-instructions.md` provides additional guidance
-- Agent files can be referenced as context
+```bash
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+cp ~/.btrs/AGENTS.md ./AGENTS.md
+```
+
+Codex reads AGENTS.md natively. Reference agent files for domain expertise.
 
 ---
 

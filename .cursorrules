@@ -2,48 +2,63 @@
 
 See **AGENTS.md** for the full BTRS instruction set. This file adds Cursor-specific patterns.
 
+## Setup
+
+### Option 1: Global (all projects)
+
+Copy BTRS to your Cursor global rules directory:
+
+```bash
+# Clone BTRS
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+
+# Copy this file to your global Cursor rules
+cp ~/.btrs/.cursorrules ~/.cursorrules
+
+# Or symlink it so updates are automatic
+ln -sf ~/.btrs/.cursorrules ~/.cursorrules
+```
+
+Then in any project, reference agents with `@~/.btrs/agents/btrs-architect/AGENT.md`.
+
+### Option 2: Per-project
+
+Clone into your project root:
+
+```bash
+git clone https://github.com/btrs-ai/btrs.git .btrs-agents
+```
+
+The `.cursorrules` file auto-loads. Reference agents with `@.btrs-agents/agents/btrs-architect/AGENT.md`.
+
 ## How to Use BTRS in Cursor
 
 ### Loading Agent Context
 Use @file to load agent instructions as context:
-- @agents/btrs-architect/AGENT.md -- for architecture work
-- @agents/btrs-api-engineer/AGENT.md -- for backend work
-- @agents/btrs-web-engineer/AGENT.md -- for frontend work
-- (see AGENTS.md for the full list of 24 agents)
+- `@agents/btrs-architect/AGENT.md` -- for architecture work
+- `@agents/btrs-api-engineer/AGENT.md` -- for backend APIs
+- `@agents/btrs-web-engineer/AGENT.md` -- for frontend work
+- `@agents/btrs-database-engineer/AGENT.md` -- for database/schema work
+- `@agents/btrs-qa-test-engineering/AGENT.md` -- for testing
+- `@agents/btrs-code-security/AGENT.md` -- for security review
+- `@AGENTS.md` -- universal instructions (load this first)
 
-### Loading Project Context
-- @AGENTS.md -- universal instructions (load this first)
-- @AI/memory/global/project-state.json -- current project state
-- @AI/config/agent-roles.json -- agent role definitions
+See AGENTS.md for the full list of 24 agents.
 
 ### Using Composer
 When using Composer for multi-file changes:
-1. Load the relevant agent's AGENT.md as context
-2. Reference AGENTS.md for conventions and verification protocol
-3. Follow plan mode: describe what you want, review the plan, then approve
+1. Load `@AGENTS.md` for conventions and verification protocol
+2. Load the relevant agent's AGENT.md for domain expertise
+3. Describe what you want -- the agent instructions guide the response
+4. Review the plan, then approve
 
 ### Using @codebase
 For broad searches or understanding project structure:
 - @codebase works well for finding existing patterns and utilities
-- Always check existing patterns before creating new ones (see AGENTS.md anti-patterns)
+- Always check existing patterns before creating new ones
 
-## Key Directories
-- `agents/btrs-*/AGENT.md` -- Agent definitions (load via @file)
-- `skills/btrs-*/SKILL.md` -- Skill definitions for slash commands
-- `AI/memory/` -- Persistent memory (per-agent, global, sessions)
-- `AI/docs/` -- Internal documentation and workflow guides
-
-## Conventions (Mandatory)
-1. Always load AGENTS.md before starting implementation work
-2. Check the registry before creating new components or utilities
-3. Follow the 5-point verification protocol after changes
-4. Match existing codebase patterns exactly
-5. Update AI/memory/ files after completing work
-
-## Workflow
-1. Load relevant agent AGENT.md + AGENTS.md as context
-2. Plan the work (Cursor Chat or Composer)
-3. Get approval before executing
-4. Implement following the agent's scope and conventions
-5. Verify using the 5-point protocol from AGENTS.md
-6. Update memory files
+## Conventions (from AGENTS.md)
+1. Check `.btrs/conventions/registry.md` before creating new components or utilities
+2. Follow the 5-point verification protocol after changes
+3. Match existing codebase patterns exactly
+4. Update `.btrs/` vault files after completing work (code-map, todos, changelog)
