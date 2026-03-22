@@ -403,39 +403,70 @@ GitHub
 </div>
 
 <div class="tab-panel" id="tab-cursor">
+<p><strong>Global (available in every project):</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+ln -sf ~/.btrs/.cursorrules ~/.cursorrules</pre>
 </div>
-<p>The <code>.cursorrules</code> file auto-loads when Cursor detects the repo. Use <code>@file</code> to reference specific agent files as context for your conversations.</p>
+<p>Use <code>@~/.btrs/agents/btrs-architect/AGENT.md</code> to load agents in any project.</p>
+<p><strong>Per-project (this project only):</strong></p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>git clone https://github.com/btrs-ai/btrs.git .btrs-agents</pre>
+</div>
+<p>The <code>.cursorrules</code> file auto-loads. Use <code>@.btrs-agents/agents/btrs-architect/AGENT.md</code> to load agents.</p>
 </div>
 
 <div class="tab-panel" id="tab-copilot">
+<p><strong>Global (available in every repo):</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+mkdir -p ~/.github
+cp ~/.btrs/.github/copilot-instructions.md ~/.github/copilot-instructions.md</pre>
 </div>
-<p>The <code>.github/copilot-instructions.md</code> file auto-loads in GitHub Copilot Chat. Copilot picks up the agent instructions automatically.</p>
+<p><strong>Per-repo (this repo only):</strong></p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>git clone https://github.com/btrs-ai/btrs.git .btrs-agents
+cp .btrs-agents/.github/copilot-instructions.md .github/copilot-instructions.md</pre>
+</div>
+<p>Copilot auto-loads <code>.github/copilot-instructions.md</code>. Reference agent files in Copilot Chat for domain expertise.</p>
 </div>
 
 <div class="tab-panel" id="tab-windsurf">
+<p><strong>Global (available in every project):</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 </div>
-<p>The <code>.windsurfrules</code> file auto-loads in Cascade. Use <code>@file</code> to reference agent files in your conversations.</p>
+<p>Use <code>@~/.btrs/agents/btrs-api-engineer/AGENT.md</code> to load agents in any project.</p>
+<p><strong>Per-project (this project only):</strong></p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>git clone https://github.com/btrs-ai/btrs.git .btrs-agents</pre>
+</div>
+<p>The <code>.windsurfrules</code> file auto-loads. Use <code>@.btrs-agents/agents/btrs-api-engineer/AGENT.md</code> to load agents.</p>
 </div>
 
 <div class="tab-panel" id="tab-codex">
+<p><strong>Global:</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="fn">git</span> clone https://github.com/btrs-ai/btrs.git</pre>
+<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs</pre>
 </div>
-<p><code>AGENTS.md</code> is the native format for OpenAI Codex. Clone the repo and it works out of the box.</p>
+<p><strong>Per-project:</strong> Copy <code>AGENTS.md</code> into your project root:</p>
+<div class="code-block">
+<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre>cp ~/.btrs/AGENTS.md ./AGENTS.md</pre>
+</div>
+<p><code>AGENTS.md</code> is the native format for Codex. Reference agent files for domain expertise.</p>
 </div>
 
 <div class="tab-panel" id="tab-web">
-<p>Upload <code>AGENTS.md</code> as project context in Claude AI. Load individual agent files (from <code>.claude/agents/</code>) as needed for specialized tasks.</p>
+<p>Upload <code>AGENTS.md</code> as project context in Claude AI. Load individual agent files (<code>agents/btrs-*/AGENT.md</code>) as needed for specialized tasks.</p>
 <div class="callout info">
 <span class="callout-icon">&#8505;&#65039;</span>
 <div class="callout-body"><strong>Note</strong><p>The web interface does not support slash commands. Paste agent instructions directly into your conversation context.</p></div>

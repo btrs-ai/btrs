@@ -14,6 +14,8 @@ Works with Claude Code, Cursor, GitHub Copilot, Windsurf, OpenAI Codex, and any 
 
 ## Install
 
+All install methods are **global** — BTRS is available in every project you open.
+
 **Claude Code (plugin registry):**
 
 ```
@@ -28,14 +30,13 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
 ~/.claude/btrs/install.sh
 ```
 
-**Other AI tools** (Cursor, Copilot, Windsurf, Codex):
+**Other AI tools** (Cursor, Copilot, Windsurf, Codex) — global install:
 
 ```bash
-git clone https://github.com/btrs-ai/btrs.git
+git clone https://github.com/btrs-ai/btrs.git ~/.btrs
 ```
 
-Then read `AGENTS.md` -- it works with any AI assistant.
-See tool-specific adapters: `.cursorrules`, `.github/copilot-instructions.md`, `.windsurfrules`, `.codex-instructions.md`.
+Then set up your tool's global rules. See [detailed instructions](#installation-detailed) for each tool, including per-project options.
 
 ---
 
@@ -153,39 +154,25 @@ You don't need to memorize these. `/btrs` routes to the right one automatically.
 
 ### Claude Code (Plugin — Recommended)
 
+**Installs globally.** Available in every project you open with Claude Code.
+
 ```
-# 1. Add the BTRS marketplace
 /plugin marketplace add btrs-ai/btrs
-
-# 2. Install the plugin
 /plugin install btrs
-
-# 3. Start using it
-/btrs
 ```
 
-Auto-updates when new versions are released.
+Auto-updates when new versions are released. Nothing to maintain.
 
 ### Claude Code (Manual)
 
+**Installs globally.** Symlinks skills and agents into `~/.claude/` so they're available everywhere.
+
 ```bash
-# 1. Clone the repo
 git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
-
-# 2. Run the installer
 ~/.claude/btrs/install.sh
-
-# 3. Start using it in any project
-/btrs
 ```
 
-**What `install.sh` does:**
-- Symlinks all 16 skills into `~/.claude/skills/`
-- Symlinks all 24 agents into `~/.claude/agents/`
-- Symlinks shared references used by skills
-- If you run it again, it pulls the latest version and re-links everything
-
-Nothing is copied. Everything is symlinked, so updates are instant.
+Run `install.sh` again anytime to pull the latest version and re-link.
 
 ### Claude AI (Web)
 
@@ -207,29 +194,29 @@ In Claude Cowork:
 
 ### Cursor
 
-**Global (all projects):**
+**Global (available in every project):**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git ~/.btrs
 ln -sf ~/.btrs/.cursorrules ~/.cursorrules
 ```
+Use `@~/.btrs/agents/btrs-architect/AGENT.md` to load agents in any project.
 
-**Per-project:**
+**Per-project (this project only):**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git .btrs-agents
 ```
-
-Then use `@file` to load agents: `@agents/btrs-architect/AGENT.md`
+The `.cursorrules` file auto-loads. Use `@.btrs-agents/agents/btrs-architect/AGENT.md` to load agents.
 
 ### GitHub Copilot
 
-**Global:**
+**Global (available in every repo):**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git ~/.btrs
 mkdir -p ~/.github
 cp ~/.btrs/.github/copilot-instructions.md ~/.github/copilot-instructions.md
 ```
 
-**Per-repo:**
+**Per-repo (this repo only):**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git .btrs-agents
 cp .btrs-agents/.github/copilot-instructions.md .github/copilot-instructions.md
@@ -239,23 +226,28 @@ Reference agent files in Copilot Chat for domain expertise.
 
 ### Windsurf
 
-**Global (all projects):**
+**Global (available in every project):**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git ~/.btrs
 ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules
 ```
+Use `@~/.btrs/agents/btrs-api-engineer/AGENT.md` to load agents in any project.
 
-**Per-project:**
+**Per-project (this project only):**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git .btrs-agents
 ```
-
-Use `@file` in Cascade to load agents: `@agents/btrs-api-engineer/AGENT.md`
+The `.windsurfrules` file auto-loads. Use `@.btrs-agents/agents/btrs-api-engineer/AGENT.md` to load agents.
 
 ### OpenAI Codex
 
+**Global:**
 ```bash
 git clone https://github.com/btrs-ai/btrs.git ~/.btrs
+```
+
+**Per-project:** Copy `AGENTS.md` into your project root:
+```bash
 cp ~/.btrs/AGENTS.md ./AGENTS.md
 ```
 
