@@ -1,0 +1,23 @@
+{
+  "research": [
+    {
+      "id": "RES-001",
+      "topic": "Claude Code Plugin Marketplace - Publishing and Distribution",
+      "question": "How are Claude Code plugins published, distributed, and submitted to the official marketplace?",
+      "dateCompleted": "2026-03-21T00:00:00Z",
+      "confidence": "high",
+      "findings": "Complete analysis of the Claude Code plugin ecosystem including marketplace architecture, submission process, plugin structure, and distribution methods.",
+      "sources": [
+        "https://code.claude.com/docs/en/discover-plugins",
+        "https://code.claude.com/docs/en/plugin-marketplaces",
+        "https://code.claude.com/docs/en/plugins-reference",
+        "https://code.claude.com/docs/en/plugins",
+        "https://github.com/anthropics/claude-plugins-official",
+        "https://github.com/anthropics/claude-code/blob/main/plugins/README.md",
+        "Local filesystem analysis of ~/.claude/plugins/"
+      ],
+      "recommendation": "For publishing to the official marketplace, use the submission forms at claude.ai/settings/plugins/submit or platform.claude.com/plugins/submit. For private/team distribution, create a custom marketplace hosted on GitHub. There is no auto-publish-on-GitHub-release mechanism built in, but version pinning via git refs and SHA enables release channel patterns.",
+      "relatedTasks": []
+    }
+  ]
+}
