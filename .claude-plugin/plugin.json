@@ -1,0 +1,28 @@
+{
+  "name": "btrs",
+  "version": "2.0.0",
+  "description": "24 specialist AI agents orchestrated by a single /btrs command. Type /btrs + what you want. It figures out the rest.",
+  "author": {
+    "name": "BTRS AI",
+    "url": "https://github.com/btrs-ai"
+  },
+  "homepage": "https://btrs-ai.github.io/btrs/",
+  "repository": "https://github.com/btrs-ai/btrs",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "orchestration",
+    "multi-agent",
+    "code-review",
+    "planning",
+    "security",
+    "devops",
+    "testing",
+    "documentation",
+    "tech-debt",
+    "conventions",
+    "obsidian"
+  ],
+  "skills": "./skills/",
+  "agents": "./agents/"
+}

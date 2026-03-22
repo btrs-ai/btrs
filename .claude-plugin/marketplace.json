@@ -1,0 +1,28 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "btrs-marketplace",
+  "owner": {
+    "name": "BTRS AI",
+    "email": "hello@btrs.ai"
+  },
+  "metadata": {
+    "description": "BTRS — 24 specialist AI agents, 1 command",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "btrs",
+      "source": {
+        "source": "github",
+        "repo": "btrs-ai/btrs"
+      },
+      "description": "24 specialist AI agents orchestrated by a single /btrs command. Type /btrs + what you want. It figures out the rest.",
+      "version": "2.0.0",
+      "category": "development",
+      "author": {
+        "name": "BTRS AI"
+      },
+      "homepage": "https://btrs-ai.github.io/btrs/"
+    }
+  ]
+}

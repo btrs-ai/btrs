@@ -14,7 +14,14 @@ Works with Claude Code, Cursor, GitHub Copilot, Windsurf, OpenAI Codex, and any 
 
 ## Install
 
-**Claude Code** (recommended):
+**Claude Code (plugin registry):**
+
+```
+/plugin marketplace add btrs-ai/btrs
+/plugin install btrs
+```
+
+**Claude Code (manual):**
 
 ```bash
 git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
@@ -144,7 +151,22 @@ You don't need to memorize these. `/btrs` routes to the right one automatically.
 
 ## Installation (Detailed)
 
-### Claude Code
+### Claude Code (Plugin — Recommended)
+
+```
+# 1. Add the BTRS marketplace
+/plugin marketplace add btrs-ai/btrs
+
+# 2. Install the plugin
+/plugin install btrs
+
+# 3. Start using it
+/btrs
+```
+
+Auto-updates when new versions are released.
+
+### Claude Code (Manual)
 
 ```bash
 # 1. Clone the repo

@@ -1,0 +1,64 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          cat <<'NOTES' > release-notes.md
+          ## Install
+
+          **Claude Code (plugin):**
+          ```
+          /plugin marketplace add btrs-ai/btrs
+          /plugin install btrs
+          ```
+
+          **Claude Code (manual):**
+          ```bash
+          git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
+          ~/.claude/btrs/install.sh
+          ```
+
+          **Other AI tools:**
+          ```bash
+          git clone https://github.com/btrs-ai/btrs.git
+          ```
+
+          ## What's Included
+
+          - 24 specialist agents across 6 domains
+          - 16 skills including `/btrs` router, `/btrs-tech-debt`, `/btrs-propose`
+          - Convention injection system preventing AI drift
+          - Self-verification protocol with evidence
+          - Obsidian vault (`.btrs/`) for project knowledge
+          - Cross-AI support (Claude Code, Cursor, Copilot, Windsurf, Codex)
+
+          ## Docs
+
+          https://btrs-ai.github.io/btrs/
+          NOTES
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: BTRS v${{ steps.version.outputs.version }}
+          body_path: release-notes.md
+          generate_release_notes: true
+          make_latest: true
