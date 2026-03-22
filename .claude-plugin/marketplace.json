@@ -17,7 +17,7 @@
         "repo": "btrs-ai/btrs"
       },
       "description": "24 specialist AI agents orchestrated by a single /btrs command. Type /btrs + what you want. It figures out the rest.",
-      "version": "2.0.0",
+      "version": "1.0.0",
       "category": "development",
       "author": {
         "name": "BTRS AI"
