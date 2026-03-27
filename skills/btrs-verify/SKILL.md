@@ -10,14 +10,45 @@ argument-hint: <files or directories to verify>
 
 Automated pattern compliance check. Greps for anti-patterns (hardcoded colors, inline styles, duplicate components, arbitrary values), checks convention adherence, and reports violations with file:line references.
 
+## The Iron Law
+
+```
+NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+```
+
+**The 5-Step Gate (skip any step = lying, not verifying):**
+1. **IDENTIFY** — What command proves this claim?
+2. **RUN** — Execute the full command. Fresh. In this session. Not recalled from earlier.
+3. **READ** — Read the full output. Check the exit code. Count failures.
+4. **VERIFY** — Does the output actually confirm the claim?
+5. **CLAIM** — Only now may you state it.
+
+**Forbidden words in success claims:** "should", "probably", "seems to", "I believe", "likely".
+
+**Forbidden behavior:** Expressing satisfaction before verification. "Great!", "Done!", "All good!" before running the actual command means you are claiming without evidence.
+
+### Red Flags — STOP and Verify
+
+If you catch yourself:
+- Using "should" or "probably" about test results
+- Saying "Done!" before running verification
+- Trusting a previous run instead of running fresh
+- Trusting an agent's success report without independent verification
+- Saying "tests pass" without showing the actual output
+- Skipping verification because "the change is trivial"
+
+**ALL of these mean: STOP. Run the verification command. Show the evidence.**
+
 ## Workflow
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, and tooling context.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 3. Read `skills/shared/verification-protocol.md` for the five-check verification process.
-4. Read all files in `.btrs/conventions/` to build the rule set.
+4. Read all files in `btrs/conventions/` to build the rule set.
+5. Read `skills/shared/discipline-protocol.md` for the verification Iron Law.
+6. Read `skills/shared/workflow-protocol.md` for status display requirements.
 
 ### Step 1: Determine verification scope
 
@@ -27,7 +58,7 @@ Automated pattern compliance check. Greps for anti-patterns (hardcoded colors, i
 
 ### Step 2: Build the rule set
 
-From `.btrs/conventions/` files, extract verifiable rules. Common checks include:
+From `btrs/conventions/` files, extract verifiable rules. Common checks include:
 
 **UI conventions** (if ui.md exists):
 - Hardcoded color values (hex, rgb, hsl outside of theme/token files)
@@ -92,6 +123,17 @@ If verifying a specific implementation (not a general scan), run the full protoc
 - Info: N
 - **Overall status**: PASS | PARTIAL | FAIL
 
+### Verification Evidence
+
+For each claim verified by running a command, show:
+
+```
+Command: <exact command run>
+Exit code: <code>
+Output: <relevant output lines>
+✓ or ✗ Claim: "<the claim being verified>"
+```
+
 ## Errors
 - `src/components/Card.tsx:14` -- Hardcoded color `#ff0000`, use theme token `destructive`
 - `src/api/users.ts:42` -- Missing input validation on `req.body.email`
@@ -116,8 +158,8 @@ If verifying a specific implementation (not a general scan), run the full protoc
 ### Step 7: Write output
 
 1. Present the report to the user.
-2. If run as part of a larger workflow, write to `.btrs/agents/{agent-slug}/verify-{slug}.md`.
-3. Update `.btrs/changelog/{today}.md` if writing to vault.
+2. If run as part of a larger workflow, write to `btrs/agents/{agent-slug}/verify-{slug}.md`.
+3. Update `btrs/changelog/{today}.md` if writing to vault.
 
 ## Anti-patterns
 
