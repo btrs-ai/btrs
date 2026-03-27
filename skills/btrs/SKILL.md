@@ -20,18 +20,20 @@ The user's request is: $ARGUMENTS
 
 Check whether this project has been initialized for BTRS.
 
-1. Use Glob to check if `.btrs/project-map.md` exists in the project root.
-2. **If `.btrs/project-map.md` does NOT exist:**
+1. Use Glob to check if `btrs/project-map.md` exists in the project root.
+2. **If `btrs/project-map.md` does NOT exist:**
    - Tell the user: "First time here -- let me scan your project."
-   - Read the file `~/.claude/skills/btrs-init/SKILL.md` and follow its full workflow inline to create the `.btrs/` vault. Do not dispatch it as a sub-agent; execute the init steps yourself.
+   - Read the file `~/.claude/skills/btrs-init/SKILL.md` and follow its full workflow inline to create the `btrs/` vault. Do not dispatch it as a sub-agent; execute the init steps yourself.
    - After init completes, continue to Step 1.
-3. **If `.btrs/project-map.md` exists:**
-   - Read `.btrs/project-map.md` and `.btrs/config.json` to load project context.
+3. **If `btrs/project-map.md` exists:**
+   - Read `btrs/project-map.md` and `btrs/config.json` to load project context.
    - Continue to Step 1.
+4. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+5. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ## Step 1: Classify the request
 
-Read the agent registry at `~/.claude/skills/btrs-shared/agent-registry.md`.
+Read the agent registry at `skills/shared/agent-registry.md`.
 
 Use the Quick Match Table keywords to classify `$ARGUMENTS` into exactly one category:
 
@@ -64,14 +66,14 @@ You cannot confidently classify the request.
 
 Only run this step if the task involves writing code or creating artifacts.
 
-1. Read `.btrs/conventions/registry.md` to know what components and utilities already exist.
+1. Read `btrs/conventions/registry.md` to know what components and utilities already exist.
 2. Read the convention files relevant to the task domain:
-   - Frontend work: `.btrs/conventions/ui.md`, `.btrs/conventions/styling.md`
-   - Backend work: `.btrs/conventions/api.md`
-   - Database work: `.btrs/conventions/database.md`
-   - Testing work: `.btrs/conventions/testing.md`
-   - Read `.btrs/conventions/anti-patterns.md` for every implementation task.
-3. Read the relevant section of `.btrs/project-map.md` to get the file scope for the target agent(s).
+   - Frontend work: `btrs/conventions/ui.md`, `btrs/conventions/styling.md`
+   - Backend work: `btrs/conventions/api.md`
+   - Database work: `btrs/conventions/database.md`
+   - Testing work: `btrs/conventions/testing.md`
+   - Read `btrs/conventions/anti-patterns.md` for every implementation task.
+3. Read the relevant section of `btrs/project-map.md` to get the file scope for the target agent(s).
 4. If a convention file does not exist, note that and move on. Do not fail.
 
 Collect this information into a conventions bundle. You will inject it into the agent dispatch in Step 4.
@@ -122,7 +124,7 @@ CONVENTIONS:
   Anti-patterns:
   {Paste relevant anti-patterns from anti-patterns.md}
 
-OUTPUT: .btrs/agents/{agent-slug}/{date}-{task-slug}.md
+OUTPUT: btrs/agents/{agent-slug}/{date}-{task-slug}.md
 
 VERIFICATION: Run the standard verification protocol before reporting complete. Include a verification report in your output file.
 ```
@@ -132,7 +134,7 @@ Dispatch rules:
 - **Dependent tasks:** Wait for the upstream agent to return before dispatching the downstream agent.
 - **Always include the CONVENTIONS block.** This is the primary mechanism for ensuring consistency. Agents should not need to read convention files themselves.
 - **Always include the OUTPUT path.** Use today's date in YYYY-MM-DD format and a kebab-case slug.
-- **Always request verification.** Reference `~/.claude/skills/btrs-shared/verification-protocol.md`.
+- **Always request verification.** Reference `skills/shared/verification-protocol.md`.
 
 ## Step 5: Verify and accept
 
@@ -153,8 +155,8 @@ After ALL tasks complete:
 
 ## Step 6: Update changelog and report
 
-1. Read `.btrs/changelog/` to check if today's file exists.
-2. Append (or create) `.btrs/changelog/{today's date}.md` with a summary:
+1. Read `btrs/changelog/` to check if today's file exists.
+2. Append (or create) `btrs/changelog/{today's date}.md` with a summary:
 
 ```markdown
 ---

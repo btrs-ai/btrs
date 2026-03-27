@@ -14,10 +14,12 @@ Code and architecture review skill. Checks convention compliance, pattern consis
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `.btrs/conventions/` files relevant to the code under review.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+3. Read `btrs/conventions/` files relevant to the code under review.
 4. Read `skills/shared/verification-protocol.md` for the verification checklist.
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Determine review scope
 
@@ -30,12 +32,12 @@ Code and architecture review skill. Checks convention compliance, pattern consis
 
 1. Read every file in the review scope.
 2. For modified files, use `git diff` to focus on the changes.
-3. Read the relevant spec if the code implements a tracked feature (check `.btrs/specs/`).
+3. Read the relevant spec if the code implements a tracked feature (check `btrs/specs/`).
 4. Read existing tests for the code under review.
 
 ### Step 3: Check convention compliance
 
-1. Compare code against `.btrs/conventions/` rules for:
+1. Compare code against `btrs/conventions/` rules for:
    - Naming conventions (files, variables, functions, components)
    - File structure and organization
    - Import patterns and dependency rules
@@ -106,9 +108,9 @@ Format the output as:
 
 ### Step 8: Write output to vault
 
-1. Write the review to `.btrs/agents/{reviewer-slug}/review-{slug}.md` with proper frontmatter.
-2. If critical or major findings exist, create TODO items in `.btrs/todos/` for each.
-3. Update `.btrs/changelog/{today}.md` with a line item about this review.
+1. Write the review to `btrs/agents/{reviewer-slug}/review-{slug}.md` with proper frontmatter.
+2. If critical or major findings exist, create TODO items in `btrs/todos/` for each.
+3. Update `btrs/changelog/{today}.md` with a line item about this review.
 
 ## Anti-patterns
 

@@ -1,7 +1,7 @@
 ---
 name: btrs-init
 description: >
-  Scan a project and create the .btrs/ Obsidian vault with conventions, registry,
+  Scan a project and create the btrs/ Obsidian vault with conventions, registry,
   code-map, and project-map. Run automatically on first /btrs use or manually to
   refresh. Use when starting a new project, onboarding to an existing project,
   or refreshing project knowledge.
@@ -10,13 +10,16 @@ allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git *), Bash(npm *), Bash(ls 
 argument-hint: [refresh]
 ---
 
-You are the BTRS project scanner. Your job is to analyze a project's structure, detect its tech stack, and create the `.btrs/` Obsidian vault with conventions, registry, code-map, and project-map. Be thorough in detection but concise in output.
+You are the BTRS project scanner. Your job is to analyze a project's structure, detect its tech stack, and create the `btrs/` Obsidian vault with conventions, registry, code-map, and project-map. Be thorough in detection but concise in output.
 
-Mode: If `$ARGUMENTS` is "refresh", update existing `.btrs/` files rather than creating from scratch. Read each file before overwriting.
+Mode: If `$ARGUMENTS` is "refresh", update existing `btrs/` files rather than creating from scratch. Read each file before overwriting.
 
 ## Step 0: Read config reference
 
-Read `~/.claude/skills/btrs-shared/config.md` for standard paths and structure. Read `~/.claude/skills/btrs-shared/obsidian-conventions.md` for formatting rules. These define the vault structure you must create.
+1. Read `skills/shared/config.md` for standard paths and structure.
+2. Read `skills/shared/obsidian-conventions.md` for formatting rules. These define the vault structure you must create.
+3. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+4. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ## Step 1: Scan project structure
 
@@ -109,13 +112,13 @@ docker*          -- Docker files
 
 Record every directory that exists. These become the agent scope map.
 
-## Step 2: Create .btrs/ vault structure
+## Step 2: Create btrs/ vault structure
 
 Create the following directory structure and files. For refresh mode, read existing files first and merge/update rather than overwrite.
 
 ### 2a. Obsidian config
 
-Write `.btrs/.obsidian/app.json`:
+Write `btrs/.obsidian/app.json`:
 ```json
 {
   "showLineNumber": true,
@@ -126,7 +129,7 @@ Write `.btrs/.obsidian/app.json`:
 
 ### 2b. Vault index
 
-Write `.btrs/index.md`:
+Write `btrs/index.md`:
 ```markdown
 ---
 title: "BTRS Vault"
@@ -182,7 +185,7 @@ Create index files for: `specs`, `todos`, `decisions`, `agents`, `code-map`, `co
 
 ## Step 3: Generate project map
 
-Write `.btrs/project-map.md`. Map the detected directories to agent scopes.
+Write `btrs/project-map.md`. Map the detected directories to agent scopes.
 
 Use this structure -- only include agents whose scope directories actually exist in the project:
 
@@ -247,7 +250,7 @@ Only include an agent section if at least one of its primary paths exists in the
 
 ## Step 4: Build component and utility registry
 
-Scan the project for existing components, utilities, hooks, and types. Write the results to `.btrs/conventions/registry.md`.
+Scan the project for existing components, utilities, hooks, and types. Write the results to `btrs/conventions/registry.md`.
 
 ### 4a. Components
 
@@ -272,7 +275,7 @@ Glob for `.d.ts` files and files in `types/` directories. Record type/interface 
 
 ### 4e. Write the registry
 
-Write `.btrs/conventions/registry.md`:
+Write `btrs/conventions/registry.md`:
 
 ```markdown
 ---
@@ -334,7 +337,7 @@ Based on the detected stack, create convention files. Each convention file gives
 
 ### 5a. UI conventions (if frontend detected)
 
-Write `.btrs/conventions/ui.md`:
+Write `btrs/conventions/ui.md`:
 
 - Component file naming convention (detected from existing files)
 - Import patterns (detected from existing files)
@@ -345,7 +348,7 @@ Write `.btrs/conventions/ui.md`:
 
 ### 5b. API conventions (if backend detected)
 
-Write `.btrs/conventions/api.md`:
+Write `btrs/conventions/api.md`:
 
 - Route/handler file structure
 - Error handling pattern
@@ -356,7 +359,7 @@ Write `.btrs/conventions/api.md`:
 
 ### 5c. Database conventions (if ORM detected)
 
-Write `.btrs/conventions/database.md`:
+Write `btrs/conventions/database.md`:
 
 - ORM name and version
 - Schema file location
@@ -367,7 +370,7 @@ Write `.btrs/conventions/database.md`:
 
 ### 5d. Testing conventions (if test framework detected)
 
-Write `.btrs/conventions/testing.md`:
+Write `btrs/conventions/testing.md`:
 
 - Test framework name and version
 - Test file location pattern (co-located vs separate directory)
@@ -378,7 +381,7 @@ Write `.btrs/conventions/testing.md`:
 
 ### 5e. Styling conventions (if CSS framework detected)
 
-Write `.btrs/conventions/styling.md`:
+Write `btrs/conventions/styling.md`:
 
 - Styling approach (Tailwind, CSS modules, styled-components, etc.)
 - Class naming or styling patterns
@@ -388,7 +391,7 @@ Write `.btrs/conventions/styling.md`:
 
 ### 5f. Anti-patterns
 
-Write `.btrs/conventions/anti-patterns.md`:
+Write `btrs/conventions/anti-patterns.md`:
 
 Based on the detected stack, list common mistakes agents must avoid. Examples:
 
@@ -401,7 +404,7 @@ Based on the detected stack, list common mistakes agents must avoid. Examples:
 
 ### 5g. Conventions index
 
-Write `.btrs/conventions/_index.md` listing all created convention files with wiki links.
+Write `btrs/conventions/_index.md` listing all created convention files with wiki links.
 
 ### Convention file format
 
@@ -493,15 +496,15 @@ Primary: **{agent-slug}**
 ```
 
 Create code-map entries as appropriate for the project. Common entries:
-- `.btrs/code-map/frontend.md` -- if `app/`, `pages/`, or `components/` exist
-- `.btrs/code-map/api-layer.md` -- if `api/`, `server/`, or `routes/` exist
-- `.btrs/code-map/database-layer.md` -- if ORM/schema files exist
-- `.btrs/code-map/infrastructure.md` -- if `infra/`, Docker, or CI files exist
-- `.btrs/code-map/shared.md` -- if `lib/`, `utils/`, or `types/` exist
+- `btrs/code-map/frontend.md` -- if `app/`, `pages/`, or `components/` exist
+- `btrs/code-map/api-layer.md` -- if `api/`, `server/`, or `routes/` exist
+- `btrs/code-map/database-layer.md` -- if ORM/schema files exist
+- `btrs/code-map/infrastructure.md` -- if `infra/`, Docker, or CI files exist
+- `btrs/code-map/shared.md` -- if `lib/`, `utils/`, or `types/` exist
 
 ## Step 7: Generate config.json
 
-Write `.btrs/config.json` with detected values:
+Write `btrs/config.json` with detected values:
 
 ```json
 {
@@ -540,17 +543,17 @@ Detected stack:
   Tests:        {value or "none detected"}
 
 Created:
-  .btrs/config.json
-  .btrs/index.md
-  .btrs/project-map.md
-  .btrs/conventions/registry.md
-  .btrs/conventions/{list each created}
-  .btrs/code-map/{list each created}
+  btrs/config.json
+  btrs/index.md
+  btrs/project-map.md
+  btrs/conventions/registry.md
+  btrs/conventions/{list each created}
+  btrs/code-map/{list each created}
   {etc.}
 
 {N} components, {N} utilities, {N} hooks, and {N} types cataloged in the registry.
 
-You can browse the vault by opening .btrs/ in Obsidian.
+You can browse the vault by opening btrs/ in Obsidian.
 Next: run /btrs with any request to start working.
 ```
 
@@ -558,7 +561,7 @@ Next: run /btrs with any request to start working.
 
 If `$ARGUMENTS` is "refresh":
 
-1. Read all existing `.btrs/` files before modifying them.
+1. Read all existing `btrs/` files before modifying them.
 2. Re-run the full scan (Steps 1 through 6).
 3. For each file that already exists:
    - Compare detected values with existing content.

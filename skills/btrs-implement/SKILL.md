@@ -14,21 +14,23 @@ Implementation skill. Builds features from specs, todos, or descriptions. Reads 
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, tooling, and package manager.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, tooling, and package manager.
 3. Read `skills/shared/verification-protocol.md` for the self-verification process.
+4. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+5. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Load the task
 
-1. If the argument is a SPEC-ID: read `.btrs/specs/SPEC-NNN-*.md`.
-2. If the argument is a TODO-ID: read `.btrs/todos/TODO-NNN.md`, then follow the spec link.
+1. If the argument is a SPEC-ID: read `btrs/specs/SPEC-NNN-*.md`.
+2. If the argument is a TODO-ID: read `btrs/todos/TODO-NNN.md`, then follow the spec link.
 3. If the argument is a description: treat it as an ad-hoc task -- still read conventions.
 4. Extract: requirements, acceptance criteria, affected files, and any agent-specific instructions.
 
 ### Step 2: Read conventions and existing patterns
 
-1. Read `.btrs/conventions/` files relevant to the domain (api.md, ui.md, database.md, testing.md).
-2. Read `.btrs/code-map/` entries for the modules being modified.
+1. Read `btrs/conventions/` files relevant to the domain (api.md, ui.md, database.md, testing.md).
+2. Read `btrs/code-map/` entries for the modules being modified.
 3. Grep and Glob the source tree to find canonical examples of similar patterns.
 4. Identify existing components, utilities, and helpers that can be reused. Do not reinvent.
 
@@ -47,14 +49,14 @@ Implementation skill. Builds features from specs, todos, or descriptions. Reads 
 3. Reuse existing utilities and components. Grep before creating anything new.
 4. Write clean, readable code. Prefer explicit over clever.
 5. Include inline comments only where the "why" is not obvious from the code.
-6. Do not introduce new dependencies without checking `.btrs/conventions/` and `package.json`.
+6. Do not introduce new dependencies without checking `btrs/conventions/` and `package.json`.
 
 ### Step 5: Self-verify
 
 Follow the verification protocol from `skills/shared/verification-protocol.md`:
 
 1. **File existence** -- Confirm every file claimed to be created or modified exists and is non-empty.
-2. **Pattern compliance** -- Confirm code follows conventions from `.btrs/conventions/`.
+2. **Pattern compliance** -- Confirm code follows conventions from `btrs/conventions/`.
 3. **Functional claims** -- For each behavior claimed, point to the code that implements it.
 4. **Integration points** -- Verify all imports resolve, types are consistent, API contracts match.
 5. **Completeness** -- Check every acceptance criterion from the spec.
@@ -63,14 +65,14 @@ If any check fails, fix the issue and re-verify. Do not report done with known f
 
 ### Step 6: Update tracking
 
-1. If working from a TODO: update its status to `complete` in `.btrs/todos/TODO-NNN.md` (set `updated` date).
+1. If working from a TODO: update its status to `complete` in `btrs/todos/TODO-NNN.md` (set `updated` date).
 2. If working from a spec: update the spec's relevant acceptance criteria checkboxes.
-3. Update `.btrs/code-map/` if new modules or significant changes were made.
-4. Append to `.btrs/changelog/{today}.md` with a summary of what was implemented.
+3. Update `btrs/code-map/` if new modules or significant changes were made.
+4. Append to `btrs/changelog/{today}.md` with a summary of what was implemented.
 
 ### Step 7: Write agent output
 
-1. Write a summary to `.btrs/agents/{agent-slug}/TASK-NNN-{slug}.md` with:
+1. Write a summary to `btrs/agents/{agent-slug}/TASK-NNN-{slug}.md` with:
    - Frontmatter (id, title, status, created, updated, tags)
    - Summary of what was built
    - List of files created and modified
@@ -86,10 +88,10 @@ If any check fails, fix the issue and re-verify. Do not report done with known f
 
 ## Anti-patterns
 
-- **Do not ignore conventions.** Read `.btrs/conventions/` before writing any code. Convention violations will be caught by `/btrs-verify`.
+- **Do not ignore conventions.** Read `btrs/conventions/` before writing any code. Convention violations will be caught by `/btrs-verify`.
 - **Do not duplicate existing utilities.** Always Grep for existing helpers before writing new ones.
 - **Do not skip self-verification.** Every implementation must pass the five checks before reporting done.
 - **Do not introduce new dependencies silently.** Check conventions and discuss with the user first.
 - **Do not write code without reading the spec first.** Even for "simple" tasks, load the full context.
 - **Do not modify files outside the scope of the task.** If you find something that needs fixing, create a TODO for it instead.
-- **Do not leave TODO comments in code without creating a tracked TODO in `.btrs/todos/`.** Inline TODOs get lost.
+- **Do not leave TODO comments in code without creating a tracked TODO in `btrs/todos/`.** Inline TODOs get lost.

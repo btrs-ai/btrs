@@ -19,6 +19,8 @@ Structured spec creation skill. Reads project conventions, creates a spec from t
 3. Read `skills/shared/spec-format.md` for the canonical spec template.
 4. Read `skills/shared/agent-registry.md` for available agents and their domains.
 5. Read `.btrs/conventions/` files relevant to the planned feature.
+6. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+7. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Understand the scope
 
