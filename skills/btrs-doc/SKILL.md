@@ -14,9 +14,11 @@ Documentation refresh skill. Re-scans the codebase to update the component regis
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, source directory, and tooling context.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, source directory, and tooling context.
 3. Read `skills/shared/obsidian-conventions.md` for frontmatter and formatting rules.
+4. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+5. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Determine refresh scope
 
@@ -44,7 +46,7 @@ Parse the argument to determine which documentation areas to refresh:
 
 ### Step 3: Update code-map (if in scope)
 
-1. Read existing `.btrs/code-map/` entries.
+1. Read existing `btrs/code-map/` entries.
 2. For each module directory in the source:
    - If a code-map entry exists: compare against current files and exports. Update if stale.
    - If no entry exists: create one following the code-map format.
@@ -89,11 +91,11 @@ tags:
    - Name, file path, props/API
    - Usage examples (Grep for import statements to find usage)
    - Related components
-3. Write or update the registry file in `.btrs/code-map/` or a dedicated registry location.
+3. Write or update the registry file in `btrs/code-map/` or a dedicated registry location.
 
 ### Step 5: Update conventions (if in scope)
 
-1. Read existing `.btrs/conventions/` files.
+1. Read existing `btrs/conventions/` files.
 2. Scan the codebase for actual patterns:
    - File naming conventions in use
    - Import patterns in use
@@ -107,10 +109,10 @@ tags:
 
 ### Step 6: Update vault index
 
-1. Read `.btrs/index.md`.
+1. Read `btrs/index.md`.
 2. Verify all navigation links point to existing files.
 3. Add links for new code-map entries, specs, or decisions created since the last refresh.
-4. Update `.btrs/project-map.md` if the high-level structure has changed.
+4. Update `btrs/project-map.md` if the high-level structure has changed.
 
 ### Step 7: Produce the refresh report
 
@@ -132,8 +134,8 @@ tags:
 
 ### Step 8: Write output and changelog
 
-1. Write the refresh report to `.btrs/agents/documentation/doc-refresh-{today}.md` with proper frontmatter.
-2. Update `.btrs/changelog/{today}.md` with a summary of the documentation refresh.
+1. Write the refresh report to `btrs/agents/documentation/doc-refresh-{today}.md` with proper frontmatter.
+2. Update `btrs/changelog/{today}.md` with a summary of the documentation refresh.
 
 ## Anti-patterns
 

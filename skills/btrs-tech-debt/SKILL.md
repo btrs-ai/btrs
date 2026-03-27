@@ -17,16 +17,18 @@ fix spec so it can be addressed later without re-investigation.
 
 ## Step 0: Read config
 
-Read `~/.claude/skills/btrs-shared/config.md` for standard paths.
-Read `.btrs/config.json` for project context.
-Ensure `.btrs/tech-debt/` directory exists. If not, create it with `_index.md`.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` for project context.
+3. Ensure `btrs/tech-debt/` directory exists. If not, create it with `_index.md`.
+4. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+5. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ## Step 1: Determine mode
 
 `$ARGUMENTS` determines the mode:
 
 ### No arguments → Show backlog
-Read `.btrs/tech-debt/_index.md` and all item files.
+Read `btrs/tech-debt/_index.md` and all item files.
 Present a prioritized summary:
 
 ```
@@ -73,7 +75,7 @@ Go to Step 8.
 ## Step 2: Scan for tech debt
 
 Dispatch specialist agents in parallel to scan their domains. Each agent scans
-for problems within their scope from `.btrs/project-map.md`.
+for problems within their scope from `btrs/project-map.md`.
 
 ### Scan categories and what to look for:
 
@@ -94,7 +96,7 @@ for problems within their scope from `.btrs/project-map.md`.
 - Known vulnerabilities (npm audit / pip audit)
 - Duplicate packages (same purpose, different libs — e.g., moment + date-fns)
 
-**Pattern violations** (read .btrs/conventions/):
+**Pattern violations** (read btrs/conventions/):
 - Files that don't follow established conventions
 - Components not using the design system
 - API endpoints not following the standard pattern
@@ -135,7 +137,7 @@ Look for identical or near-identical code blocks
 Cross-reference package.json dependencies with actual imports
 
 # Convention violations
-Compare against .btrs/conventions/ rules
+Compare against btrs/conventions/ rules
 ```
 
 ## Step 3: Triage scan results
@@ -168,7 +170,7 @@ For each finding, classify it:
 
 ## Step 4: Create tech debt items
 
-For EACH finding, create a file at `.btrs/tech-debt/TD-{NNN}.md`:
+For EACH finding, create a file at `btrs/tech-debt/TD-{NNN}.md`:
 
 ```markdown
 ---
@@ -241,12 +243,12 @@ Grep for similar patterns: `db.query(\`.*\$\{` across all API files.
 ```
 
 ### ID assignment:
-- Read `.btrs/tech-debt/_index.md` for the last used ID
+- Read `btrs/tech-debt/_index.md` for the last used ID
 - Increment: TD-001, TD-002, etc.
 - Update `_index.md` with the new item
 
 ### Update the index:
-`.btrs/tech-debt/_index.md` is the master list:
+`btrs/tech-debt/_index.md` is the master list:
 
 ```markdown
 ---
@@ -291,7 +293,7 @@ When the user says `/btrs-tech-debt fix [TD-ID]`:
 
 1. If no ID: pick the highest priority open item
 2. Read the tech debt item file for fix instructions
-3. Read `.btrs/conventions/` for relevant conventions
+3. Read `btrs/conventions/` for relevant conventions
 4. Follow the "How to Fix" steps in the item
 5. Run the self-verification protocol
 6. Update the tech debt item:
@@ -300,7 +302,7 @@ When the user says `/btrs-tech-debt fix [TD-ID]`:
    - Add resolution summary
    - Add verification evidence
 7. Update `_index.md`
-8. Update `.btrs/changelog/`
+8. Update `btrs/changelog/`
 9. Report what was fixed
 
 If the fix reveals NEW tech debt, capture it as a new item.
@@ -309,7 +311,7 @@ If the fix reveals NEW tech debt, capture it as a new item.
 
 When the user says `/btrs-tech-debt triage`:
 
-1. Read all open items from `.btrs/tech-debt/`
+1. Read all open items from `btrs/tech-debt/`
 2. For each item, re-evaluate:
    - Has the affected code changed?
    - Is the item still relevant?
@@ -350,7 +352,7 @@ Generate a tech debt report for stakeholders:
 3. Address TD-002 during next API sprint (validation duplication)
 ```
 
-Write to `.btrs/tech-debt/reports/{date}-report.md`
+Write to `btrs/tech-debt/reports/{date}-report.md`
 
 ## Proactive Integration
 
@@ -363,7 +365,7 @@ during their normal work:
 - **During /btrs-health**: Include tech debt metrics in health report
 - **During /btrs-init scan**: Flag obvious tech debt during project scan
 
-Agents capture tech debt by writing to `.btrs/tech-debt/TD-{NNN}.md` and updating
+Agents capture tech debt by writing to `btrs/tech-debt/TD-{NNN}.md` and updating
 the index. They should note `found-during: {what they were doing}` in the frontmatter.
 
 ## Anti-Patterns

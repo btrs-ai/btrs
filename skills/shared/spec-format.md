@@ -4,13 +4,13 @@ Specs are the primary way work flows through the BTRS system. They describe what
 
 ## File Location
 
-Specs live in `.btrs/specs/` and follow the naming convention: `SPEC-NNN-brief-slug.md`
+Specs live in `btrs/specs/` and follow the naming convention: `SPEC-NNN-brief-slug.md`
 
-Example: `.btrs/specs/SPEC-003-user-authentication.md`
+Example: `btrs/specs/SPEC-003-user-authentication.md`
 
 ## ID Assignment
 
-Scan `.btrs/specs/` to find the highest existing SPEC number, then increment by 1. Always zero-pad to 3 digits.
+Scan `btrs/specs/` to find the highest existing SPEC number, then increment by 1. Always zero-pad to 3 digits.
 
 ## Full Spec Template
 

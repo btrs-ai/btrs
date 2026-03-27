@@ -47,8 +47,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: System design, architecture decisions, technical standards
 - **Typical requests**: "Design the architecture for...", "Should we use X or Y?", "Create an ADR for..."
 - **Primary skills**: `/btrs-plan`, `/btrs-propose`, `/btrs-spec`
-- **Reads from**: All `.btrs/` paths (full visibility)
-- **Writes to**: `.btrs/agents/architect/`, `.btrs/decisions/`
+- **Reads from**: All `btrs/` paths (full visibility)
+- **Writes to**: `btrs/agents/architect/`, `btrs/decisions/`
 
 #### qa-test-engineering
 - **Slug**: `qa-test-engineering`
@@ -56,8 +56,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Test strategy, test writing, coverage analysis, performance testing
 - **Typical requests**: "Write tests for...", "What's our test coverage?", "Create a test plan for..."
 - **Primary skills**: `/btrs-implement`, `/btrs-verify`
-- **Reads from**: `.btrs/specs/`, `.btrs/code-map/`, source code
-- **Writes to**: `.btrs/agents/qa-test-engineering/`, test files in source
+- **Reads from**: `btrs/specs/`, `btrs/code-map/`, source code
+- **Writes to**: `btrs/agents/qa-test-engineering/`, test files in source
 
 #### documentation
 - **Slug**: `documentation`
@@ -65,8 +65,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Technical writing, API documentation, guides, tutorials
 - **Typical requests**: "Document the API...", "Write a guide for...", "Update the README..."
 - **Primary skills**: `/btrs-doc`
-- **Reads from**: `.btrs/specs/`, `.btrs/code-map/`, source code
-- **Writes to**: `.btrs/agents/documentation/`, docs in source
+- **Reads from**: `btrs/specs/`, `btrs/code-map/`, source code
+- **Writes to**: `btrs/agents/documentation/`, docs in source
 
 #### research
 - **Slug**: `research`
@@ -74,8 +74,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Technology evaluation, competitive analysis, POC, spikes
 - **Typical requests**: "Compare X vs Y...", "Research the best way to...", "Do a spike on..."
 - **Primary skills**: `/btrs-research`
-- **Reads from**: `.btrs/decisions/`, `.btrs/specs/`
-- **Writes to**: `.btrs/agents/research/`
+- **Reads from**: `btrs/decisions/`, `btrs/specs/`
+- **Writes to**: `btrs/agents/research/`
 
 ### Engineering Agents
 
@@ -85,8 +85,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Backend APIs, REST, GraphQL, microservices, middleware
 - **Typical requests**: "Build an API for...", "Add an endpoint for...", "Set up GraphQL..."
 - **Primary skills**: `/btrs-implement`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/conventions/api.md`, `.btrs/code-map/api/`
-- **Writes to**: `.btrs/agents/api-engineer/`, source code
+- **Reads from**: `btrs/specs/`, `btrs/conventions/api.md`, `btrs/code-map/api/`
+- **Writes to**: `btrs/agents/api-engineer/`, source code
 
 #### web-engineer
 - **Slug**: `web-engineer`
@@ -94,8 +94,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Frontend web applications, React, Vue, Next.js, SSR/SSG
 - **Typical requests**: "Build a page for...", "Create the dashboard...", "Fix the frontend..."
 - **Primary skills**: `/btrs-implement`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/conventions/ui.md`, `.btrs/code-map/web/`
-- **Writes to**: `.btrs/agents/web-engineer/`, source code
+- **Reads from**: `btrs/specs/`, `btrs/conventions/ui.md`, `btrs/code-map/web/`
+- **Writes to**: `btrs/agents/web-engineer/`, source code
 
 #### mobile-engineer
 - **Slug**: `mobile-engineer`
@@ -103,8 +103,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Mobile applications, React Native, Flutter, iOS, Android
 - **Typical requests**: "Build the mobile app...", "Add push notifications...", "Fix the iOS bug..."
 - **Primary skills**: `/btrs-implement`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/conventions/`, `.btrs/code-map/`
-- **Writes to**: `.btrs/agents/mobile-engineer/`, source code
+- **Reads from**: `btrs/specs/`, `btrs/conventions/`, `btrs/code-map/`
+- **Writes to**: `btrs/agents/mobile-engineer/`, source code
 
 #### desktop-engineer
 - **Slug**: `desktop-engineer`
@@ -112,8 +112,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Desktop applications, Electron, Tauri, native apps
 - **Typical requests**: "Build the desktop app...", "Add system tray support...", "Package for Windows..."
 - **Primary skills**: `/btrs-implement`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/conventions/`, `.btrs/code-map/`
-- **Writes to**: `.btrs/agents/desktop-engineer/`, source code
+- **Reads from**: `btrs/specs/`, `btrs/conventions/`, `btrs/code-map/`
+- **Writes to**: `btrs/agents/desktop-engineer/`, source code
 
 #### ui-engineer
 - **Slug**: `ui-engineer`
@@ -121,8 +121,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Component libraries, design systems, Storybook, themes, CSS
 - **Typical requests**: "Create a Button component...", "Set up the design system...", "Add dark mode..."
 - **Primary skills**: `/btrs-implement`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/conventions/ui.md`, `.btrs/code-map/`
-- **Writes to**: `.btrs/agents/ui-engineer/`, source code
+- **Reads from**: `btrs/specs/`, `btrs/conventions/ui.md`, `btrs/code-map/`
+- **Writes to**: `btrs/agents/ui-engineer/`, source code
 
 #### database-engineer
 - **Slug**: `database-engineer`
@@ -130,8 +130,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Schema design, migrations, query optimization, ORM configuration
 - **Typical requests**: "Design the schema for...", "Optimize this query...", "Add a migration for..."
 - **Primary skills**: `/btrs-implement`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/conventions/database.md`, `.btrs/decisions/`
-- **Writes to**: `.btrs/agents/database-engineer/`, schema/migration files
+- **Reads from**: `btrs/specs/`, `btrs/conventions/database.md`, `btrs/decisions/`
+- **Writes to**: `btrs/agents/database-engineer/`, schema/migration files
 
 ### Security Agents
 
@@ -141,8 +141,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Static analysis, vulnerability scanning, secure coding practices
 - **Typical requests**: "Scan for vulnerabilities...", "Review this code for security...", "Check dependencies..."
 - **Primary skills**: `/btrs-audit`, `/btrs-verify`
-- **Reads from**: All source code, `.btrs/conventions/`
-- **Writes to**: `.btrs/agents/code-security/`
+- **Reads from**: All source code, `btrs/conventions/`
+- **Writes to**: `btrs/agents/code-security/`
 
 #### security-ops
 - **Slug**: `security-ops`
@@ -150,8 +150,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Infrastructure security, compliance, IAM, secrets management
 - **Typical requests**: "Audit GDPR compliance...", "Review IAM policies...", "Set up secrets management..."
 - **Primary skills**: `/btrs-audit`, `/btrs-verify`
-- **Reads from**: Infrastructure configs, `.btrs/conventions/`
-- **Writes to**: `.btrs/agents/security-ops/`
+- **Reads from**: Infrastructure configs, `btrs/conventions/`
+- **Writes to**: `btrs/agents/security-ops/`
 
 ### Operations Agents
 
@@ -161,8 +161,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Cloud infrastructure, IaC, serverless, networking
 - **Typical requests**: "Set up AWS infrastructure...", "Write Terraform for...", "Configure the VPC..."
 - **Primary skills**: `/btrs-deploy`, `/btrs-implement`
-- **Reads from**: `.btrs/decisions/`, infrastructure configs
-- **Writes to**: `.btrs/agents/cloud-ops/`, infrastructure files
+- **Reads from**: `btrs/decisions/`, infrastructure configs
+- **Writes to**: `btrs/agents/cloud-ops/`, infrastructure files
 
 #### cicd-ops
 - **Slug**: `cicd-ops`
@@ -170,8 +170,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: CI/CD pipelines, GitHub Actions, deployment automation
 - **Typical requests**: "Set up CI/CD...", "Add a deploy pipeline...", "Fix the failing build..."
 - **Primary skills**: `/btrs-deploy`, `/btrs-implement`
-- **Reads from**: `.btrs/decisions/`, workflow files
-- **Writes to**: `.btrs/agents/cicd-ops/`, `.github/workflows/`
+- **Reads from**: `btrs/decisions/`, workflow files
+- **Writes to**: `btrs/agents/cicd-ops/`, `.github/workflows/`
 
 #### container-ops
 - **Slug**: `container-ops`
@@ -179,8 +179,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Docker, Kubernetes, container orchestration, Helm charts
 - **Typical requests**: "Dockerize the app...", "Set up Kubernetes...", "Write a Helm chart..."
 - **Primary skills**: `/btrs-deploy`, `/btrs-implement`
-- **Reads from**: `.btrs/decisions/`, Docker/K8s files
-- **Writes to**: `.btrs/agents/container-ops/`, container config files
+- **Reads from**: `btrs/decisions/`, Docker/K8s files
+- **Writes to**: `btrs/agents/container-ops/`, container config files
 
 #### monitoring-ops
 - **Slug**: `monitoring-ops`
@@ -188,8 +188,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Observability, alerting, logging, APM, dashboards
 - **Typical requests**: "Set up monitoring...", "Add alerting for...", "Configure logging..."
 - **Primary skills**: `/btrs-implement`, `/btrs-health`
-- **Reads from**: `.btrs/decisions/`, monitoring configs
-- **Writes to**: `.btrs/agents/monitoring-ops/`, monitoring config files
+- **Reads from**: `btrs/decisions/`, monitoring configs
+- **Writes to**: `btrs/agents/monitoring-ops/`, monitoring config files
 
 ### Business Agents
 
@@ -199,8 +199,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Product strategy, roadmap, requirements, user stories
 - **Typical requests**: "Write a PRD for...", "Prioritize the backlog...", "Define requirements for..."
 - **Primary skills**: `/btrs-plan`, `/btrs-spec`
-- **Reads from**: `.btrs/specs/`, `.btrs/todos/`
-- **Writes to**: `.btrs/agents/product/`, `.btrs/specs/`
+- **Reads from**: `btrs/specs/`, `btrs/todos/`
+- **Writes to**: `btrs/agents/product/`, `btrs/specs/`
 
 #### marketing
 - **Slug**: `marketing`
@@ -208,8 +208,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Marketing strategy, campaigns, SEO, content, growth
 - **Typical requests**: "Create a marketing plan...", "Write copy for...", "Analyze SEO..."
 - **Primary skills**: `/btrs-plan`, `/btrs-research`
-- **Reads from**: `.btrs/agents/product/`
-- **Writes to**: `.btrs/agents/marketing/`
+- **Reads from**: `btrs/agents/product/`
+- **Writes to**: `btrs/agents/marketing/`
 
 #### sales
 - **Slug**: `sales`
@@ -217,8 +217,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Sales strategy, pipeline, pricing, proposals
 - **Typical requests**: "Create a pricing model...", "Write a proposal for...", "Analyze the sales pipeline..."
 - **Primary skills**: `/btrs-plan`, `/btrs-research`
-- **Reads from**: `.btrs/agents/product/`, `.btrs/agents/marketing/`
-- **Writes to**: `.btrs/agents/sales/`
+- **Reads from**: `btrs/agents/product/`, `btrs/agents/marketing/`
+- **Writes to**: `btrs/agents/sales/`
 
 #### accounting
 - **Slug**: `accounting`
@@ -226,8 +226,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Financial management, bookkeeping, budgets, invoicing
 - **Typical requests**: "Create a budget for...", "Generate an invoice...", "Analyze expenses..."
 - **Primary skills**: `/btrs-plan`, `/btrs-analyze`
-- **Reads from**: Financial data, `.btrs/agents/product/`
-- **Writes to**: `.btrs/agents/accounting/`
+- **Reads from**: Financial data, `btrs/agents/product/`
+- **Writes to**: `btrs/agents/accounting/`
 
 #### customer-success
 - **Slug**: `customer-success`
@@ -235,8 +235,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Customer retention, support, onboarding, feedback analysis
 - **Typical requests**: "Analyze churn...", "Create onboarding flow...", "Review customer feedback..."
 - **Primary skills**: `/btrs-plan`, `/btrs-analyze`
-- **Reads from**: `.btrs/agents/product/`, customer data
-- **Writes to**: `.btrs/agents/customer-success/`
+- **Reads from**: `btrs/agents/product/`, customer data
+- **Writes to**: `btrs/agents/customer-success/`
 
 #### data-analyst
 - **Slug**: `data-analyst`
@@ -244,8 +244,8 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Business intelligence, analytics, dashboards, KPIs
 - **Typical requests**: "Build a dashboard for...", "Analyze this data...", "Define KPIs for..."
 - **Primary skills**: `/btrs-analyze`, `/btrs-research`
-- **Reads from**: All data sources, `.btrs/agents/`
-- **Writes to**: `.btrs/agents/data-analyst/`
+- **Reads from**: All data sources, `btrs/agents/`
+- **Writes to**: `btrs/agents/data-analyst/`
 
 ### Management
 
@@ -255,22 +255,22 @@ This is the routing table for the `/btrs` skill. Use the quick match table for f
 - **Domain**: Multi-agent coordination, task breakdown, complex workflows
 - **Typical requests**: "Build a complete feature...", "Coordinate across teams...", any multi-domain request
 - **Primary skills**: `/btrs-plan`
-- **Reads from**: All `.btrs/` paths
-- **Writes to**: `.btrs/agents/boss/`, `.btrs/todos/`
+- **Reads from**: All `btrs/` paths
+- **Writes to**: `btrs/agents/boss/`, `btrs/todos/`
 
 ## Context Passing Between Agents
 
-When routing sequential tasks, pass context using `.btrs/` paths:
+When routing sequential tasks, pass context using `btrs/` paths:
 
 ```
-architect writes → .btrs/decisions/ADR-005-auth.md
-                   .btrs/agents/architect/TASK-001-auth-design.md
+architect writes → btrs/decisions/ADR-005-auth.md
+                   btrs/agents/architect/TASK-001-auth-design.md
                        ↓
-database-engineer reads those, writes → .btrs/agents/database-engineer/TASK-002-schema.md
+database-engineer reads those, writes → btrs/agents/database-engineer/TASK-002-schema.md
                        ↓
-api-engineer reads all above, writes → .btrs/agents/api-engineer/TASK-003-endpoints.md
+api-engineer reads all above, writes → btrs/agents/api-engineer/TASK-003-endpoints.md
                        ↓
-code-security reads all above, writes → .btrs/agents/code-security/TASK-004-review.md
+code-security reads all above, writes → btrs/agents/code-security/TASK-004-review.md
 ```
 
 Always instruct agents to:

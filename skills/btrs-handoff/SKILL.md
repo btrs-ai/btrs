@@ -14,9 +14,11 @@ Structured agent-to-agent context bridge. Reads the previous agent's output, ext
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for project context.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for project context.
 3. Read `skills/shared/agent-registry.md` to validate agent slugs and understand their domains.
+4. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+5. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Parse the handoff parameters
 
@@ -28,7 +30,7 @@ Structured agent-to-agent context bridge. Reads the previous agent's output, ext
 
 ### Step 2: Read the source agent's output
 
-1. Glob `.btrs/agents/{from-agent}/` for recent output files.
+1. Glob `btrs/agents/{from-agent}/` for recent output files.
 2. If a specific task ID was provided, read that task's output file.
 3. If no specific task, read the most recent output file.
 4. Also read:
@@ -101,9 +103,9 @@ Based on the target agent's domain (from the registry):
 
 ### Step 6: Write the handoff document
 
-1. Write to `.btrs/agents/boss/handoff-{from}-to-{to}-{slug}.md` with proper frontmatter.
+1. Write to `btrs/agents/boss/handoff-{from}-to-{to}-{slug}.md` with proper frontmatter.
 2. Include tags: `handoff`, source agent slug, target agent slug.
-3. Update `.btrs/changelog/{today}.md` with the handoff event.
+3. Update `btrs/changelog/{today}.md` with the handoff event.
 
 ### Step 7: Present the handoff
 

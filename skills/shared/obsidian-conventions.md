@@ -1,10 +1,10 @@
 # Obsidian Conventions
 
-All files in the `.btrs/` vault must follow these conventions to ensure compatibility with Obsidian and consistency across agents.
+All files in the `btrs/` vault must follow these conventions to ensure compatibility with Obsidian and consistency across agents.
 
 ## Frontmatter
 
-Every markdown file in `.btrs/` must begin with YAML frontmatter delimited by `---`:
+Every markdown file in `btrs/` must begin with YAML frontmatter delimited by `---`:
 
 ```yaml
 ---
@@ -55,7 +55,7 @@ Built by [[agents/api-engineer/TASK-005-auth-endpoints]]
 
 ### Rules
 
-- Paths are relative to the `.btrs/` vault root.
+- Paths are relative to the `btrs/` vault root.
 - Do not include the `.md` extension in wiki links.
 - Use the full path from vault root, not just the filename.
 - For display text, use the pipe syntax: `[[specs/SPEC-001-setup|Project Setup Spec]]`
@@ -164,7 +164,7 @@ The auth middleware is at `src/middleware/auth.ts`.
 Modified files: `src/api/routes/users.ts`, `src/lib/db.ts`.
 ```
 
-Do not use wiki links for files outside `.btrs/`. Wiki links are only for vault-internal navigation.
+Do not use wiki links for files outside `btrs/`. Wiki links are only for vault-internal navigation.
 
 For linking code to vault documentation, use the code-map:
 
@@ -226,8 +226,8 @@ Use standard markdown tables. Align columns for readability:
 
 ## Template Usage
 
-Templates are stored in the plugin at `templates/obsidian/`. When creating new vault files, agents should follow the structure defined in the appropriate template. Projects can override templates by placing files in `.btrs/templates/`.
+Templates are stored in the plugin at `templates/obsidian/`. When creating new vault files, agents should follow the structure defined in the appropriate template. Projects can override templates by placing files in `btrs/templates/`.
 
 Template resolution order:
-1. `.btrs/templates/{template-name}.md` (project override)
+1. `btrs/templates/{template-name}.md` (project override)
 2. Plugin `templates/obsidian/{template-name}.md` (default)

@@ -34,15 +34,15 @@ Every file claimed to be created or modified must exist on disk.
 All code must follow the project's established conventions.
 
 **Process:**
-- Read `.btrs/conventions/` for relevant convention files (ui.md, api.md, database.md, etc.)
-- Read `.btrs/config.json` for framework and tool settings
+- Read `btrs/conventions/` for relevant convention files (ui.md, api.md, database.md, etc.)
+- Read `btrs/config.json` for framework and tool settings
 - Check that new code matches existing patterns in the codebase
 - Verify naming conventions, file structure, import patterns
 
 **Evidence format:**
 ```markdown
 ### Pattern Compliance
-- [PASS] API route follows RESTful conventions per `.btrs/conventions/api.md`
+- [PASS] API route follows RESTful conventions per `btrs/conventions/api.md`
 - [PASS] Component uses project's naming convention (PascalCase)
 - [WARN] No convention file found for this area -- matched existing patterns in `src/api/`
 - [FAIL] Uses `axios` but project convention specifies `fetch` wrapper
@@ -182,11 +182,11 @@ During ANY task — not just scans or reviews — if you encounter tech debt, ca
 
 ### What to do when you find it:
 1. **Don't stop your current task** — note it and keep going
-2. After completing your task, write tech debt items to `.btrs/tech-debt/TD-{NNN}.md`
-3. Use the template from `.btrs/templates/tech-debt.md`
+2. After completing your task, write tech debt items to `btrs/tech-debt/TD-{NNN}.md`
+3. Use the template from `btrs/templates/tech-debt.md`
 4. Include specific fix instructions (not just "refactor this")
 5. Set `found-during: {your-current-task-type}` in the frontmatter
-6. Update `.btrs/tech-debt/_index.md` with the new item(s)
+6. Update `btrs/tech-debt/_index.md` with the new item(s)
 7. Mention captured tech debt in your agent output: "Found N tech debt items — see [[tech-debt/TD-NNN]]"
 
 ### Triage during capture:

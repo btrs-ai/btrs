@@ -14,10 +14,12 @@ Deep security and quality audit skill. Checks OWASP top 10, dependency vulnerabi
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `.btrs/conventions/` files, especially any security-related conventions.
-4. Read `.btrs/decisions/` for security-related ADRs.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+3. Read `btrs/conventions/` files, especially any security-related conventions.
+4. Read `btrs/decisions/` for security-related ADRs.
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Determine audit scope
 
@@ -116,9 +118,9 @@ Format the output with severity ratings:
 
 ### Step 7: Write output to vault
 
-1. Write the audit report to `.btrs/agents/{auditor-slug}/audit-{slug}.md` with proper frontmatter.
-2. For each critical and high finding, create a TODO in `.btrs/todos/` with priority matching severity.
-3. Update `.btrs/changelog/{today}.md` with a line item about this audit.
+1. Write the audit report to `btrs/agents/{auditor-slug}/audit-{slug}.md` with proper frontmatter.
+2. For each critical and high finding, create a TODO in `btrs/todos/` with priority matching severity.
+3. Update `btrs/changelog/{today}.md` with a line item about this audit.
 
 ## Anti-patterns
 

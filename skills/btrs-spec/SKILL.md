@@ -14,14 +14,16 @@ Spec management skill. Reads, validates, and updates feature specs. Checks compl
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for project context.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for project context.
 3. Read `skills/shared/spec-format.md` for the canonical spec template.
 4. Read `skills/shared/obsidian-conventions.md` for frontmatter and formatting rules.
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Load the spec
 
-1. If the argument is a SPEC-ID (e.g., `SPEC-003`): Glob `.btrs/specs/SPEC-003*.md` and read the file.
+1. If the argument is a SPEC-ID (e.g., `SPEC-003`): Glob `btrs/specs/SPEC-003*.md` and read the file.
 2. If the argument is a file path: read the file directly.
 3. If no argument: list all specs with their statuses and ask which one to work on.
 
@@ -52,7 +54,7 @@ Check the spec against the template from `skills/shared/spec-format.md`:
    - Agent assignments table is present
 
 3. **Link integrity**:
-   - All wiki links resolve to existing `.btrs/` files
+   - All wiki links resolve to existing `btrs/` files
    - `depends_on` and `blocks` references point to existing specs
    - Agent output links are valid if referenced
 
@@ -119,7 +121,7 @@ Report findings:
 ### Step 6: Update related files
 
 1. If TODOs reference this spec, check if their statuses need updating.
-2. Update `.btrs/changelog/{today}.md` with the spec operation performed.
+2. Update `btrs/changelog/{today}.md` with the spec operation performed.
 
 ## Anti-patterns
 

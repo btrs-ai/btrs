@@ -14,10 +14,12 @@ Deployment and release workflow skill. Runs pre-deploy checks, generates changel
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `.btrs/conventions/` for any deployment-related conventions.
-4. Read `.btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+3. Read `btrs/conventions/` for any deployment-related conventions.
+4. Read `btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Determine deployment target
 
@@ -36,8 +38,8 @@ Run these checks before any deployment action. All must pass for production depl
 3. **Tests**: Check that the test suite passes (`npm test` or equivalent).
 4. **Build**: Check that the project builds successfully (`npm run build` or equivalent).
 5. **Convention compliance**: Run a quick `/btrs-verify` pass on recently changed files.
-6. **Open critical TODOs**: Check `.btrs/todos/` for any critical-priority items that are incomplete.
-7. **Spec completion**: Check `.btrs/specs/` for any in-progress specs that should be completed first.
+6. **Open critical TODOs**: Check `btrs/todos/` for any critical-priority items that are incomplete.
+7. **Spec completion**: Check `btrs/specs/` for any in-progress specs that should be completed first.
 
 Report the pre-deploy checklist:
 
@@ -56,7 +58,7 @@ If any FAIL, stop and report. Do not proceed.
 
 ### Step 3: Generate changelog
 
-1. Read `.btrs/changelog/` files since the last release tag.
+1. Read `btrs/changelog/` files since the last release tag.
 2. Read git log since the last release tag.
 3. Categorize changes:
    - **Features**: New functionality
@@ -104,9 +106,9 @@ Wait for explicit user approval.
 
 ### Step 8: Write output to vault
 
-1. Write the release notes to `.btrs/changelog/{version}.md` with proper frontmatter.
-2. Write deployment record to `.btrs/agents/{deployer-slug}/deploy-{version}.md`.
-3. Update `.btrs/changelog/{today}.md` with the deployment event.
+1. Write the release notes to `btrs/changelog/{version}.md` with proper frontmatter.
+2. Write deployment record to `btrs/agents/{deployer-slug}/deploy-{version}.md`.
+3. Update `btrs/changelog/{today}.md` with the deployment event.
 
 ## Anti-patterns
 

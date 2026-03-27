@@ -14,10 +14,12 @@ Data and business analysis skill. Analyzes metrics, generates reports, builds da
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for project context.
-3. Read `.btrs/agents/data-analyst/` for prior analysis outputs.
-4. Read `.btrs/agents/product/` for product context if doing business analysis.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for project context.
+3. Read `btrs/agents/data-analyst/` for prior analysis outputs.
+4. Read `btrs/agents/product/` for product context if doing business analysis.
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Define the analysis
 
@@ -30,7 +32,7 @@ Data and business analysis skill. Analyzes metrics, generates reports, builds da
    - **Custom**: User-defined analysis
 3. Identify data sources:
    - Source code and git history
-   - `.btrs/` vault files (specs, todos, changelog)
+   - `btrs/` vault files (specs, todos, changelog)
    - External data files (CSV, JSON, database exports)
    - API responses
 
@@ -40,7 +42,7 @@ Data and business analysis skill. Analyzes metrics, generates reports, builds da
    - `git log --shortstat` for commit history
    - `wc -l` for line counts
    - Glob for file counts by type
-2. For project metrics: read `.btrs/` files.
+2. For project metrics: read `btrs/` files.
    - Count specs by status
    - Count TODOs by status and age
    - Read changelog for activity patterns
@@ -49,7 +51,7 @@ Data and business analysis skill. Analyzes metrics, generates reports, builds da
 ### Step 3: Process and compute
 
 1. Calculate the relevant metrics.
-2. Compute trends where historical data is available (compare against prior reports in `.btrs/agents/data-analyst/`).
+2. Compute trends where historical data is available (compare against prior reports in `btrs/agents/data-analyst/`).
 3. Identify outliers, anomalies, or notable patterns.
 4. Compute summary statistics (totals, averages, medians, percentiles as appropriate).
 
@@ -102,10 +104,10 @@ Data and business analysis skill. Analyzes metrics, generates reports, builds da
 
 ### Step 6: Write output to vault
 
-1. Write the report to `.btrs/agents/data-analyst/analysis-{slug}.md` with proper frontmatter.
+1. Write the report to `btrs/agents/data-analyst/analysis-{slug}.md` with proper frontmatter.
 2. Include tags for the analysis type and domain.
 3. Use wiki links to reference related specs, TODOs, or decisions.
-4. Update `.btrs/changelog/{today}.md` with a line item about this analysis.
+4. Update `btrs/changelog/{today}.md` with a line item about this analysis.
 
 ## Anti-patterns
 

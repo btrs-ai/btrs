@@ -14,18 +14,20 @@ Technology evaluation and comparison skill. Researches options, creates comparis
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `.btrs/decisions/` for existing ADRs that may constrain or inform the research.
-4. Read `.btrs/conventions/` for any rules about technology choices.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+3. Read `btrs/decisions/` for existing ADRs that may constrain or inform the research.
+4. Read `btrs/conventions/` for any rules about technology choices.
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Define the research question
 
 1. Parse the argument to identify the research topic.
 2. Formulate a clear research question (e.g., "Which state management library best fits our React + TypeScript stack?").
 3. Identify evaluation criteria based on:
-   - Project constraints from `.btrs/config.json`
-   - Existing technology decisions from `.btrs/decisions/`
+   - Project constraints from `btrs/config.json`
+   - Existing technology decisions from `btrs/decisions/`
    - Stated user requirements
 4. List 3-5 weighted evaluation criteria. Default weights if none specified:
    - Project fit (30%) -- compatibility with existing stack
@@ -103,8 +105,8 @@ Format the output as:
 
 ### Step 6: Write ADR
 
-1. Scan `.btrs/decisions/ADR-*.md` to find the next available ADR number.
-2. Write the ADR to `.btrs/decisions/ADR-NNN-{slug}.md` with:
+1. Scan `btrs/decisions/ADR-*.md` to find the next available ADR number.
+2. Write the ADR to `btrs/decisions/ADR-NNN-{slug}.md` with:
    - Frontmatter (id, title, status: `proposed`, created, updated, tags)
    - Context section (why the decision is needed)
    - Options considered (summary of each candidate)
@@ -114,8 +116,8 @@ Format the output as:
 
 ### Step 7: Write output to vault
 
-1. Write the full research report to `.btrs/agents/research/research-{slug}.md` with proper frontmatter.
-2. Update `.btrs/changelog/{today}.md` with a line item about this research.
+1. Write the full research report to `btrs/agents/research/research-{slug}.md` with proper frontmatter.
+2. Update `btrs/changelog/{today}.md` with a line item about this research.
 3. Present the recommendation and ADR to the user.
 
 ## Anti-patterns

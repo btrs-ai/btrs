@@ -14,10 +14,12 @@ Multi-solution exploration skill. Generates three approaches (minimal, conventio
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `.btrs/` paths and project structure.
-2. Read `.btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `.btrs/conventions/` files relevant to the problem domain (ui.md, api.md, database.md, etc.).
-4. Read `.btrs/decisions/` for prior ADRs that constrain the solution space.
+1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+3. Read `btrs/conventions/` files relevant to the problem domain (ui.md, api.md, database.md, etc.).
+4. Read `btrs/decisions/` for prior ADRs that constrain the solution space.
+5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
+6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Clarify the problem
 
@@ -59,7 +61,7 @@ Score each approach (1-5) against these criteria:
 
 | Criterion | Weight | Description |
 |-----------|--------|-------------|
-| Convention compliance | 30% | Follows `.btrs/conventions/` and existing codebase patterns |
+| Convention compliance | 30% | Follows `btrs/conventions/` and existing codebase patterns |
 | Reuse | 25% | Leverages existing components, utilities, and infrastructure |
 | Simplicity | 20% | Easy to understand, review, and debug |
 | Maintainability | 15% | Easy to modify, extend, and test over time |
@@ -109,9 +111,9 @@ Format the output as:
 
 ### Step 5: Write output to vault
 
-1. Write the proposal to `.btrs/agents/{requesting-agent-or-boss}/proposal-{slug}.md` with proper frontmatter.
+1. Write the proposal to `btrs/agents/{requesting-agent-or-boss}/proposal-{slug}.md` with proper frontmatter.
 2. Include wiki links to any referenced conventions, ADRs, or specs.
-3. Update `.btrs/changelog/{today}.md` with a line item about this proposal.
+3. Update `btrs/changelog/{today}.md` with a line item about this proposal.
 
 ## Anti-patterns
 
