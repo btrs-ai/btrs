@@ -1,10 +1,12 @@
 ---
 name: btrs-spec
-description: Read, validate, and update feature specs. Check completeness, verify spec-code alignment, update after changes. Use when working with specs.
+description: "[Deprecated] Read, validate, and update feature specs. Check completeness, verify spec-code alignment, update after changes. Use when working with specs."
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Grep, Glob
 argument-hint: <spec-id or path>
 ---
+
+> **DEPRECATED:** This skill is superseded by `btrs-brainstorm` for new specs. Use `btrs-brainstorm` for creating new feature specifications. This skill is retained for standalone spec CRUD operations (reading, updating status, listing specs).
 
 # /btrs-spec
 
