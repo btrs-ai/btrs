@@ -502,6 +502,54 @@ Create code-map entries as appropriate for the project. Common entries:
 - `btrs/code-map/infrastructure.md` -- if `infra/`, Docker, or CI files exist
 - `btrs/code-map/shared.md` -- if `lib/`, `utils/`, or `types/` exist
 
+#### Constants and enums
+
+1. Glob for files in `constants/`, `config/`, `lib/` directories.
+2. Grep for `export const`, `export enum`, `export default {` patterns in non-component, non-test files.
+3. For each found: extract the constant name, type, and file path.
+4. Write to `btrs/knowledge/code-map/constants.md`:
+
+```markdown
+---
+title: Constants & Enums Registry
+updated: YYYY-MM-DD
+---
+
+# Constants & Enums
+
+| Name | Type | File | Description |
+|------|------|------|-------------|
+| `API_BASE_URL` | string | `src/config/api.ts:3` | Base URL for API requests |
+| `UserRole` | enum | `src/types/user.ts:8` | User permission roles |
+```
+
+#### API definitions
+
+1. Glob for files in `api/`, `services/`, `routes/` directories.
+2. Grep for route definitions (`router.get`, `router.post`, `app.get`, `@Get`, `@Post`, etc.) and API client methods (`export const *Api`, `export function fetch*`).
+3. For each found: extract the endpoint/method name, HTTP method, path, and file.
+4. Write to `btrs/knowledge/code-map/api.md`:
+
+```markdown
+---
+title: API Registry
+updated: YYYY-MM-DD
+---
+
+# API Endpoints
+
+| Method | Path | Handler | File |
+|--------|------|---------|------|
+| GET | `/api/users` | `getUsers` | `src/api/users.ts:12` |
+| POST | `/api/auth/login` | `login` | `src/api/auth.ts:24` |
+
+# API Client Methods
+
+| Name | Endpoint | File |
+|------|----------|------|
+| `fetchUsers` | `GET /api/users` | `src/services/userService.ts:8` |
+```
+
 ## Step 7: Generate config.json
 
 Write `btrs/config.json` with detected values:
