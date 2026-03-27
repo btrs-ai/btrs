@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BTRS Documentation</title>
-<meta name="description" content="AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: /btrs.">
+<meta name="description" content="AI agent orchestration plugin — 24 specialists, 24 skills, discipline enforcement (TDD, verification, debugging), session continuity, and auto-generated Obsidian docs. One command: /btrs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -228,7 +228,7 @@ tr:hover td{background:var(--bg-card)}
 <div class="header-left">
 <button class="hamburger" id="hamburger" aria-label="Open navigation">&#9776;</button>
 <a href="#top" class="header-logo"><span>BTRS</span> Documentation</a>
-<span class="badge badge-green" style="margin-left:4px">v1.0.0</span>
+<span class="badge badge-green" style="margin-left:4px">v2.0.0</span>
 </div>
 <div class="header-right">
 <a href="https://github.com/btrs-ai/btrs" class="gh-link" target="_blank" rel="noopener">
@@ -264,15 +264,20 @@ GitHub
 <a href="#agents-business" class="sidebar-link" data-section="agents-business">Business</a>
 </div>
 <div class="sidebar-section">
-<div class="sidebar-heading">Skills (15)</div>
+<div class="sidebar-heading">Skills (24)</div>
 <a href="#skills-core" class="sidebar-link" data-section="skills-core">Core</a>
 <a href="#skills-planning" class="sidebar-link" data-section="skills-planning">Planning</a>
 <a href="#skills-building" class="sidebar-link" data-section="skills-building">Building</a>
+<a href="#skills-discipline" class="sidebar-link" data-section="skills-discipline">Discipline</a>
+<a href="#skills-workflow" class="sidebar-link" data-section="skills-workflow">Workflow</a>
 <a href="#skills-quality" class="sidebar-link" data-section="skills-quality">Quality</a>
 <a href="#skills-knowledge" class="sidebar-link" data-section="skills-knowledge">Knowledge</a>
 </div>
 <div class="sidebar-section">
 <div class="sidebar-heading">Features</div>
+<a href="#workflow-pipeline" class="sidebar-link" data-section="workflow-pipeline">Workflow Pipeline</a>
+<a href="#discipline" class="sidebar-link" data-section="discipline">Discipline (Iron Laws)</a>
+<a href="#session-continuity" class="sidebar-link" data-section="session-continuity">Session Continuity</a>
 <a href="#convention-system" class="sidebar-link" data-section="convention-system">Convention System</a>
 <a href="#self-verification" class="sidebar-link" data-section="self-verification">Self-Verification</a>
 <a href="#multi-solution" class="sidebar-link" data-section="multi-solution">Multi-Solution Exploration</a>
@@ -298,8 +303,8 @@ GitHub
 <div class="hero">
 <div class="hero-badge">Open Source &middot; MIT License</div>
 <h1><span>BTRS</span> Documentation</h1>
-<p class="tagline">24 specialist AI agents. 1 command.</p>
-<p class="desc">AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: /btrs.</p>
+<p class="tagline">24 specialist AI agents. 24 skills. Discipline enforced.</p>
+<p class="desc">AI agent orchestration with discipline enforcement (TDD, verification, debugging), session continuity, and the Superpowers merge. /btrs picks up where you left off and enforces the Iron Laws on every task.</p>
 <a href="#quick-start" class="hero-btn">Get Started &rarr;</a>
 </div>
 
@@ -395,7 +400,7 @@ GitHub
 <pre>git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
 ~/.claude/btrs/install.sh</pre>
 </div>
-<p>Symlinks all 16 skills and 24 agents into <code>~/.claude/</code>. Run <code>install.sh</code> again to update.</p>
+<p>Symlinks all 24 skills and 24 agents into <code>~/.claude/</code>. Run <code>install.sh</code> again to update.</p>
 <div class="callout info">
 <span class="callout-icon">&#8505;&#65039;</span>
 <div class="callout-body"><strong>Note</strong><p>After install, <code>/btrs</code> is available globally in every project you open with Claude Code.</p></div>
@@ -766,14 +771,15 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="skills-core"></span>
 <h2 class="section-title">Skills &mdash; Core</h2>
-<span class="badge badge-green">2 Skills</span>
+<span class="badge badge-green">3 Skills</span>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
 <tbody>
-<tr><td><code>/btrs</code></td><td>Universal router. Classifies your request and dispatches the right agent(s).</td><td>Starting any new task. This is your default entry point.</td></tr>
+<tr><td><code>/btrs</code></td><td>Universal router. Classifies your request, resumes active work, and dispatches the right agent(s).</td><td>Starting any new task or resuming a session. This is your default entry point.</td></tr>
 <tr><td><code>/btrs-init</code></td><td>Initializes BTRS in the current project. Scans conventions, creates vault.</td><td>First time using BTRS in a project (auto-runs on first <code>/btrs</code>).</td></tr>
+<tr><td><code>/btrs-dispatch</code></td><td>Routes work to specialist agents with context injection and progress tracking.</td><td>Used internally by the pipeline. Power users can invoke directly.</td></tr>
 </tbody>
 </table>
 </div>
@@ -783,12 +789,13 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="skills-planning"></span>
 <h2 class="section-title">Skills &mdash; Planning</h2>
-<span class="badge badge-blue">3 Skills</span>
+<span class="badge badge-blue">4 Skills</span>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
 <tbody>
+<tr><td><code>/btrs-brainstorm</code></td><td>Explores intent, requirements, and design before implementation. Mandatory before any creative work.</td><td>Automatically invoked before building features. Also available directly.</td></tr>
 <tr><td><code>/btrs-plan</code></td><td>Creates a detailed implementation plan with task breakdown and agent assignments.</td><td>Before starting complex, multi-step work.</td></tr>
 <tr><td><code>/btrs-propose</code></td><td>Generates a proposal with multiple solution approaches (minimal, conventional, scalable).</td><td>When you need to evaluate options before committing to an approach.</td></tr>
 <tr><td><code>/btrs-spec</code></td><td>Writes a technical specification with requirements, constraints, and acceptance criteria.</td><td>Before building a new feature or system.</td></tr>
@@ -801,14 +808,53 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="skills-building"></span>
 <h2 class="section-title">Skills &mdash; Building</h2>
-<span class="badge badge-purple">2 Skills</span>
+<span class="badge badge-purple">4 Skills</span>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
 <tbody>
+<tr><td><code>/btrs-execute</code></td><td>Executes implementation plans task-by-task with TDD enforcement and review checkpoints.</td><td>When you have a plan and are ready to build. Replaces manual agent dispatching.</td></tr>
 <tr><td><code>/btrs-implement</code></td><td>Implements a plan or spec. Dispatches engineering agents with conventions enforced.</td><td>When you have a plan and are ready to build.</td></tr>
+<tr><td><code>/btrs-worktree</code></td><td>Creates isolated git worktrees for feature work. Keeps main branch clean.</td><td>Before starting any feature branch work. Auto-invoked by the pipeline.</td></tr>
 <tr><td><code>/btrs-deploy</code></td><td>Handles deployment configuration, CI/CD setup, and release management.</td><td>When code is ready to ship.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- SKILLS: DISCIPLINE -->
+<section>
+<span class="section-anchor" id="skills-discipline"></span>
+<h2 class="section-title">Skills &mdash; Discipline</h2>
+<span class="badge badge-red">3 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs-tdd</code></td><td>Test-driven development enforcement. Red &rarr; Green &rarr; Refactor cycle on every implementation.</td><td>Automatically invoked during execution. Can also be used standalone for any coding task.</td></tr>
+<tr><td><code>/btrs-debug</code></td><td>Systematic 4-phase debugging: observe, hypothesize, test, conclude. No guessing allowed.</td><td>Any bug, test failure, or unexpected behavior.</td></tr>
+<tr><td><code>/btrs-sanity-check</code></td><td>Runs all tests, linters, and checks. Produces evidence of pass/fail status.</td><td>After implementation, before finishing. Auto-invoked by the pipeline.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- SKILLS: WORKFLOW -->
+<section>
+<span class="section-anchor" id="skills-workflow"></span>
+<h2 class="section-title">Skills &mdash; Workflow</h2>
+<span class="badge badge-yellow">4 Skills</span>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
+<tbody>
+<tr><td><code>/btrs-finish</code></td><td>Completes a development branch: merge, PR, or cleanup with structured options.</td><td>When implementation is done and all tests pass.</td></tr>
+<tr><td><code>/btrs-request-review</code></td><td>Requests code review before merging. Produces structured review request.</td><td>After completing a feature, before merge.</td></tr>
+<tr><td><code>/btrs-receive-review</code></td><td>Processes code review feedback with technical rigor. No blind agreement.</td><td>When receiving review comments. Verifies suggestions before implementing.</td></tr>
+<tr><td><code>/btrs-handoff</code></td><td>Creates a context handoff document for continuing work in a new session.</td><td>End of session. Passing work to another developer.</td></tr>
 </tbody>
 </table>
 </div>
@@ -837,7 +883,7 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="skills-knowledge"></span>
 <h2 class="section-title">Skills &mdash; Knowledge</h2>
-<span class="badge badge-orange">4 Skills</span>
+<span class="badge badge-orange">3 Skills</span>
 
 <div class="table-wrap">
 <table>
@@ -846,13 +892,104 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <tr><td><code>/btrs-research</code></td><td>Deep research on technologies, patterns, or business topics with citations.</td><td>Evaluating new tools. Making technology decisions.</td></tr>
 <tr><td><code>/btrs-analyze</code></td><td>Data analysis, metrics review, and insights generation.</td><td>Understanding user behavior. Measuring impact.</td></tr>
 <tr><td><code>/btrs-doc</code></td><td>Generates or updates documentation (API docs, guides, READMEs).</td><td>After building features. Onboarding new team members.</td></tr>
-<tr><td><code>/btrs-handoff</code></td><td>Creates a context handoff document for continuing work in a new session.</td><td>End of session. Passing work to another developer.</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
 <!-- ===== FEATURES ===== -->
+
+<!-- WORKFLOW PIPELINE -->
+<section>
+<span class="section-anchor" id="workflow-pipeline"></span>
+<h2 class="section-title">Workflow Pipeline</h2>
+<p>Every task in BTRS v2.0.0 follows a structured pipeline. No shortcuts, no skipped steps.</p>
+
+<div class="diagram">
+<div class="diagram-node">/btrs</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">Classify</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">Brainstorm</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">Plan</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">Worktree</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-center">Execute<br><span style="font-weight:400;font-size:.8rem;opacity:.7">TDD per task</span></div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">Sanity-Check</div>
+<div class="diagram-arrow">&rarr;</div>
+<div class="diagram-node">Finish</div>
+</div>
+
+<div class="steps">
+<div class="step"><div class="step-body"><h4>Classify</h4><p>BTRS analyzes your request and determines the type: feature, bugfix, question, research, or multi-domain task.</p></div></div>
+<div class="step"><div class="step-body"><h4>Brainstorm</h4><p>Explores your intent, requirements, and design constraints before touching any code. Uses <code>/btrs-brainstorm</code>.</p></div></div>
+<div class="step"><div class="step-body"><h4>Plan</h4><p>Creates a detailed implementation plan with task breakdown, agent assignments, and acceptance criteria.</p></div></div>
+<div class="step"><div class="step-body"><h4>Worktree</h4><p>Isolates work in a git worktree so your main branch stays clean. Uses <code>/btrs-worktree</code>.</p></div></div>
+<div class="step"><div class="step-body"><h4>Execute with TDD</h4><p>Each task is implemented test-first: write failing test, write minimal code to pass, refactor. Uses <code>/btrs-execute</code> and <code>/btrs-tdd</code>.</p></div></div>
+<div class="step"><div class="step-body"><h4>Sanity-Check</h4><p>Runs all tests, linters, and verification checks. Uses <code>/btrs-sanity-check</code>.</p></div></div>
+<div class="step"><div class="step-body"><h4>Finish</h4><p>Merges work, cleans up worktree, updates documentation. Uses <code>/btrs-finish</code>.</p></div></div>
+</div>
+
+<div class="callout tip">
+<span class="callout-icon">&#128161;</span>
+<div class="callout-body"><strong>Tip</strong><p>For simple questions or quick lookups, BTRS skips the full pipeline and answers directly from conventions.</p></div>
+</div>
+</section>
+
+<!-- DISCIPLINE (IRON LAWS) -->
+<section>
+<span class="section-anchor" id="discipline"></span>
+<h2 class="section-title">Discipline &mdash; The Three Iron Laws</h2>
+<p>BTRS v2.0.0 enforces three non-negotiable laws on every task. These cannot be skipped or overridden.</p>
+
+<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))">
+<div class="card" style="border-top:3px solid var(--accent)">
+<div class="card-icon">&#129514;</div>
+<h4>1. TDD or No Code</h4>
+<p>Every implementation starts with a failing test. No test, no code. Enforced by <code>/btrs-tdd</code>. Red &rarr; Green &rarr; Refactor on every task.</p>
+</div>
+<div class="card" style="border-top:3px solid var(--blue)">
+<div class="card-icon">&#9989;</div>
+<h4>2. Evidence Before Assertions</h4>
+<p>Never claim "it works" without proof. Show test output, build logs, or command results. Verification is mandatory, not optional.</p>
+</div>
+<div class="card" style="border-top:3px solid var(--purple)">
+<div class="card-icon">&#128270;</div>
+<h4>3. Systematic Debugging</h4>
+<p>No guessing. Bugs are debugged through a 4-phase process: observe, hypothesize, test, conclude. Uses <code>/btrs-debug</code>.</p>
+</div>
+</div>
+
+<div class="callout warn">
+<span class="callout-icon">&#9888;&#65039;</span>
+<div class="callout-body"><strong>Non-Negotiable</strong><p>These laws are enforced automatically. Agents cannot skip TDD, cannot claim success without evidence, and cannot guess at bug fixes. This is what makes BTRS output reliable.</p></div>
+</div>
+</section>
+
+<!-- SESSION CONTINUITY -->
+<section>
+<span class="section-anchor" id="session-continuity"></span>
+<h2 class="section-title">Session Continuity</h2>
+<p>Start a new session and <code>/btrs</code> picks up where you left off. No manual handoffs needed.</p>
+
+<div class="code-block">
+<div class="code-header"><span class="code-lang">example</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cmt"># New session — BTRS detects active work</span>
+<span class="cmd">/btrs</span>
+
+<span class="cmt"># Output:</span>
+<span class="str">Active work detected in btrs/work/:</span>
+<span class="str">  Feature: user-notifications (3/5 tasks complete)</span>
+<span class="str">  Worktree: feature/user-notifications</span>
+<span class="str">  Next task: Build push notification service</span>
+<span class="str">Resume? [Y/n]</span></pre>
+</div>
+
+<p>BTRS tracks active work in the <code>btrs/work/</code> directory. Plans, progress, and evidence are all persisted so sessions can resume seamlessly across conversations.</p>
+</section>
 
 <!-- CONVENTION SYSTEM -->
 <section>
@@ -928,26 +1065,28 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="obsidian-vault"></span>
 <h2 class="section-title">Obsidian Vault</h2>
-<p>BTRS automatically maintains a <code>.btrs/</code> directory in your project that serves as a linked knowledge base. It is plain Markdown, compatible with Obsidian for visual graph exploration.</p>
+<p>BTRS v2.0.0 uses a <code>btrs/</code> directory (no dot prefix) with a three-tier structure: knowledge, work, and evidence. It is plain Markdown, compatible with Obsidian for visual graph exploration.</p>
 
-<h3 class="sub-title">Vault Structure</h3>
+<h3 class="sub-title">Three-Tier Directory Structure</h3>
 <div class="tree">
-<span class="dir">.btrs/</span>
-<br>&nbsp;&nbsp;<span class="dir">conventions/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">naming.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Naming patterns detected</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">structure.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># File/folder structure rules</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">components.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Component registry</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">anti-patterns.md</span> &nbsp;&nbsp;<span class="cmt"># Known bad patterns to avoid</span>
-<br>&nbsp;&nbsp;<span class="dir">decisions/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ADR-001-auth.md</span> &nbsp;&nbsp;&nbsp;<span class="cmt"># Architecture Decision Records</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ADR-002-db.md</span>
-<br>&nbsp;&nbsp;<span class="dir">docs/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">api-reference.md</span> &nbsp;&nbsp;<span class="cmt"># Auto-generated API docs</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">setup-guide.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Project setup documentation</span>
-<br>&nbsp;&nbsp;<span class="dir">logs/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">2026-03-21.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Daily activity logs</span>
-<br>&nbsp;&nbsp;<span class="dir">handoffs/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">session-abc.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Context handoff documents</span>
+<span class="dir">btrs/</span>
+<br>&nbsp;&nbsp;<span class="dir">knowledge/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Persistent project knowledge</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">conventions/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">naming.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Naming patterns detected</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">structure.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># File/folder structure rules</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">components.md</span> &nbsp;&nbsp;&nbsp;<span class="cmt"># Component registry</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">decisions/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ADR-001-auth.md</span> &nbsp;<span class="cmt"># Architecture Decision Records</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">docs/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">api-reference.md</span> <span class="cmt"># Auto-generated API docs</span>
+<br>&nbsp;&nbsp;<span class="dir">work/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Active session state</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">current-plan.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Active implementation plan</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">progress.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Task completion tracking</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">handoff.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Session continuity context</span>
+<br>&nbsp;&nbsp;<span class="dir">evidence/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Verification proof</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">test-results.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Test output evidence</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">review-log.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Code review records</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">sanity-check.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Pre-merge verification</span>
 </div>
 
 <div class="callout info">
