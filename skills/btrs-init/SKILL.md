@@ -21,6 +21,37 @@ Mode: If `$ARGUMENTS` is "refresh", update existing `btrs/` files rather than cr
 3. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
 4. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
+## Step 0.5: Detect existing structures
+
+1. Check for old `.btrs/` directory (dot-prefixed). If found → run migration.
+2. Check for `AI/memory/` directory. If found → run migration.
+3. If `btrs/` exists, check for version field in `btrs/knowledge/conventions/config.json` or `btrs/config.json`. If version is older than current → run migration.
+
+### Migration Logic
+
+If old `.btrs/` exists:
+1. Announce: "Found old `.btrs/` directory. Migrating to new `btrs/` three-tier structure."
+2. Create the new `btrs/` structure (knowledge/, work/, evidence/).
+3. Move files from old locations to new:
+   - `.btrs/conventions/` → `btrs/knowledge/conventions/`
+   - `.btrs/decisions/` → `btrs/knowledge/decisions/`
+   - `.btrs/code-map/` → `btrs/knowledge/code-map/`
+   - `.btrs/tech-debt/` → `btrs/knowledge/tech-debt/`
+   - `.btrs/specs/` → `btrs/work/specs/`
+   - `.btrs/todos/` → `btrs/work/todos/`
+   - `.btrs/changelog/` → `btrs/work/changelog/`
+   - `.btrs/config.json` → `btrs/config.json`
+   - `.btrs/project-map.md` → `btrs/knowledge/code-map/project-map.md`
+   - `.btrs/.obsidian/` → `btrs/.obsidian/`
+4. Update wiki links in moved files (replace `.btrs/` with `btrs/` in link targets).
+5. Remove old `.btrs/` directory after successful migration.
+6. Report what was migrated.
+
+If `AI/memory/` exists:
+1. Announce: "Found old AI/memory/ directory. Migrating research findings."
+2. Check `AI/memory/agents/research/findings.json` — if exists, convert entries to markdown files in `btrs/knowledge/decisions/`.
+3. Report what was migrated. Do NOT delete AI/memory/ (may contain other project data).
+
 ## Step 1: Scan project structure
 
 Detect the project's technology stack by reading files and globbing for patterns. Run these checks:
@@ -116,7 +147,55 @@ Record every directory that exists. These become the agent scope map.
 
 Create the following directory structure and files. For refresh mode, read existing files first and merge/update rather than overwrite.
 
-### 2a. Obsidian config
+### 2a. Create full three-tier directory structure
+
+Ensure all directories exist before writing any files:
+
+```
+btrs/
+btrs/knowledge/
+btrs/knowledge/conventions/
+btrs/knowledge/decisions/
+btrs/knowledge/code-map/
+btrs/knowledge/tech-debt/
+btrs/work/
+btrs/work/specs/
+btrs/work/plans/
+btrs/work/todos/
+btrs/work/changelog/
+btrs/evidence/
+btrs/evidence/reviews/
+btrs/evidence/verification/
+btrs/evidence/debug/
+btrs/evidence/sessions/
+btrs/.obsidian/
+```
+
+### 2b. Create status.md
+
+Write `btrs/work/status.md`:
+
+```markdown
+---
+title: Active Work Status
+updated: YYYY-MM-DD
+---
+
+# Active Work
+
+## Current
+_No active work._
+
+## Blocked
+_Nothing blocked._
+
+## Recently Completed
+_No recent completions._
+```
+
+Replace YYYY-MM-DD with the actual current date.
+
+### 2c. Obsidian config
 
 Write `btrs/.obsidian/app.json`:
 ```json
@@ -127,7 +206,7 @@ Write `btrs/.obsidian/app.json`:
 }
 ```
 
-### 2b. Vault index
+### 2d. Vault index
 
 Write `btrs/index.md`:
 ```markdown
@@ -163,7 +242,7 @@ Welcome to the BTRS knowledge vault for **{project name}**.
 - **ORM**: {detected or "none"}
 ```
 
-### 2c. Section index files
+### 2e. Section index files
 
 Create a minimal `_index.md` in each section directory. Each follows this pattern:
 
@@ -181,7 +260,7 @@ tags:
 {One sentence describing what lives here.}
 ```
 
-Create index files for: `specs`, `todos`, `decisions`, `agents`, `code-map`, `conventions`, `changelog`, `templates`.
+Create index files for: `knowledge/conventions`, `knowledge/decisions`, `knowledge/code-map`, `knowledge/tech-debt`, `work/specs`, `work/plans`, `work/todos`, `work/changelog`, `evidence/reviews`, `evidence/verification`, `evidence/debug`, `evidence/sessions`.
 
 ## Step 3: Generate project map
 
@@ -557,6 +636,7 @@ Write `btrs/config.json` with detected values:
 ```json
 {
   "version": "2.0.0",
+  "initialized": "YYYY-MM-DD",
   "projectName": "{detected from package manifest}",
   "framework": "{detected framework}",
   "language": "{detected language}",
