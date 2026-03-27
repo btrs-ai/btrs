@@ -1,6 +1,6 @@
 # BTRS
 
-**24 specialist AI agents. 24 skills. Iron Law discipline. One command.**
+**24 specialist AI agents. One command.**
 
 BTRS is a Claude Code plugin that orchestrates specialist AI agents with behavioral discipline enforcement, persistent project knowledge, and session continuity. Every agent operates under Iron Law protocols -- test-first development, evidence-before-claims, root-cause-before-fix -- enforced automatically, not suggested optionally.
 
@@ -39,23 +39,30 @@ When you run `/btrs-init`, BTRS creates a `btrs/` directory in your project. Thi
 
 ```
 btrs/
-├── knowledge/          <- Permanent project truth
-│   ├── conventions/    <- Detected patterns and standards
-│   ├── decisions/      <- Architecture Decision Records
-│   ├── code-map/       <- Component/utility/hook/constant/type/API registry
-│   └── tech-debt/      <- Tracked debt items with fix instructions
-├── work/               <- Active work (lifecycle-managed)
-│   ├── specs/          <- Feature specifications
-│   ├── plans/          <- Implementation plans
-│   ├── todos/          <- Task breakdowns
-│   ├── changelog/      <- Change records
-│   └── status.md       <- Session continuity: what's active, blocked, completed
-├── evidence/           <- Audit trail
-│   ├── reviews/        <- Code review reports
-│   ├── verification/   <- Verification evidence
-│   ├── debug/          <- Root cause investigations
-│   └── sessions/       <- Agent activity summaries
-└── .obsidian/          <- Open in Obsidian for graph visualization
+├── config.json         ← Project configuration (framework, language, tools)
+├── knowledge/
+│   ├── conventions/
+│   ├── decisions/
+│   ├── code-map/
+│   │   ├── components.md
+│   │   ├── utilities.md
+│   │   ├── hooks.md
+│   │   ├── constants.md
+│   │   ├── types.md
+│   │   └── api.md
+│   └── tech-debt/
+├── work/
+│   ├── specs/
+│   ├── plans/
+│   ├── todos/
+│   ├── changelog/
+│   └── status.md
+├── evidence/
+│   ├── reviews/
+│   ├── verification/
+│   ├── debug/
+│   └── sessions/
+└── .obsidian/
 ```
 
 Everything is plain markdown. Works with any editor, any workflow. Open in [Obsidian](https://obsidian.md) for graph visualization of how specs, decisions, and code connect.
@@ -78,7 +85,7 @@ Additional enforcement:
 
 ---
 
-## The 24 Agents
+## Agents
 
 | Category | Agents |
 |----------|--------|
@@ -93,12 +100,12 @@ Each agent has a dedicated instruction file at `agents/btrs-{name}/AGENT.md` wit
 
 ---
 
-## The 24 Skills
+## Skills
 
 | Purpose | Skills |
 |---------|--------|
 | Entry and Orchestration | btrs, btrs-init, btrs-execute, btrs-handoff |
-| Design and Planning | btrs-brainstorm, btrs-plan, btrs-propose |
+| Design and Planning | btrs-brainstorm, btrs-plan, btrs-propose, btrs-spec (deprecated) |
 | Discipline | btrs-tdd, btrs-debug, btrs-verify, btrs-receive-review, btrs-sanity-check |
 | Workflow | btrs-worktree, btrs-finish, btrs-request-review, btrs-dispatch |
 | Quality and Ops | btrs-implement, btrs-review, btrs-audit, btrs-deploy, btrs-health, btrs-tech-debt, btrs-research, btrs-analyze, btrs-doc |
@@ -115,29 +122,26 @@ You do not need to memorize these. `/btrs` routes to the right one automatically
 
 ## Installation
 
-**Global install (recommended):**
+**From GitHub (recommended):**
 
 ```bash
-./install.sh
+# Clones to ~/.claude/btrs/ and symlinks skills + agents
+curl -fsSL https://raw.githubusercontent.com/btrs-ai/btrs/main/install.sh | bash
 ```
 
-Symlinks skills and agents into `~/.claude/` so they are available in every project.
+**From local clone:**
 
-**Per-project:**
-
-Copy the BTRS directory to your project root and reference it locally.
+```bash
+git clone git@github.com:btrs-ai/btrs.git
+cd btrs
+./install.sh
+```
 
 **Uninstall:**
 
 ```bash
 ./uninstall.sh
 ```
-
-Removes all symlinks from `~/.claude/` and optionally deletes the toolkit directory.
-
-**Update:**
-
-Run `./install.sh` again to pull the latest version and re-link.
 
 ---
 
