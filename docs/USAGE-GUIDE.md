@@ -1,6 +1,20 @@
-# BTRS Agents — Usage Guide
+# BTRS Agents v2.0.0 — Usage Guide
 
 Everything starts with `/btrs`. This guide shows real examples of what you can ask and what happens.
+
+BTRS v2.0.0 merges the Superpowers discipline system directly into the pipeline. Every task now follows a structured workflow with TDD enforcement, verification evidence, and session continuity built in.
+
+---
+
+## The Pipeline
+
+Every non-trivial task flows through this pipeline:
+
+```
+/btrs → classify → brainstorm → plan → worktree → execute (TDD per task) → sanity-check → finish
+```
+
+You do not need to invoke each step manually. `/btrs` drives the pipeline automatically. For simple questions or quick lookups, BTRS skips the full pipeline and answers directly.
 
 ---
 
@@ -21,6 +35,21 @@ You don't need to know which agent handles it. BTRS figures it out.
 
 ## Building Features
 
+### The workflow
+
+```
+/btrs add a notification system with email and push
+```
+
+What happens:
+- **Classify**: BTRS identifies this as a multi-domain feature (API + Web + possibly Mobile)
+- **Brainstorm**: Explores your intent — what triggers notifications? What channels? What templates?
+- **Plan**: Creates a detailed plan with tasks, agent assignments, and acceptance criteria
+- **Worktree**: Creates `feature/notification-system` worktree to isolate work
+- **Execute**: Each task runs through TDD — failing test first, then implementation, then refactor
+- **Sanity-check**: All tests pass, linting clean, no regressions
+- **Finish**: Presents options: merge to main, create PR, or continue iterating
+
 ### Simple feature (single agent)
 
 ```
@@ -30,8 +59,9 @@ You don't need to know which agent handles it. BTRS figures it out.
 What happens:
 - BTRS sees this is a UI task
 - Checks your conventions (existing toggle components, theme tokens)
-- Dispatches **Web Engineer** with your project's patterns injected
-- Agent builds it using your existing components, verifies it matches conventions
+- Writes a failing test for the toggle behavior
+- Implements using your existing components
+- Verifies with evidence (test output shown)
 - Code-map and changelog updated
 
 ### Complex feature (multiple agents)
@@ -42,18 +72,20 @@ What happens:
 
 What happens:
 - BTRS sees this crosses multiple domains
+- Brainstorms the design with you first
 - Shows you a plan:
   ```
   1. Architect: Design notification architecture
   2. Database Engineer: Create notifications table
   3. API Engineer: Build notification endpoints + WebSocket events
   4. Web Engineer: Build notification dropdown UI
-  5. QA: Write tests
+  5. QA: Write tests (auto-enforced via TDD on each task)
   Proceed?
   ```
 - You say "yes" (or modify the plan)
-- Agents execute in order, each following your conventions
-- Each agent verifies its work before the next one starts
+- Each task executes with TDD — test first, then code
+- Sanity-check runs after all tasks complete
+- Finish presents merge/PR options
 
 ### When there are multiple ways to do it
 
@@ -72,32 +104,93 @@ What happens:
   Recommendation: A — your dashboard updates every 30s anyway,
   and it reuses your existing API client.
   ```
-- You pick one, then it builds it
+- You pick one, then it builds it through the pipeline
 
 ---
 
-## Fixing Bugs
+## Fixing Bugs — Systematic Debugging
 
 ```
 /btrs the login form submits twice when you click the button fast
 ```
 
 What happens:
-- BTRS dispatches **Web Engineer** (UI bug)
-- Agent reads your login form code, finds the issue
-- Fixes it using your existing patterns (e.g., your existing `useDebounce` hook)
-- Verifies: no duplicate submissions, existing tests still pass
-- Updates code-map if the fix touched multiple files
+- BTRS dispatches `/btrs-debug` with the 4-phase systematic process:
+  1. **Observe**: Reads the login form code, identifies the double-submit behavior
+  2. **Hypothesize**: Forms specific hypotheses — missing debounce, event propagation, race condition
+  3. **Test**: Tests each hypothesis with evidence — adds logging, checks event handlers
+  4. **Conclude**: Identifies root cause with proof, then fixes it
+- Fix is implemented with TDD — regression test first, then the fix
+- Evidence shown: test output proving the fix works
 
 ```
 /btrs users are getting 500 errors on the /api/orders endpoint
 ```
 
 What happens:
-- BTRS dispatches **API Engineer** (backend bug)
-- Agent reads the endpoint code, error logs, schema
-- Identifies root cause, fixes it
-- Verifies: endpoint returns correct responses, error handling follows conventions
+- BTRS dispatches `/btrs-debug` for the API layer
+- Systematic 4-phase process: observe logs, hypothesize causes, test with specific inputs, conclude with evidence
+- No guessing — every hypothesis is tested before a fix is attempted
+- Regression test written first, then fix applied
+
+---
+
+## TDD Enforcement
+
+Every implementation task follows Red-Green-Refactor:
+
+```
+/btrs add rate limiting to the API
+```
+
+What happens:
+1. **Red**: Write a failing test — `expect(response.status).toBe(429)` when rate limit exceeded
+2. **Green**: Implement minimal rate limiting middleware to make the test pass
+3. **Refactor**: Clean up the implementation, extract configuration, add edge case tests
+4. **Evidence**: Test output is shown — you see the actual pass/fail results
+
+```
+# TDD evidence output example:
+PASS  src/middleware/__tests__/rate-limit.test.ts
+  ✓ returns 429 when rate limit exceeded (12ms)
+  ✓ allows requests under the limit (3ms)
+  ✓ resets after the window expires (8ms)
+  ✓ tracks limits per IP address (5ms)
+
+Tests: 4 passed, 4 total
+```
+
+This is not optional. Agents cannot skip the test-first step.
+
+---
+
+## Session Continuity
+
+### Starting a new session
+
+```
+/btrs
+```
+
+If there is active work, BTRS shows it:
+```
+Active work detected in btrs/work/:
+  Feature: user-notifications (3/5 tasks complete)
+  Worktree: feature/user-notifications
+  Next task: Build push notification service
+Resume? [Y/n]
+```
+
+Type "yes" to continue where you left off. All plan state, progress, and evidence are preserved in the `btrs/work/` directory.
+
+### Ending a session
+
+When you are done for the day:
+```
+/btrs-handoff
+```
+
+Creates a handoff document with full context so the next session (or another developer) can pick up seamlessly.
 
 ---
 
@@ -109,11 +202,10 @@ What happens:
 
 What happens:
 - BTRS dispatches **Architect** via `/btrs-plan`
-- Creates a spec at `.btrs/specs/multi-tenancy.md`
+- Creates a spec at `btrs/knowledge/specs/multi-tenancy.md`
 - Breaks it into tasks with agent assignments
-- Creates todos in `.btrs/todos/`
-- Creates an ADR at `.btrs/decisions/ADR-xxx-multi-tenancy.md`
-- You review the spec, then say "implement it" to start execution
+- Creates an ADR at `btrs/knowledge/decisions/ADR-xxx-multi-tenancy.md`
+- You review the spec, then say "implement it" to start execution through the pipeline
 
 ```
 /btrs should we use Prisma or Drizzle for our ORM?
@@ -122,7 +214,7 @@ What happens:
 What happens:
 - BTRS dispatches **Research** agent
 - Evaluates both against your project's needs
-- Creates a comparison in `.btrs/decisions/`
+- Creates a comparison in `btrs/knowledge/decisions/`
 - Recommends one with clear reasoning
 
 ---
@@ -137,7 +229,7 @@ What happens:
 - BTRS dispatches **Code Security** and **Security Ops** in parallel
 - Code Security: OWASP top 10, injection vulnerabilities, auth issues, secrets in code
 - Security Ops: dependency vulnerabilities, infrastructure config, compliance
-- Produces audit report in `.btrs/agents/code-security/`
+- Produces audit report in `btrs/evidence/`
 - Creates todos for any findings
 
 ```
@@ -160,7 +252,7 @@ What happens:
 - BTRS dispatches **QA & Test Engineering**
 - Reads your existing test patterns (jest? vitest? cypress?)
 - Writes tests matching your conventions (same structure, same utilities)
-- Verifies tests actually pass
+- Verifies tests actually pass — shows evidence
 
 ```
 /btrs our test coverage is low on the API layer — fix that
@@ -170,6 +262,7 @@ What happens:
 - BTRS dispatches **QA** scoped to your API files
 - Identifies uncovered endpoints and edge cases
 - Writes tests following your existing test patterns
+- Shows coverage before and after
 
 ---
 
@@ -183,7 +276,7 @@ What happens:
 - BTRS dispatches **CI/CD Ops** (or **DevOps** for full workflow)
 - Detects your stack, creates GitHub Actions (or equivalent)
 - Includes build, test, lint, deploy stages
-- Creates infrastructure docs in `.btrs/code-map/infrastructure.md`
+- Creates infrastructure docs in `btrs/knowledge/docs/infrastructure.md`
 
 ```
 /btrs deploy to production
@@ -216,7 +309,7 @@ What happens:
 - BTRS dispatches **Database Engineer**
 - Reads your existing schema (Prisma, Drizzle, raw SQL)
 - Creates migration following your naming conventions
-- Updates `.btrs/code-map/database-layer.md`
+- Updates `btrs/knowledge/docs/database-layer.md`
 
 ```
 /btrs the orders query is slow — optimize it
@@ -225,7 +318,7 @@ What happens:
 What happens:
 - BTRS dispatches **Database Engineer**
 - Analyzes the query, suggests indexes or query restructuring
-- Implements the fix, verifies improvement
+- Implements the fix, verifies improvement with evidence
 
 ---
 
@@ -239,7 +332,7 @@ What happens:
 - BTRS dispatches **Documentation** agent
 - Reads all API route files
 - Generates docs with endpoints, request/response examples, error codes
-- Updates `.btrs/code-map/api-layer.md`
+- Updates `btrs/knowledge/docs/api-layer.md`
 
 ```
 /btrs our docs are out of date — refresh everything
@@ -248,7 +341,7 @@ What happens:
 What happens:
 - BTRS triggers `/btrs-doc`
 - Re-scans codebase, updates component registry, code-map
-- Flags any wiki links that point to files that no longer exist
+- Flags any links that point to files that no longer exist
 
 ---
 
@@ -262,7 +355,7 @@ What happens:
 - BTRS triggers `/btrs-tech-debt` — shows your current backlog prioritized
 - Critical items listed first with specific fix instructions
 - You pick an item (or it picks the highest priority one)
-- Agent fixes it following the detailed "How to Fix" steps in the item
+- Agent fixes it following TDD and the detailed "How to Fix" steps in the item
 - Item marked resolved with evidence
 
 ```
@@ -272,34 +365,12 @@ What happens:
 What happens:
 - Deep scan across the codebase for tech debt
 - Checks: code quality, dependencies, pattern violations, architecture issues, testing gaps
-- Each finding becomes a detailed item in `.btrs/tech-debt/` with:
+- Each finding becomes a detailed item in `btrs/knowledge/tech-debt/` with:
   - What's wrong (specific file and line)
   - Why it matters (impact)
   - How to fix it (step-by-step instructions)
   - Priority and effort estimate
 - Items are triaged: critical (fix now) → high → medium → low
-
-```
-/btrs-tech-debt add the email service still uses callbacks instead of async/await
-```
-
-What happens:
-- Creates a tech debt item with full fix details
-- Scans the affected files to understand the scope
-- Writes specific migration steps (callback → async/await)
-- Adds to backlog with priority rating
-
-```
-/btrs-tech-debt fix TD-003
-```
-
-What happens:
-- Reads the item's "How to Fix" instructions
-- Follows each step, verifies the fix
-- Marks the item resolved with evidence
-- Updates changelog
-
-**Proactive capture**: Agents also find tech debt during normal work. If the API engineer notices a missing index while building an endpoint, it captures a tech debt item automatically — you don't have to ask.
 
 ---
 
@@ -321,7 +392,7 @@ What happens:
 What happens:
 - BTRS dispatches **Data Analyst**
 - Analyzes available data, creates insights
-- Produces report in `.btrs/agents/data-analyst/`
+- Produces report with evidence
 
 ```
 /btrs write a marketing plan for our launch
@@ -349,8 +420,9 @@ What happens:
 ```
 
 What happens:
-- BTRS reads `.btrs/` vault state
-- Reports: open specs, in-progress todos, recent changes, any health issues
+- BTRS reads `btrs/` vault state
+- Reports: open specs, in-progress todos, active work, any health issues
+- Shows session continuity status — is there active work to resume?
 
 ```
 /btrs what should we work on next?
@@ -375,7 +447,7 @@ You only type `/btrs` once. After that, just keep talking:
 yes but add an avatar upload too
 
 > Updated plan — adding avatar upload using your existing
-> FileUpload component. Proceeding...
+> FileUpload component. Proceeding with TDD...
 
 actually make the avatar circular with a border
 
@@ -384,7 +456,8 @@ actually make the avatar circular with a border
 
 looks good. now write tests for it
 
-> Dispatching QA agent scoped to the profile page...
+> Tests already written (TDD enforced). Here are the results:
+> PASS  4/4 tests passing. See btrs/evidence/ for full output.
 ```
 
 No need to re-type `/btrs` for follow-ups in the same conversation.
@@ -397,8 +470,18 @@ If you already know exactly what you want, skip the router:
 
 | You want... | Type... |
 |-------------|---------|
+| Brainstorm a feature | `/btrs-brainstorm notification system` |
 | Plan a feature | `/btrs-plan user notifications` |
+| Execute a plan | `/btrs-execute` |
+| Create a worktree | `/btrs-worktree feature/my-feature` |
 | Implement from a spec | `/btrs-implement specs/auth-system` |
+| Run TDD on a task | `/btrs-tdd rate limiting middleware` |
+| Debug a failure | `/btrs-debug test suite fails on CI` |
+| Sanity-check before merge | `/btrs-sanity-check` |
+| Finish a branch | `/btrs-finish` |
+| Request code review | `/btrs-request-review` |
+| Receive review feedback | `/btrs-receive-review` |
+| Dispatch an agent | `/btrs-dispatch web-engineer` |
 | Review recent changes | `/btrs-review` |
 | Security audit | `/btrs-audit` |
 | Check conventions | `/btrs-verify src/components/` |
@@ -409,8 +492,34 @@ If you already know exactly what you want, skip the router:
 | Scan for tech debt | `/btrs-tech-debt scan` |
 | Fix top priority debt | `/btrs-tech-debt fix` |
 | Add tech debt item | `/btrs-tech-debt add missing rate limiting` |
+| Create a handoff | `/btrs-handoff` |
 
 These all do the same thing `/btrs` would do — they just skip the classification step.
+
+---
+
+## The btrs/ Directory (Three-Tier Structure)
+
+```
+btrs/
+  knowledge/              # Persistent project knowledge
+    conventions/           # Auto-detected project patterns
+    decisions/             # ADRs and design decisions
+    docs/                  # Auto-generated documentation
+    tech-debt/             # Tech debt backlog items
+  work/                   # Active session state
+    current-plan.md        # Active implementation plan
+    progress.md            # Task completion tracking
+    handoff.md             # Session continuity context
+  evidence/               # Verification proof
+    test-results.md        # Test output evidence
+    review-log.md          # Code review records
+    sanity-check.md        # Pre-merge verification
+```
+
+- **knowledge/** persists across sessions. Conventions, decisions, and documentation accumulate here.
+- **work/** tracks the current task. This is how session continuity works — `/btrs` reads this on startup.
+- **evidence/** stores proof of verification. Every claim of "it works" has evidence here.
 
 ---
 
@@ -435,14 +544,16 @@ Build CRUD endpoints for the products resource
 2. Paste it into your AI tool's system prompt or context
 3. Ask your question — the AI will respond as that specialist
 
-The agent instructions work with any AI. The skills and auto-routing are Claude Code features.
+The agent instructions work with any AI. The skills, pipeline, and auto-routing are Claude Code features.
 
 ---
 
 ## Tips
 
 - **Start broad, get specific.** "/btrs build auth" works better than trying to pick the right agent yourself.
-- **Trust the conventions.** If BTRS uses your existing Button component instead of creating a new one, that's by design.
-- **Check the vault.** Open `.btrs/` in Obsidian after a big feature — the graph view shows how everything connects.
+- **Trust the pipeline.** TDD, verification, and sanity-checks are automatic. You do not need to ask for them.
+- **Check the evidence.** Open `btrs/evidence/` after any task to see actual test output and verification proof.
+- **Session continuity is automatic.** Just type `/btrs` in a new session — it shows active work if any exists.
 - **Run /btrs-health periodically.** It catches drift before it becomes a problem.
-- **Specs are your source of truth.** If you want something built a specific way, put it in a spec first with `/btrs-plan`.
+- **Plans are your source of truth.** If you want something built a specific way, shape it during the brainstorm phase.
+- **Debugging is systematic.** Do not guess — `/btrs-debug` follows the 4-phase process every time.
