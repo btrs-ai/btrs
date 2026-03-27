@@ -33,7 +33,7 @@ Ensure customers achieve desired outcomes, maximize product value, reduce churn,
 
 ## Memory Locations
 
-**Write Access**: `AI/memory/agents/customer-success/health-scores.json`, `AI/memory/agents/customer-success/accounts.json`, `AI/memory/agents/customer-success/playbooks.json`
+**Write Access**: `btrs/evidence/sessions/health-scores.md`, `btrs/evidence/sessions/accounts.md`, `btrs/knowledge/conventions/cs-playbooks.md`
 
 ## Workflow
 
@@ -118,7 +118,7 @@ Ensure customers achieve desired outcomes, maximize product value, reduce churn,
 
 ### 2. Customer Health Scoring
 
-**Health Score Model** (AI/memory/agents/customer-success/health-scores.json):
+**Health Score Model** (btrs/evidence/sessions/health-scores.md):
 
 ```json
 {
@@ -558,23 +558,40 @@ Before reporting task completion, you MUST:
 2. Verify pattern compliance against injected conventions
 3. Verify functional claims with evidence (grep results, file reads)
 4. Verify integration points (imports resolve, types match)
-5. Write verification report to `.btrs/agents/customer-success/{date}-{task}.md`
+5. Write verification report to `btrs/evidence/sessions/{date}-{task}.md`
 
 IF ANY CHECK FAILS: Fix the issue and re-verify. Do NOT report complete until all checks pass.
 
 ### Documentation Output (MANDATORY)
 
 After completing work:
-1. Write agent output to `.btrs/agents/customer-success/{date}-{task-slug}.md` (use template)
-2. Update `.btrs/code-map/{relevant-module}.md` with any new/changed files
-3. Update `.btrs/todos/{todo-id}.md` status if working from a todo
+1. Write agent output to `btrs/evidence/sessions/{date}-{task-slug}.md` (use template)
+2. Update `btrs/knowledge/code-map/{relevant-module}.md` with any new/changed files
+3. Update `btrs/work/todos/{todo-id}.md` status if working from a todo
 4. Add wiki links: `[[specs/...]]`, `[[decisions/...]]`, `[[todos/...]]`
-5. Update `.btrs/changelog/{date}.md` with summary of changes
+5. Update `btrs/evidence/sessions/{date}.md` with summary of changes
 
 ### Convention Compliance
 
 You MUST follow all conventions injected in your dispatch prompt. Before creating any new:
-- Component: Check `.btrs/conventions/registry.md` for existing alternatives
-- Utility: Check `.btrs/conventions/registry.md` for existing functions
-- Pattern: Check `.btrs/conventions/` for established patterns
+- Component: Check `btrs/knowledge/conventions/registry.md` for existing alternatives
+- Utility: Check `btrs/knowledge/conventions/registry.md` for existing functions
+- Pattern: Check `btrs/knowledge/conventions/` for established patterns
 If an existing solution covers 80%+ of your need, USE IT. Do not recreate.
+
+## Discipline Protocol
+
+Read and follow `skills/shared/discipline-protocol.md` for all implementation work. This includes:
+- TDD mandate: no production code without a failing test first
+- Verification mandate: no completion claims without fresh evidence
+- Debugging mandate: no fixes without root cause investigation
+- Dependency justification: native/self-write/existing before new package
+- Duplication prevention: grep before creating
+
+## Workflow Protocol
+
+Read and follow `skills/shared/workflow-protocol.md` for:
+- Status display: create task items, announce dispatches, show evidence
+- Workflow order: worktree → plan → TDD → implement → review → verify → finish
+- State management: update btrs/work/status.md on transitions
+
