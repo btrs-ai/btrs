@@ -4,13 +4,13 @@ Skills and agents read this file first to determine where to write outputs and h
 
 ## Project Vault
 
-BTRS stores all project knowledge in `.btrs/` at the project root. This directory is an Obsidian vault that can be opened directly in Obsidian for browsing, search, and graph visualization.
+BTRS stores all project knowledge in `btrs/` at the project root. This directory is an Obsidian vault that can be opened directly in Obsidian for browsing, search, and graph visualization.
 
-The `.btrs/` directory is always relative to the project root (where `.git/` lives).
+The `btrs/` directory is always relative to the project root (where `.git/` lives).
 
 ## Config File
 
-If `.btrs/config.json` exists, read it for project-specific settings:
+If `btrs/config.json` exists, read it for project-specific settings:
 
 ```json
 {
@@ -52,48 +52,39 @@ If no config exists, `/btrs-init` will create one by scanning the project.
 
 All paths are relative to the project root.
 
-### Core Structure
+### Directory Structure
 
 ```
-.btrs/
+btrs/
   config.json              # Project configuration
   index.md                 # Vault home page with navigation
-  project-map.md           # High-level architecture overview
-```
 
-### Knowledge Areas
-
-```
-.btrs/
-  specs/                   # Feature specifications
-    SPEC-001-auth.md
-    SPEC-002-dashboard.md
-  todos/                   # Work items and tasks
-    TODO-001.md
-    TODO-002.md
-  decisions/               # Architecture Decision Records
-    ADR-001-database.md
-    ADR-002-auth-strategy.md
-  conventions/             # Project conventions
-    ui.md
-    api.md
-    database.md
-    testing.md
-  code-map/                # Module documentation
-    api/
-      auth.md
-      users.md
-    web/
+  knowledge/               # Long-lived project truth
+    conventions/           # Detected patterns, coding standards
+    decisions/             # Architecture Decision Records
+    code-map/              # Component/utility/hook/constant/type/API registry
       components.md
-      pages.md
-  changelog/               # Daily change logs
-    2026-03-21.md
-  agents/                  # Agent work outputs
-    architect/
-    api-engineer/
-    web-engineer/
-    ...
-  templates/               # Local template overrides (optional)
+      utilities.md
+      hooks.md
+      constants.md
+      types.md
+      api.md
+    tech-debt/             # Tracked debt items
+
+  work/                    # Active work artifacts (lifecycle-managed)
+    specs/                 # Feature specifications
+    plans/                 # Implementation plans
+    todos/                 # Work items and tasks
+    changelog/             # Release notes, change records
+    status.md              # Active work, blocked items, recent completions
+
+  evidence/                # Audit trail (append-only, prunable)
+    reviews/               # Code review reports
+    verification/          # Verification evidence logs
+    debug/                 # Root cause investigations
+    sessions/              # Agent activity summaries
+
+  .obsidian/               # Obsidian config
 ```
 
 ### ID Conventions
@@ -105,17 +96,28 @@ All paths are relative to the project root.
 
 ### Writing Rules
 
-1. **Always check config first.** Read `.btrs/config.json` before writing any output.
-2. **Use standard paths.** Do not invent new top-level directories under `.btrs/`.
-3. **Include frontmatter.** Every `.md` file in `.btrs/` must have YAML frontmatter.
-4. **Use wiki links.** Link between vault files with `[[path/to/file]]` syntax.
+1. **Always check config first.** Read `btrs/config.json` before writing any output.
+2. **Use standard paths.** Do not invent new top-level directories under `btrs/`.
+3. **Include frontmatter.** Every `.md` file in `btrs/` must have YAML frontmatter.
+4. **Use standard markdown links.** Use standard markdown links with relative paths for source code references (works in both GitHub and Obsidian).
 5. **Increment IDs.** When creating a new spec/todo/ADR, scan existing files to find the next available ID.
 6. **Never overwrite without reading.** Always read an existing file before modifying it.
 
 ### Agent Output Paths
 
-Each agent writes its work output to `.btrs/agents/{agent-name}/`. The agent name matches the slug from the agent registry (e.g., `architect`, `api-engineer`, `web-engineer`).
+Agents write to the artifact tier that matches what they produce, not to a personal folder:
 
-Agent output files should use the format: `{TASK-ID}-{brief-description}.md`
-
-Example: `.btrs/agents/architect/TASK-001-auth-architecture.md`
+| Output Type | Path | Example Agents |
+|-------------|------|----------------|
+| Architecture decisions | `btrs/knowledge/decisions/` | architect, research |
+| Conventions & patterns | `btrs/knowledge/conventions/` | architect, container-ops |
+| Code registry updates | `btrs/knowledge/code-map/` | web-engineer, api-engineer |
+| Tech debt items | `btrs/knowledge/tech-debt/` | any agent during verification |
+| Feature specs | `btrs/work/specs/` | product, architect |
+| Implementation plans | `btrs/work/plans/` | boss, architect |
+| Task breakdowns | `btrs/work/todos/` | boss |
+| Changelog entries | `btrs/work/changelog/` | any agent after implementation |
+| Code reviews | `btrs/evidence/reviews/` | qa-test-engineering, code-security |
+| Verification reports | `btrs/evidence/verification/` | any agent during self-verification |
+| Debug investigations | `btrs/evidence/debug/` | any agent during debugging |
+| Session summaries | `btrs/evidence/sessions/` | any agent |
