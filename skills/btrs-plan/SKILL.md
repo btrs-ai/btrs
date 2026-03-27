@@ -55,6 +55,44 @@ Structured spec creation skill. Reads project conventions, creates a spec from t
 4. Set status to `draft`.
 5. Use wiki links to reference related specs, ADRs, and conventions.
 
+#### Task Format (TDD-Compatible)
+
+Each task in the spec's agent assignments must follow TDD granularity. Break work into steps of 2-5 minutes each:
+
+1. Write the failing test
+2. Run to verify it fails for the right reason
+3. Write minimal code to make it pass
+4. Run tests to verify they pass
+5. Refactor if needed (while staying green)
+6. Commit
+
+Example task breakdown:
+```
+### Task: Add user validation to signup form
+
+- [ ] Write failing test: test that empty email shows validation error
+- [ ] Run test → verify FAIL (component doesn't validate yet)
+- [ ] Implement email validation in SignupForm
+- [ ] Run test → verify PASS
+- [ ] Write failing test: test that invalid email format shows error
+- [ ] Run test → verify FAIL
+- [ ] Add format validation to email field
+- [ ] Run test → verify PASS
+- [ ] Refactor: extract validation logic to shared utility
+- [ ] Run tests → verify all PASS
+- [ ] Commit: "feat: add email validation to signup form"
+```
+
+#### No Placeholders
+
+Every task must contain actionable content. These are plan failures — never write them:
+- "TBD", "TODO", "implement later", "fill in details"
+- "Add appropriate error handling" (specify WHAT error handling)
+- "Add validation" (specify WHICH validations)
+- "Write tests for the above" (write the actual test descriptions)
+- "Similar to Task N" (repeat the content — tasks may be read independently)
+- Steps that describe what to do without specifying how
+
 ### Step 6: Create todo items
 
 1. For each agent assignment in the spec, create a corresponding TODO file in `btrs/todos/`.
@@ -70,12 +108,19 @@ Structured spec creation skill. Reads project conventions, creates a spec from t
 1. Append to `btrs/changelog/{today}.md` (create if it does not exist).
 2. Add a line item: `- Created [[specs/SPEC-NNN-{slug}]] with N tasks assigned to N agents`.
 
-### Step 8: Present the plan
+### Step 8: Present plan and execution handoff
 
-1. Show the user the complete spec.
-2. List all created TODOs with their agent assignments.
-3. Show the recommended execution order.
-4. Ask for approval to change status from `draft` to `in-progress`.
+1. Present the complete plan to the user.
+2. Ask for approval to change spec status from `draft` to `in-progress`.
+3. After approval, offer execution options:
+
+> "Plan approved. Two execution options:
+>
+> **1. Subagent-Driven (recommended)** — Fresh subagent per task with automatic spec compliance and code quality review between tasks. Invoke `btrs-execute`.
+>
+> **2. Direct Implementation** — Execute tasks sequentially in this session. Each task follows TDD discipline.
+>
+> Which approach?"
 
 ## Anti-patterns
 
@@ -86,3 +131,6 @@ Structured spec creation skill. Reads project conventions, creates a spec from t
 - **Do not create TODOs without linking back to the parent spec.** Orphaned TODOs lose context.
 - **Do not plan implementation details for other agents.** Describe what needs to be done, not how. The assigned agent decides how.
 - **Do not leave the "Out of scope" section empty.** Explicitly defining boundaries prevents scope creep.
+- **Do not write tasks without TDD steps.** Every implementation task must include the test-first cycle.
+- **Do not use placeholder language.** "Add appropriate X" is not a plan — specify exactly what X is.
+- **Do not create tasks larger than 5 minutes.** If a task takes longer, break it down further.
