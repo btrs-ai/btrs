@@ -264,7 +264,7 @@ GitHub
 <a href="#agents-business" class="sidebar-link" data-section="agents-business">Business</a>
 </div>
 <div class="sidebar-section">
-<div class="sidebar-heading">Skills (24)</div>
+<div class="sidebar-heading">Skills</div>
 <a href="#skills-core" class="sidebar-link" data-section="skills-core">Core</a>
 <a href="#skills-planning" class="sidebar-link" data-section="skills-planning">Planning</a>
 <a href="#skills-building" class="sidebar-link" data-section="skills-building">Building</a>
@@ -338,7 +338,7 @@ GitHub
 <div class="card">
 <div class="card-icon">&#128256;</div>
 <h4>Any AI Tool</h4>
-<p>Works with Claude Code, Cursor, Copilot, Windsurf, Codex, and more.</p>
+<p>Designed for Claude Code. Agent definitions work with other AI tools (Cursor, Copilot, Windsurf) but the full workflow requires Claude Code.</p>
 </div>
 </div>
 
@@ -352,9 +352,8 @@ GitHub
 
 <div class="code-block">
 <div class="code-header"><span class="code-lang">Claude Code</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="cmt"># Install as a plugin (recommended)</span>
-<span class="cmd">/plugin</span> marketplace add btrs-ai/btrs
-<span class="cmd">/plugin</span> install btrs
+<pre><span class="cmt"># Install BTRS</span>
+git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claude/btrs/install.sh
 
 <span class="cmt"># Then in any project:</span>
 <span class="cmd">/btrs</span> <span class="str">build me a user dashboard</span></pre>
@@ -386,21 +385,12 @@ GitHub
 </div>
 
 <div class="tab-panel active" id="tab-claude">
-<p><strong>Option 1: Plugin (recommended)</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">Claude Code</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>/plugin marketplace add btrs-ai/btrs
-/plugin install btrs</pre>
-</div>
-<p>Auto-updates when new versions are released.</p>
-
-<p><strong>Option 2: Manual install</strong></p>
+<p><strong>Install via script:</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
-~/.claude/btrs/install.sh</pre>
+<pre>git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claude/btrs/install.sh</pre>
 </div>
-<p>Symlinks all 24 skills and 24 agents into <code>~/.claude/</code>. Run <code>install.sh</code> again to update.</p>
+<p>Symlinks all skills and agents into <code>~/.claude/</code>. Run <code>install.sh</code> again to update.</p>
 <div class="callout info">
 <span class="callout-icon">&#8505;&#65039;</span>
 <div class="callout-body"><strong>Note</strong><p>After install, <code>/btrs</code> is available globally in every project you open with Claude Code.</p></div>
@@ -408,66 +398,19 @@ GitHub
 </div>
 
 <div class="tab-panel" id="tab-cursor">
-<p><strong>Global (available in every project):</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
-ln -sf ~/btrs/.cursorrules ~/.cursorrules</pre>
-</div>
-<p>Use <code>@~/btrs/agents/btrs-architect/AGENT.md</code> to load agents in any project.</p>
-<p><strong>Per-project (this project only):</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git .btrs-agents</pre>
-</div>
-<p>The <code>.cursorrules</code> file auto-loads. Use <code>@.btrs-agents/agents/btrs-architect/AGENT.md</code> to load agents.</p>
+<p>BTRS is designed for Claude Code. For Cursor, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-copilot">
-<p><strong>Global (available in every repo):</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
-mkdir -p ~/.github
-cp ~/btrs/.github/copilot-instructions.md ~/.github/copilot-instructions.md</pre>
-</div>
-<p><strong>Per-repo (this repo only):</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git .btrs-agents
-cp .btrs-agents/.github/copilot-instructions.md .github/copilot-instructions.md</pre>
-</div>
-<p>Copilot auto-loads <code>.github/copilot-instructions.md</code>. Reference agent files in Copilot Chat for domain expertise.</p>
+<p>BTRS is designed for Claude Code. For GitHub Copilot, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-windsurf">
-<p><strong>Global (available in every project):</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
-ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
-</div>
-<p>Use <code>@~/btrs/agents/btrs-api-engineer/AGENT.md</code> to load agents in any project.</p>
-<p><strong>Per-project (this project only):</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git .btrs-agents</pre>
-</div>
-<p>The <code>.windsurfrules</code> file auto-loads. Use <code>@.btrs-agents/agents/btrs-api-engineer/AGENT.md</code> to load agents.</p>
+<p>BTRS is designed for Claude Code. For Windsurf, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-codex">
-<p><strong>Global:</strong></p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs</pre>
-</div>
-<p><strong>Per-project:</strong> Copy <code>AGENTS.md</code> into your project root:</p>
-<div class="code-block">
-<div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>cp ~/btrs/AGENTS.md ./AGENTS.md</pre>
-</div>
-<p><code>AGENTS.md</code> is the native format for Codex. Reference agent files for domain expertise.</p>
+<p>BTRS is designed for Claude Code. For OpenAI Codex, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-web">
@@ -689,7 +632,7 @@ ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="agents-operations"></span>
 <h2 class="section-title">Agents &mdash; Operations</h2>
-<span class="badge badge-orange">4 Agents</span>
+<span class="badge badge-orange">5 Agents</span>
 
 <div class="card-grid">
 <div class="card">
@@ -715,6 +658,12 @@ ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 <h4>Monitoring Ops</h4>
 <p>Prometheus, Grafana, alerting, observability, log aggregation.</p>
 <div class="examples"><span>&#8226; <code>/btrs set up monitoring and alerts</code></span><span>&#8226; <code>/btrs add distributed tracing</code></span></div>
+</div>
+<div class="card">
+<div class="card-icon">&#128736;</div>
+<h4>DevOps</h4>
+<p>Combined DevOps workflows, deployment orchestration, platform engineering.</p>
+<div class="examples"><span>&#8226; <code>/btrs set up our DevOps workflow</code></span><span>&#8226; <code>/btrs orchestrate the deployment pipeline</code></span></div>
 </div>
 </div>
 </section>
@@ -883,7 +832,7 @@ ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="skills-knowledge"></span>
 <h2 class="section-title">Skills &mdash; Knowledge</h2>
-<span class="badge badge-orange">3 Skills</span>
+<span class="badge badge-orange">4 Skills</span>
 
 <div class="table-wrap">
 <table>
@@ -892,6 +841,7 @@ ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 <tr><td><code>/btrs-research</code></td><td>Deep research on technologies, patterns, or business topics with citations.</td><td>Evaluating new tools. Making technology decisions.</td></tr>
 <tr><td><code>/btrs-analyze</code></td><td>Data analysis, metrics review, and insights generation.</td><td>Understanding user behavior. Measuring impact.</td></tr>
 <tr><td><code>/btrs-doc</code></td><td>Generates or updates documentation (API docs, guides, READMEs).</td><td>After building features. Onboarding new team members.</td></tr>
+<tr><td><code>/btrs-tech-debt</code></td><td>Tech debt lifecycle &mdash; scan, triage, fix, report.</td><td>Sprint planning. Reducing accumulated debt. Maintenance cycles.</td></tr>
 </tbody>
 </table>
 </div>
@@ -1070,23 +1020,24 @@ ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 <h3 class="sub-title">Three-Tier Directory Structure</h3>
 <div class="tree">
 <span class="dir">btrs/</span>
+<br>&nbsp;&nbsp;<span class="file">config.json</span>
 <br>&nbsp;&nbsp;<span class="dir">knowledge/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Persistent project knowledge</span>
 <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">conventions/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">naming.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Naming patterns detected</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">structure.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># File/folder structure rules</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">components.md</span> &nbsp;&nbsp;&nbsp;<span class="cmt"># Component registry</span>
 <br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">decisions/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">ADR-001-auth.md</span> &nbsp;<span class="cmt"># Architecture Decision Records</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">docs/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">api-reference.md</span> <span class="cmt"># Auto-generated API docs</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">code-map/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">tech-debt/</span>
 <br>&nbsp;&nbsp;<span class="dir">work/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Active session state</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">current-plan.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Active implementation plan</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">progress.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Task completion tracking</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">handoff.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Session continuity context</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">specs/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">plans/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">todos/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">changelog/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">status.md</span>
 <br>&nbsp;&nbsp;<span class="dir">evidence/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Verification proof</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">test-results.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Test output evidence</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">review-log.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Code review records</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">sanity-check.md</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Pre-merge verification</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">reviews/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">verification/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">debug/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">sessions/</span>
+<br>&nbsp;&nbsp;<span class="dir">.obsidian/</span>
 </div>
 
 <div class="callout info">
@@ -1099,7 +1050,7 @@ ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 <section>
 <span class="section-anchor" id="cross-ai"></span>
 <h2 class="section-title">Cross-AI Compatibility</h2>
-<p>BTRS is designed to work across all major AI development tools. The core instructions live in <code>AGENTS.md</code>, with adapter files for each platform.</p>
+<p>BTRS is designed for Claude Code. The agent definitions in <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code> can be referenced by other AI tools, but the full skill workflow requires Claude Code.</p>
 
 <div class="diagram">
 <div class="diagram-node">.cursorrules</div>
