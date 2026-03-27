@@ -412,9 +412,9 @@ GitHub
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
-ln -sf ~/.btrs/.cursorrules ~/.cursorrules</pre>
+ln -sf ~/btrs/.cursorrules ~/.cursorrules</pre>
 </div>
-<p>Use <code>@~/.btrs/agents/btrs-architect/AGENT.md</code> to load agents in any project.</p>
+<p>Use <code>@~/btrs/agents/btrs-architect/AGENT.md</code> to load agents in any project.</p>
 <p><strong>Per-project (this project only):</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
@@ -429,7 +429,7 @@ ln -sf ~/.btrs/.cursorrules ~/.cursorrules</pre>
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
 mkdir -p ~/.github
-cp ~/.btrs/.github/copilot-instructions.md ~/.github/copilot-instructions.md</pre>
+cp ~/btrs/.github/copilot-instructions.md ~/.github/copilot-instructions.md</pre>
 </div>
 <p><strong>Per-repo (this repo only):</strong></p>
 <div class="code-block">
@@ -445,9 +445,9 @@ cp .btrs-agents/.github/copilot-instructions.md .github/copilot-instructions.md<
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
 <pre>git clone https://github.com/btrs-ai/btrs.git ~/.btrs
-ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
+ln -sf ~/btrs/.windsurfrules ~/.windsurfrules</pre>
 </div>
-<p>Use <code>@~/.btrs/agents/btrs-api-engineer/AGENT.md</code> to load agents in any project.</p>
+<p>Use <code>@~/btrs/agents/btrs-api-engineer/AGENT.md</code> to load agents in any project.</p>
 <p><strong>Per-project (this project only):</strong></p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
@@ -465,7 +465,7 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <p><strong>Per-project:</strong> Copy <code>AGENTS.md</code> into your project root:</p>
 <div class="code-block">
 <div class="code-header"><span class="code-lang">bash</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre>cp ~/.btrs/AGENTS.md ./AGENTS.md</pre>
+<pre>cp ~/btrs/AGENTS.md ./AGENTS.md</pre>
 </div>
 <p><code>AGENTS.md</code> is the native format for Codex. Reference agent files for domain expertise.</p>
 </div>
@@ -487,8 +487,8 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <p>When you use <code>/btrs</code> in a project for the first time, the system will:</p>
 <div class="steps">
 <div class="step"><div class="step-body"><h4>Scan your project</h4><p>BTRS reads your file structure, dependencies, and existing patterns to build a conventions profile.</p></div></div>
-<div class="step"><div class="step-body"><h4>Generate conventions</h4><p>A <code>.btrs/conventions/</code> folder is created with your project's detected patterns &mdash; naming, structure, style, and anti-patterns.</p></div></div>
-<div class="step"><div class="step-body"><h4>Initialize the vault</h4><p>The <code>.btrs/</code> Obsidian-compatible vault is set up for decision logs, ADRs, and documentation.</p></div></div>
+<div class="step"><div class="step-body"><h4>Generate conventions</h4><p>A <code>btrs/conventions/</code> folder is created with your project's detected patterns &mdash; naming, structure, style, and anti-patterns.</p></div></div>
+<div class="step"><div class="step-body"><h4>Initialize the vault</h4><p>The <code>btrs/</code> Obsidian-compatible vault is set up for decision logs, ADRs, and documentation.</p></div></div>
 <div class="step"><div class="step-body"><h4>Ready to work</h4><p>Every subsequent <code>/btrs</code> call in this project uses the conventions automatically. No repeated setup.</p></div></div>
 </div>
 </section>
@@ -505,7 +505,7 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 <div class="step"><div class="step-body"><h4>BTRS classifies the request</h4><p>The router analyzes your request to determine which domain(s) it belongs to &mdash; architecture, frontend, security, ops, etc.</p></div></div>
 <div class="step"><div class="step-body"><h4>Specialist agents are dispatched</h4><p>The appropriate agents are loaded with your project's conventions injected as mandatory context. Complex tasks may involve multiple agents in sequence.</p></div></div>
 <div class="step"><div class="step-body"><h4>Agents verify their own work</h4><p>Each agent runs a 5-point self-verification check before reporting completion. If anything fails, the agent self-corrects.</p></div></div>
-<div class="step"><div class="step-body"><h4>Documentation is auto-updated</h4><p>Decisions, changes, and rationale are written to the <code>.btrs/</code> Obsidian vault automatically.</p></div></div>
+<div class="step"><div class="step-body"><h4>Documentation is auto-updated</h4><p>Decisions, changes, and rationale are written to the <code>btrs/</code> Obsidian vault automatically.</p></div></div>
 </div>
 </section>
 
@@ -1154,7 +1154,7 @@ ln -sf ~/.btrs/.windsurfrules ~/.windsurfrules</pre>
 
 <div class="acc-item">
 <div class="acc-header" onclick="toggleAccordion(this)">Do I need Obsidian?<span class="acc-chevron">&#9660;</span></div>
-<div class="acc-body"><div class="acc-content">No. The <code>.btrs/</code> vault is plain Markdown files that work with any text editor. Obsidian just provides a nice visual graph view and linked note browsing. It is entirely optional.</div></div>
+<div class="acc-body"><div class="acc-content">No. The <code>btrs/</code> vault is plain Markdown files that work with any text editor. Obsidian just provides a nice visual graph view and linked note browsing. It is entirely optional.</div></div>
 </div>
 
 <div class="acc-item">
