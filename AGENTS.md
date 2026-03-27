@@ -1,12 +1,15 @@
 # BTRS Agents -- Project Instructions
 
-> This file is the universal instruction set for the BTRS multi-agent system.
-> It works with any AI coding assistant. For tool-specific features, see:
-> - Claude Code: `CLAUDE.md`
-> - Cursor: `.cursorrules`
-> - GitHub Copilot: `.github/copilot-instructions.md`
-> - Windsurf: `.windsurfrules`
-> - OpenAI Codex: `.codex-instructions.md`
+> This file is the instruction set for the BTRS multi-agent system.
+> For Claude Code-specific features, see `CLAUDE.md`.
+
+---
+
+## Platform Support
+
+BTRS is designed for **Claude Code** as the primary platform. The skills, agents, and workflow protocols are optimized for Claude Code's Agent tool, Skill tool, and TaskCreate capabilities.
+
+Other AI tools (Cursor, GitHub Copilot, Windsurf, Codex) may work with the agent definitions in `agents/` and the instruction set in this file, but the full workflow (subagent dispatch, two-stage review, session continuity) requires Claude Code.
 
 ---
 
