@@ -1,6 +1,6 @@
 {
   "name": "btrs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "AI agent orchestration plugin — 24 specialists, 24 skills, Iron Law discipline enforcement, 10-pass sanity checks, session continuity, and auto-generated Obsidian docs. One command: /btrs.",
   "skills": [
     "skills/btrs",
@@ -28,7 +28,8 @@
     "skills/btrs-execute",
     "skills/btrs-receive-review",
     "skills/btrs-request-review",
-    "skills/btrs-dispatch"
+    "skills/btrs-dispatch",
+    "skills/btrs-update"
   ],
   "agents": [
     "agents/btrs-boss",
