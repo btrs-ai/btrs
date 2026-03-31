@@ -114,9 +114,30 @@ Compare the failure to known patterns. Is this a common error type (null referen
 
 Form a specific, falsifiable hypothesis: "The failure occurs because X, and if I change Y, the failure will stop and test Z will pass." Test the hypothesis. If it fails, return to Phase 1 with the new information.
 
+#### Phase 3.5: Contributing Factor Sweep
+
+Before implementing a fix, ask: **"What else could be contributing to this problem?"**
+
+Finding *a* cause is not the same as finding *the* cause. Bugs often have multiple contributing factors — the one you found first may be a symptom, a partial cause, or a co-factor.
+
+1. **List all plausible causes** — not just the one you found. Enumerate at least 3 alternative explanations, even if they seem unlikely.
+2. **Rule each one out with evidence** — not intuition. Read the code, check the logs, trace the data. "It's probably not X" is not ruling it out.
+3. **Check for co-factors** — Could multiple things be wrong simultaneously? A fix that addresses one cause but ignores another will appear to work in testing and fail in production.
+4. **Check adjacent code** — Is the same pattern repeated nearby? If the bug exists here, does it exist in similar code elsewhere?
+5. **Only proceed to Phase 4 when** you can state: "I have investigated N possible causes. The root cause is X because [evidence]. I ruled out Y because [evidence] and Z because [evidence]."
+
+If you cannot rule out alternative causes, you are not ready to implement a fix.
+
 #### Phase 4: Implementation
 
 Only now write the fix. The fix should address the root cause identified in Phase 1, not the symptom. Apply TDD: write a test that reproduces the bug (RED), fix the bug (GREEN), clean up (REFACTOR).
+
+**Validation is not optional.** After implementing a fix:
+- Run the test that reproduces the bug — it must pass.
+- Run the full related test suite — no regressions.
+- If no automated test exists, create one.
+- State evidence explicitly: "Ran [command], output was [result], confirming [claim]."
+- Never claim "that should fix it." Prove it did, or state what you could not verify.
 
 ### The 3-Attempt Rule
 

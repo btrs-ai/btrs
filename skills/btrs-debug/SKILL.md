@@ -169,7 +169,7 @@ You MUST complete each phase before proceeding to the next.
    - Don't fix multiple things at once
 
 3. **Verify Before Continuing**
-   - Did it work? Yes → Phase 4
+   - Did it work? Yes → Phase 3.5
    - Didn't work? Form NEW hypothesis
    - DON'T add more fixes on top
 
@@ -178,6 +178,21 @@ You MUST complete each phase before proceeding to the next.
    - Don't pretend to know
    - Ask for help
    - Research more
+
+### Phase 3.5: Contributing Factor Sweep
+
+**Finding *a* cause is not the same as finding *the* cause.**
+
+Before implementing a fix, you MUST check for other contributing factors:
+
+1. **List at least 3 alternative explanations** — even if they seem unlikely. What else could cause this symptom?
+2. **Rule each one out with evidence** — not intuition. Read the code, trace the data, check the logs. "Probably not X" is not ruling it out.
+3. **Check for co-factors** — Could multiple things be wrong simultaneously? A partial fix will pass testing and fail in production.
+4. **Check adjacent code** — Is the same bug pattern repeated nearby? If it's wrong here, is it wrong in similar code elsewhere?
+5. **State your conclusion explicitly:**
+   > "Root cause: X (evidence: ...). Ruled out: Y (evidence: ...), Z (evidence: ...). No co-factors found because: ..."
+
+If you cannot rule out alternatives with evidence, you are not ready to implement a fix. Return to Phase 1.
 
 ### Phase 4: Implementation
 
@@ -196,10 +211,14 @@ You MUST complete each phase before proceeding to the next.
    - No "while I'm here" improvements
    - No bundled refactoring
 
-3. **Verify Fix**
-   - Test passes now?
-   - No other tests broken?
-   - Issue actually resolved?
+3. **Verify Fix — MANDATORY, NO SHORTCUTS**
+   - Run the failing test/reproduction — does it pass now?
+   - Run the FULL related test suite — did the fix break anything else?
+   - If no automated test exists, create one that reproduces the original bug and prove it passes
+   - Manually trace the fix through the code path to confirm it addresses the root cause, not just the symptom
+   - **State verification evidence explicitly:** "Ran [command], output was [result], confirming [claim]"
+   - **NEVER say "that should fix it" — prove it did or say you cannot verify it**
+   - If you cannot run tests (no test framework, CI-only, etc.), state exactly what you cannot verify and what the user should check
 
 4. **If Fix Doesn't Work**
    - STOP

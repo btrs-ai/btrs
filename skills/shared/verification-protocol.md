@@ -207,3 +207,5 @@ orchestrator in your output rather than silently capturing it.
 5. **Re-verify after fixes.** A fix that is not re-verified is not verified.
 6. **Include the report.** The verification report must be in the agent output file, not just mentioned.
 7. **Capture tech debt proactively.** If you see it, log it — even if it's not part of your task.
+8. **Prove fixes work.** Run the actual test, command, or reproduction that demonstrates the fix. "Should fix it" is not evidence. If you cannot run a test, state exactly what remains unverified.
+9. **Check for contributing factors.** Before closing a bug fix, confirm no other code paths contribute to the same symptom. A fix that addresses one cause while ignoring co-factors will regress.
