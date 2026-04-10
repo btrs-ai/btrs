@@ -4,11 +4,11 @@
   "description": "AI agent orchestration plugin — 12 active specialists, 6 commands, adaptive rigor, and Obsidian docs. One command: /btrs.",
   "skills": [
     "skills/btrs",
-    "skills/build",
-    "skills/fix",
-    "skills/review",
-    "skills/research",
-    "skills/dispatch"
+    "skills/btrs-build",
+    "skills/btrs-fix",
+    "skills/btrs-review",
+    "skills/btrs-research",
+    "skills/btrs-dispatch"
   ],
   "agents": [
     "agents/btrs-boss",

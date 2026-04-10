@@ -9,11 +9,11 @@ Use `/btrs` as the primary entry point. It routes to the correct skill automatic
 | Command | Purpose |
 |---------|---------|
 | `/btrs` | Router — classifies and routes any request |
-| `/build` | Feature building: brainstorm → plan → implement → verify |
-| `/fix` | Systematic debugging with root cause investigation |
-| `/review` | Code review, security audit, tech debt scan |
-| `/research` | Technology evaluation, brainstorming, analysis |
-| `/dispatch` | Direct agent dispatch (power user shortcut) |
+| `/btrs-build` | Feature building: brainstorm → plan → implement → verify |
+| `/btrs-fix` | Systematic debugging with root cause investigation |
+| `/btrs-review` | Code review, security audit, tech debt scan |
+| `/btrs-research` | Technology evaluation, brainstorming, analysis |
+| `/btrs-dispatch` | Direct agent dispatch (power user shortcut) |
 
 ## Adaptive Rigor
 
@@ -46,7 +46,7 @@ Override with "use strict mode" or "quick is fine".
 | `btrs-research` | Tech evaluation |
 | `btrs-documentation` | Technical writing |
 
-### Tier 2 — On-Demand (via `/dispatch`)
+### Tier 2 — On-Demand (via `/btrs-dispatch`)
 
 `desktop-engineer`, `security-ops`, `cloud-ops`, `cicd-ops`, `container-ops`, `monitoring-ops`, `product`, `marketing`, `sales`, `accounting`, `customer-success`, `data-analyst`
 

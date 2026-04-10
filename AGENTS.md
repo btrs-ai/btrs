@@ -37,7 +37,7 @@ Always loaded, available for immediate dispatch.
 
 ## Tier 2 — On-Demand Agents
 
-Available via `/dispatch`. Not loaded by default to save context.
+Available via `/btrs-dispatch`. Not loaded by default to save context.
 
 | Agent | Slug | Domain |
 |-------|------|--------|

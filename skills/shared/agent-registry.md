@@ -1,6 +1,6 @@
 # BTRS Agent Registry
 
-Routing table for the `/btrs` and `/dispatch` skills. Tier 1 agents are always loaded. Tier 2 agents are available on demand via `/dispatch`.
+Routing table for the `/btrs` and `/btrs-dispatch` skills. Tier 1 agents are always loaded. Tier 2 agents are available on demand via `/btrs-dispatch`.
 
 ## Quick Match Table
 
@@ -23,7 +23,7 @@ Routing table for the `/btrs` and `/dispatch` skills. Tier 1 agents are always l
 
 ### Tier 2 — On-Demand Agents
 
-Available via `/dispatch`. Not loaded by default.
+Available via `/btrs-dispatch`. Not loaded by default.
 
 | Keywords | Agent | Domain |
 |----------|-------|--------|

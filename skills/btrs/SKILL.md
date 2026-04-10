@@ -55,11 +55,11 @@ Based on `$ARGUMENTS`, classify and route:
 | Category | Signals | Route |
 |----------|---------|-------|
 | Quick answer | "What framework?", "Show conventions", "List agents" | Answer directly from btrs/ files |
-| Debug/fix | "Fix", "bug", "test failing", "error", "broken", "not working" | Read and follow `skills/fix/SKILL.md` |
-| Build/create | "Build", "create", "implement", "add", "design", "feature" | Read and follow `skills/build/SKILL.md` |
-| Review/audit | "Review", "audit", "tech debt", "scan", "quality" | Read and follow `skills/review/SKILL.md` |
-| Research/analyze | "Compare", "research", "evaluate", "brainstorm", "analyze", "explore" | Read and follow `skills/research/SKILL.md` |
-| Direct dispatch | Agent name mentioned explicitly | Read and follow `skills/dispatch/SKILL.md` |
+| Debug/fix | "Fix", "bug", "test failing", "error", "broken", "not working" | Read and follow `skills/btrs-fix/SKILL.md` |
+| Build/create | "Build", "create", "implement", "add", "design", "feature" | Read and follow `skills/btrs-build/SKILL.md` |
+| Review/audit | "Review", "audit", "tech debt", "scan", "quality" | Read and follow `skills/btrs-review/SKILL.md` |
+| Research/analyze | "Compare", "research", "evaluate", "brainstorm", "analyze", "explore" | Read and follow `skills/btrs-research/SKILL.md` |
+| Direct dispatch | Agent name mentioned explicitly | Read and follow `skills/btrs-dispatch/SKILL.md` |
 | Status/health | "Status", "health", "what's active" | Read `btrs/status.md` and report |
 | Unclear | Ambiguous or insufficient detail | Ask 1-2 clarifying questions |
 

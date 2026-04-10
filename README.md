@@ -23,11 +23,11 @@ BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptiv
 | Command | Purpose |
 |---------|---------|
 | `/btrs` | Main router — classifies and routes any request automatically |
-| `/build` | Feature building: brainstorm → plan → implement → verify → finish |
-| `/fix` | Systematic debugging with root cause investigation |
-| `/review` | Code review, security audit, or tech debt scan |
-| `/research` | Technology evaluation, brainstorming, or analysis |
-| `/dispatch` | Direct agent dispatch (power user shortcut) |
+| `/btrs-build` | Feature building: brainstorm → plan → implement → verify → finish |
+| `/btrs-fix` | Systematic debugging with root cause investigation |
+| `/btrs-review` | Code review, security audit, or tech debt scan |
+| `/btrs-research` | Technology evaluation, brainstorming, or analysis |
+| `/btrs-dispatch` | Direct agent dispatch (power user shortcut) |
 
 ---
 
@@ -63,7 +63,7 @@ BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptiv
 
 ### Tier 2 — On-Demand (12)
 
-Available via `/dispatch`. Includes: desktop-engineer, security-ops, cloud-ops, cicd-ops, container-ops, monitoring-ops, product, marketing, sales, accounting, customer-success, data-analyst.
+Available via `/btrs-dispatch`. Includes: desktop-engineer, security-ops, cloud-ops, cicd-ops, container-ops, monitoring-ops, product, marketing, sales, accounting, customer-success, data-analyst.
 
 ---
 
