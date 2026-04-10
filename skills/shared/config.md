@@ -4,7 +4,7 @@ Skills and agents read this file first to determine where to write outputs and h
 
 ## Project Vault
 
-BTRS stores all project knowledge in `btrs/` at the project root. This directory is an Obsidian vault that can be opened directly in Obsidian for browsing, search, and graph visualization.
+BTRS stores project knowledge in `btrs/` at the project root. This directory is an Obsidian vault that can be opened directly in Obsidian for browsing, search, and graph visualization.
 
 The `btrs/` directory is always relative to the project root (where `.git/` lives).
 
@@ -14,7 +14,7 @@ If `btrs/config.json` exists, read it for project-specific settings:
 
 ```json
 {
-  "version": "2.0.0",
+  "version": "3.0.0",
   "projectName": "my-project",
   "framework": "nextjs",
   "language": "typescript",
@@ -22,15 +22,11 @@ If `btrs/config.json` exists, read it for project-specific settings:
   "testFramework": "vitest",
   "packageManager": "pnpm",
   "monorepo": false,
-  "srcDir": "src",
-  "agents": {
-    "defaultModel": "claude-opus-4-6",
-    "maxParallelTasks": 3
-  }
+  "srcDir": "src"
 }
 ```
 
-If no config exists, `/btrs-init` will create one by scanning the project.
+If no config exists, `/btrs` will run init automatically on first use.
 
 ### Config Fields
 
@@ -45,10 +41,8 @@ If no config exists, `/btrs-init` will create one by scanning the project.
 | `packageManager` | string | Package manager (`npm`, `pnpm`, `yarn`, `bun`) |
 | `monorepo` | boolean | Whether this is a monorepo |
 | `srcDir` | string | Source directory relative to root |
-| `agents.defaultModel` | string | Default model for agent tasks |
-| `agents.maxParallelTasks` | number | Max parallel agent executions |
 
-## Standard Paths
+## Standard Paths (v3)
 
 All paths are relative to the project root.
 
@@ -57,67 +51,46 @@ All paths are relative to the project root.
 ```
 btrs/
   config.json              # Project configuration
-  index.md                 # Vault home page with navigation
-
-  knowledge/               # Long-lived project truth
-    conventions/           # Detected patterns, coding standards
-    decisions/             # Architecture Decision Records
-    code-map/              # Component/utility/hook/constant/type/API registry
-      components.md
-      utilities.md
-      hooks.md
-      constants.md
-      types.md
-      api.md
-    tech-debt/             # Tracked debt items
-
-  work/                    # Active work artifacts (lifecycle-managed)
-    specs/                 # Feature specifications
-    plans/                 # Implementation plans
-    todos/                 # Work items and tasks
-    changelog/             # Release notes, change records
-    status.md              # Active work, blocked items, recent completions
-
-  evidence/                # Audit trail (append-only, prunable)
-    reviews/               # Code review reports
-    verification/          # Verification evidence logs
-    debug/                 # Root cause investigations
-    sessions/              # Agent activity summaries
-
+  project-map.md           # Agent scopes and architecture overview
+  status.md                # Current work state
+  decisions/               # Architecture Decision Records (ADRs)
+  specs/                   # Feature specifications + plans (merged)
+  conventions/
+    registry.md            # Component/utility/hook/type registry
+    patterns.md            # ALL convention rules in one file
+    anti-patterns.md       # What NOT to do
   .obsidian/               # Obsidian config
 ```
+
+### What was removed in v3
+
+The following v2 directories are no longer used:
+- `knowledge/code-map/` — Registry in `conventions/` is sufficient
+- `knowledge/tech-debt/` — Track inline or as decision records
+- `work/plans/` — Merged into `specs/`
+- `work/todos/` — Use Claude TaskCreate instead
+- `work/changelog/` — Git history is the changelog
+- `evidence/` (all subdirs) — Verification is inline, debug is session-scoped, reviews go in PRs
 
 ### ID Conventions
 
 - Specs: `SPEC-NNN` (zero-padded, e.g., `SPEC-001`)
-- Todos: `TODO-NNN` (zero-padded, e.g., `TODO-001`)
 - ADRs: `ADR-NNN` (zero-padded, e.g., `ADR-001`)
-- Changelog: Date-based (`YYYY-MM-DD`)
 
 ### Writing Rules
 
-1. **Always check config first.** Read `btrs/config.json` before writing any output.
+1. **Always check config first.** Read `btrs/config.json` before writing output.
 2. **Use standard paths.** Do not invent new top-level directories under `btrs/`.
 3. **Include frontmatter.** Every `.md` file in `btrs/` must have YAML frontmatter.
-4. **Use standard markdown links.** Use standard markdown links with relative paths for source code references (works in both GitHub and Obsidian).
-5. **Increment IDs.** When creating a new spec/todo/ADR, scan existing files to find the next available ID.
+4. **Use standard markdown links.** Relative paths for source code references.
+5. **Increment IDs.** Scan existing files to find the next available ID.
 6. **Never overwrite without reading.** Always read an existing file before modifying it.
 
 ### Agent Output Paths
 
-Agents write to the artifact tier that matches what they produce, not to a personal folder:
-
-| Output Type | Path | Example Agents |
-|-------------|------|----------------|
-| Architecture decisions | `btrs/knowledge/decisions/` | architect, research |
-| Conventions & patterns | `btrs/knowledge/conventions/` | architect, container-ops |
-| Code registry updates | `btrs/knowledge/code-map/` | web-engineer, api-engineer |
-| Tech debt items | `btrs/knowledge/tech-debt/` | any agent during verification |
-| Feature specs | `btrs/work/specs/` | product, architect |
-| Implementation plans | `btrs/work/plans/` | boss, architect |
-| Task breakdowns | `btrs/work/todos/` | boss |
-| Changelog entries | `btrs/work/changelog/` | any agent after implementation |
-| Code reviews | `btrs/evidence/reviews/` | qa-test-engineering, code-security |
-| Verification reports | `btrs/evidence/verification/` | any agent during self-verification |
-| Debug investigations | `btrs/evidence/debug/` | any agent during debugging |
-| Session summaries | `btrs/evidence/sessions/` | any agent |
+| Output Type | Path |
+|-------------|------|
+| Architecture decisions | `btrs/decisions/` |
+| Feature specs & plans | `btrs/specs/` |
+| Conventions & patterns | `btrs/conventions/` |
+| Active work status | `btrs/status.md` |

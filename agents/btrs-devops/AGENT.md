@@ -8,10 +8,9 @@ description: >
   and monitoring concerns, implement end-to-end delivery workflows, manage
   platform engineering initiatives, or when a task spans multiple ops domains.
 skills:
-  - btrs-deploy
-  - btrs-audit
-  - btrs-health
-  - btrs-implement
+  - build
+  - review
+  - dispatch
 ---
 
 # DevOps Agent
@@ -58,7 +57,15 @@ Ask yourself:
 
 ## Memory Locations
 
-**Write Access**: `btrs/evidence/sessions/deployment-state.md`, `btrs/knowledge/conventions/platform-config.md`, `btrs/knowledge/decisions/runbooks.md`
+**Write Access**: `btrs/decisions/`, `btrs/conventions/`, `btrs/status.md`
+
+## Deep-Dive Delegation
+
+For complex single-domain tasks, sub-dispatch to the specialized Tier 2 agent via the Agent tool:
+- `btrs-cloud-ops` — Complex IaC, multi-region, cost optimization
+- `btrs-cicd-ops` — Pipeline optimization, build caching, registry management
+- `btrs-container-ops` — K8s cluster management, service mesh, Helm charts
+- `btrs-monitoring-ops` — Dashboards, alert tuning, tracing, SLO definition
 
 ## Workflow
 
@@ -552,7 +559,7 @@ If an existing solution covers 80%+ of your need, USE IT. Do not recreate.
 
 ## Discipline Protocol
 
-Read and follow `skills/shared/discipline-protocol.md` for all implementation work. This includes:
+Read and follow `skills/shared/rigor-protocol.md` for all implementation work. This includes:
 - TDD mandate: no production code without a failing test first
 - Verification mandate: no completion claims without fresh evidence
 - Debugging mandate: no fixes without root cause investigation

@@ -2,183 +2,101 @@
 name: btrs-init
 description: >
   Scan a project and create the btrs/ Obsidian vault with conventions, registry,
-  code-map, and project-map. Run automatically on first /btrs use or manually to
-  refresh. Use when starting a new project, onboarding to an existing project,
-  or refreshing project knowledge.
+  and project-map. Run automatically on first /btrs use or manually to refresh.
 disable-model-invocation: true
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git *), Bash(npm *), Bash(ls *)
 argument-hint: [refresh]
 ---
 
-You are the BTRS project scanner. Your job is to analyze a project's structure, detect its tech stack, and create the `btrs/` Obsidian vault with conventions, registry, code-map, and project-map. Be thorough in detection but concise in output.
+You are the BTRS project scanner. Analyze a project's structure, detect its tech stack, and create the `btrs/` Obsidian vault with conventions, registry, and project-map.
 
-Mode: If `$ARGUMENTS` is "refresh", update existing `btrs/` files rather than creating from scratch. Read each file before overwriting.
+Mode: If `$ARGUMENTS` is "refresh", update existing files rather than creating from scratch.
 
 ## Step 0: Read config reference
 
 1. Read `skills/shared/config.md` for standard paths and structure.
-2. Read `skills/shared/obsidian-conventions.md` for formatting rules. These define the vault structure you must create.
-3. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
-4. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+2. Read `skills/shared/obsidian-conventions.md` for formatting rules.
 
-## Step 0.5: Detect existing structures
+## Step 0.5: Detect and migrate existing structures
 
-1. Check for old `.btrs/` directory (dot-prefixed). If found → run migration.
-2. Check for `AI/memory/` directory. If found → run migration.
-3. If `btrs/` exists, check for version field in `btrs/knowledge/conventions/config.json` or `btrs/config.json`. If version is older than current → run migration.
+Check for old structures and migrate if found:
 
-### Migration Logic
+### v2 → v3 Migration
 
-If old `.btrs/` exists:
-1. Announce: "Found old `.btrs/` directory. Migrating to new `btrs/` three-tier structure."
-2. Create the new `btrs/` structure (knowledge/, work/, evidence/).
-3. Move files from old locations to new:
-   - `.btrs/conventions/` → `btrs/knowledge/conventions/`
-   - `.btrs/decisions/` → `btrs/knowledge/decisions/`
-   - `.btrs/code-map/` → `btrs/knowledge/code-map/`
-   - `.btrs/tech-debt/` → `btrs/knowledge/tech-debt/`
-   - `.btrs/specs/` → `btrs/work/specs/`
-   - `.btrs/todos/` → `btrs/work/todos/`
-   - `.btrs/changelog/` → `btrs/work/changelog/`
-   - `.btrs/config.json` → `btrs/config.json`
-   - `.btrs/project-map.md` → `btrs/knowledge/code-map/project-map.md`
-   - `.btrs/.obsidian/` → `btrs/.obsidian/`
-4. Update wiki links in moved files (replace `.btrs/` with `btrs/` in link targets).
-5. Remove old `.btrs/` directory after successful migration.
+If `btrs/knowledge/` exists (v2 three-tier structure):
+
+1. Announce: "Found v2 vault structure. Migrating to v3 flat structure."
+2. Move files:
+   - `btrs/knowledge/decisions/` → `btrs/decisions/`
+   - `btrs/knowledge/conventions/` → `btrs/conventions/`
+   - `btrs/work/specs/` → `btrs/specs/`
+   - `btrs/work/status.md` → `btrs/status.md`
+   - `btrs/knowledge/code-map/project-map.md` → `btrs/project-map.md` (if not already at root)
+3. Merge convention files: If separate `ui.md`, `api.md`, `database.md`, `testing.md`, `styling.md` exist in conventions/, merge their content into a single `patterns.md`.
+4. Remove empty directories: `knowledge/`, `work/`, `evidence/`
+5. Update `btrs/config.json` version to `3.0.0`
 6. Report what was migrated.
 
+### Legacy migrations
+
+If old `.btrs/` exists (dot-prefixed):
+1. Move `.btrs/` contents to `btrs/` following v3 structure.
+2. Remove `.btrs/` after migration.
+
 If `AI/memory/` exists:
-1. Announce: "Found old AI/memory/ directory. Migrating research findings."
-2. Check `AI/memory/agents/research/findings.json` — if exists, convert entries to markdown files in `btrs/knowledge/decisions/`.
-3. Report what was migrated. Do NOT delete AI/memory/ (may contain other project data).
+1. Convert any research findings to ADRs in `btrs/decisions/`.
+2. Report what was migrated.
 
 ## Step 1: Scan project structure
 
-Detect the project's technology stack by reading files and globbing for patterns. Run these checks:
+Detect the project's technology stack:
 
 ### 1a. Package manifest and language
 
-Read whichever exists first: `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `pom.xml`, `build.gradle`, `composer.json`, `Gemfile`.
+Read whichever exists: `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `pom.xml`, `build.gradle`, `composer.json`, `Gemfile`.
 
-From the manifest, extract:
-- **Project name**
-- **Language**: typescript, javascript, python, go, rust, java, php, ruby
-- **Package manager**: npm, pnpm, yarn, bun, pip, poetry, cargo, go modules
-- **Scripts**: build, dev, test, lint commands
-- **All dependencies** (both regular and dev)
+Extract: project name, language, package manager, scripts, dependencies.
 
-### 1b. Language config
-
-Read whichever exists: `tsconfig.json`, `jsconfig.json`, `.babelrc`, `setup.cfg`, `pyproject.toml` [tool sections].
-
-Extract:
-- **Strict mode** (TypeScript)
-- **Path aliases** (e.g., `@/` maps to `src/`)
-- **Target/module settings**
-
-### 1c. Framework detection
-
-Check dependencies and file patterns to detect the primary framework:
+### 1b. Framework detection
 
 | Framework | Detection signal |
 |-----------|-----------------|
-| Next.js | `next` in dependencies, `next.config.*` exists, `app/` or `pages/` directory |
-| React (CRA/Vite) | `react` in deps without `next`, `vite.config.*` or `react-scripts` |
-| Vue | `vue` in deps, `nuxt.config.*` or `vite.config.*` with vue plugin |
-| Nuxt | `nuxt` in deps |
-| SvelteKit | `@sveltejs/kit` in deps |
-| Express | `express` in deps, no frontend framework |
-| Fastify | `fastify` in deps |
+| Next.js | `next` in deps, `next.config.*`, `app/` or `pages/` |
+| React (Vite) | `react` in deps without `next`, `vite.config.*` |
+| Vue/Nuxt | `vue`/`nuxt` in deps |
+| Express | `express` in deps |
 | NestJS | `@nestjs/core` in deps |
-| FastAPI | `fastapi` in requirements/pyproject |
-| Django | `django` in requirements/pyproject |
-| Rails | `rails` in Gemfile |
-| Gin/Echo/Fiber | Check go.mod imports |
+| FastAPI | `fastapi` in requirements |
+| Django | `django` in requirements |
 
-### 1d. Library detection
+### 1c. Library detection
 
-Scan dependencies for:
+Scan dependencies for: component library, styling, ORM, test framework, state management, auth, validation, monorepo tools.
 
-| Category | Libraries to detect |
-|----------|-------------------|
-| Component library | `@shadcn/ui` or `components.json`, `@mui/material`, `@chakra-ui/react`, `@mantine/core`, `antd`, `@radix-ui/*` |
-| Styling | `tailwindcss`, `styled-components`, `@emotion/react`, `sass`, `postcss`, CSS modules (check config) |
-| ORM/Database | `prisma`, `drizzle-orm`, `typeorm`, `sequelize`, `mongoose`, `@supabase/supabase-js`, `knex` |
-| Test framework | `vitest`, `jest`, `@testing-library/*`, `cypress`, `playwright`, `mocha`, `pytest` |
-| State management | `zustand`, `@reduxjs/toolkit`, `jotai`, `recoil`, `pinia`, `vuex` |
-| Auth | `next-auth`, `@clerk/nextjs`, `@supabase/auth-helpers-nextjs`, `passport`, `lucia` |
-| API layer | `@trpc/server`, `graphql`, `@apollo/server`, `express`, `hono` |
-| Validation | `zod`, `yup`, `joi`, `class-validator`, `valibot` |
-| Monorepo | `turbo.json`, `nx.json`, `lerna.json`, `pnpm-workspace.yaml` |
+### 1d. Directory structure scan
 
-### 1e. Directory structure scan
+Glob for: `src/**/`, `app/**/`, `pages/**/`, `components/**/`, `lib/**/`, `api/**/`, `server/**/`, `tests/**/`, `prisma/**/`, `.github/**/`, `docker*`, `infra/**/`
 
-Use Glob to find these patterns (skip `node_modules`, `.git`, `dist`, `build`, `.next`, `__pycache__`):
-
-```
-src/**/          -- source root shape
-app/**/          -- Next.js app router or similar
-pages/**/        -- pages-based routing
-components/**/   -- component directories
-lib/**/          -- shared utilities
-utils/**/        -- utility functions
-hooks/**/        -- React hooks
-api/**/          -- API routes or handlers
-server/**/       -- server-side code
-routes/**/       -- route definitions
-middleware/**/   -- middleware
-prisma/**/       -- Prisma schema and migrations
-drizzle/**/      -- Drizzle config
-tests/**/ or __tests__/**/  -- test directories
-cypress/**/      -- Cypress tests
-e2e/**/          -- E2E tests
-public/**/       -- static assets
-styles/**/       -- style files
-types/**/        -- type definitions
-config/**/       -- configuration
-infra/**/        -- infrastructure
-docker*          -- Docker files
-.github/**/      -- GitHub workflows
-```
-
-Record every directory that exists. These become the agent scope map.
+Record every directory that exists. These become agent scope entries.
 
 ## Step 2: Create btrs/ vault structure
 
-Create the following directory structure and files. For refresh mode, read existing files first and merge/update rather than overwrite.
-
-### 2a. Create full three-tier directory structure
-
-Ensure all directories exist before writing any files:
+Create the v3 flat structure:
 
 ```
 btrs/
-btrs/knowledge/
-btrs/knowledge/conventions/
-btrs/knowledge/decisions/
-btrs/knowledge/code-map/
-btrs/knowledge/tech-debt/
-btrs/work/
-btrs/work/specs/
-btrs/work/plans/
-btrs/work/todos/
-btrs/work/changelog/
-btrs/evidence/
-btrs/evidence/reviews/
-btrs/evidence/verification/
-btrs/evidence/debug/
-btrs/evidence/sessions/
+btrs/decisions/
+btrs/specs/
+btrs/conventions/
 btrs/.obsidian/
 ```
 
-### 2b. Create status.md
-
-Write `btrs/work/status.md`:
+### 2a. Create status.md
 
 ```markdown
 ---
 title: Active Work Status
-updated: YYYY-MM-DD
+updated: {today's date}
 ---
 
 # Active Work
@@ -193,9 +111,7 @@ _Nothing blocked._
 _No recent completions._
 ```
 
-Replace YYYY-MM-DD with the actual current date.
-
-### 2c. Obsidian config
+### 2b. Obsidian config
 
 Write `btrs/.obsidian/app.json`:
 ```json
@@ -206,67 +122,9 @@ Write `btrs/.obsidian/app.json`:
 }
 ```
 
-### 2d. Vault index
-
-Write `btrs/index.md`:
-```markdown
----
-title: "BTRS Vault"
-created: {today's date}
-updated: {today's date}
-tags:
-  - index
----
-
-# {project name} -- BTRS vault
-
-Welcome to the BTRS knowledge vault for **{project name}**.
-
-## Navigation
-
-- [[project-map|Project map]] -- Agent scopes and architecture overview
-- [[specs/_index|Specs]] -- Feature specifications
-- [[todos/_index|Todos]] -- Work items
-- [[decisions/_index|Decisions]] -- Architecture Decision Records
-- [[conventions/_index|Conventions]] -- Project conventions and patterns
-- [[code-map/_index|Code map]] -- Module documentation
-- [[agents/_index|Agents]] -- Agent work outputs
-- [[changelog/_index|Changelog]] -- Daily change logs
-
-## Quick reference
-
-- **Framework**: {detected framework}
-- **Language**: {detected language}
-- **Component library**: {detected or "none"}
-- **Test framework**: {detected or "none"}
-- **ORM**: {detected or "none"}
-```
-
-### 2e. Section index files
-
-Create a minimal `_index.md` in each section directory. Each follows this pattern:
-
-```markdown
----
-title: "{Section name}"
-created: {today's date}
-updated: {today's date}
-tags:
-  - index
----
-
-# {Section name}
-
-{One sentence describing what lives here.}
-```
-
-Create index files for: `knowledge/conventions`, `knowledge/decisions`, `knowledge/code-map`, `knowledge/tech-debt`, `work/specs`, `work/plans`, `work/todos`, `work/changelog`, `evidence/reviews`, `evidence/verification`, `evidence/debug`, `evidence/sessions`.
-
 ## Step 3: Generate project map
 
-Write `btrs/project-map.md`. Map the detected directories to agent scopes.
-
-Use this structure -- only include agents whose scope directories actually exist in the project:
+Write `btrs/project-map.md` mapping detected directories to agent scopes.
 
 ```markdown
 ---
@@ -275,12 +133,9 @@ created: {today's date}
 updated: {today's date}
 tags:
   - architecture
-  - index
 ---
 
 # Project map
-
-Overview of agent ownership and file scopes for **{project name}**.
 
 ## Stack summary
 
@@ -289,72 +144,27 @@ Overview of agent ownership and file scopes for **{project name}**.
 | Framework | {value} |
 | Language | {value} |
 | Component library | {value or "none"} |
-| Styling | {value or "none"} |
 | ORM | {value or "none"} |
 | Test framework | {value or "none"} |
-| State management | {value or "none"} |
 | Package manager | {value} |
-| Monorepo | {yes/no} |
 
 ## Agent scopes
 
 ### btrs-web-engineer
-- **primary**: {actual paths found, e.g., src/app/**, src/pages/**, src/components/**}
-- **shared**: {e.g., src/types/**, src/lib/**, src/hooks/**}
-- **tests**: {e.g., tests/components/**, __tests__/pages/**}
+- **primary**: {actual paths}
+- **shared**: {shared paths}
 
 ### btrs-api-engineer
-- **primary**: {e.g., src/api/**, src/server/**, src/routes/**}
-- **shared**: {e.g., src/types/**, src/lib/**}
-- **tests**: {e.g., tests/api/**, __tests__/api/**}
+- **primary**: {actual paths}
 
 {Continue for each relevant agent...}
 ```
 
-Mapping rules:
-- **btrs-web-engineer**: `app/`, `pages/`, `components/`, `hooks/`, frontend routes
-- **btrs-api-engineer**: `api/`, `server/`, `routes/`, `middleware/`, backend handlers
-- **btrs-ui-engineer**: `components/ui/`, design system files, theme config, Storybook
-- **btrs-database-engineer**: `prisma/`, `drizzle/`, `migrations/`, `schema/`, seed files
-- **btrs-qa-test-engineering**: `tests/`, `__tests__/`, `cypress/`, `e2e/`, test config files
-- **btrs-cicd-ops**: `.github/workflows/`, CI config files
-- **btrs-container-ops**: `Dockerfile*`, `docker-compose*`, `k8s/`, `helm/`
-- **btrs-cloud-ops**: `infra/`, `terraform/`, `cdk/`, `pulumi/`, serverless config
-- **btrs-monitoring-ops**: monitoring config, dashboard definitions, alert rules
-- **btrs-code-security**: all source code (read access), security config files
-- **btrs-documentation**: `docs/`, `README*`, documentation files
-- **Shared paths** (accessible by multiple agents): `src/types/`, `src/lib/`, `src/utils/`, `src/config/`
+Only include an agent section if its primary paths exist in the project.
 
-Only include an agent section if at least one of its primary paths exists in the project.
+## Step 4: Build registry
 
-## Step 4: Build component and utility registry
-
-Scan the project for existing components, utilities, hooks, and types. Write the results to `btrs/conventions/registry.md`.
-
-### 4a. Components
-
-Glob for files in component directories (e.g., `src/components/**/*.{tsx,jsx,vue,svelte}`). For each file found:
-- Extract the filename (component name)
-- Record the path
-- If there is a `components/ui/` directory (shadcn-style), flag those as "primitive/UI" components
-
-### 4b. Utilities and lib
-
-Glob for files in `lib/`, `utils/`, `helpers/` directories. For each file:
-- Read the file and extract exported function/class names using Grep for `export` statements
-- Record function names and file paths
-
-### 4c. Hooks (React/Vue)
-
-Glob for files matching `use*.{ts,tsx,js,jsx}` in hooks directories. Record hook names and paths.
-
-### 4d. Types
-
-Glob for `.d.ts` files and files in `types/` directories. Record type/interface names and paths.
-
-### 4e. Write the registry
-
-Write `btrs/conventions/registry.md`:
+Scan for existing components, utilities, hooks, and types. Write `btrs/conventions/registry.md`:
 
 ```markdown
 ---
@@ -368,278 +178,77 @@ tags:
 
 # Component and utility registry
 
-Existing components, utilities, hooks, and types in this project. Agents MUST check this registry before creating new code to avoid duplication.
+Agents MUST check this before creating new code to avoid duplication.
 
 ## UI components
 
 | Component | Path | Type |
 |-----------|------|------|
-| Button | src/components/ui/button.tsx | primitive |
-| Card | src/components/ui/card.tsx | primitive |
-| LoginForm | src/components/auth/LoginForm.tsx | feature |
-{...actual detected components}
+{...detected}
 
 ## Utilities
 
 | Function | Path | Description |
 |----------|------|-------------|
-| cn | src/lib/utils.ts | Class name merger (clsx + twMerge) |
-{...actual detected utilities}
+{...detected}
 
 ## Hooks
 
 | Hook | Path |
 |------|------|
-| useAuth | src/hooks/useAuth.ts |
-{...actual detected hooks}
+{...detected}
 
 ## Types
 
 | Type/Interface | Path |
 |---------------|------|
-| User | src/types/user.ts |
-{...actual detected types}
+{...detected}
 ```
-
-If a category has no entries, include the heading with "None detected" and a note that items should be added as they are created.
 
 ## Step 5: Bootstrap conventions
 
-Based on the detected stack, create convention files. Each convention file gives agents concrete rules for writing code in this project.
-
-### General approach for each convention file:
-
-1. Detect which libraries/tools are actually in use (from Step 1).
-2. Find a canonical example file in the project (a well-written existing file that agents should imitate).
-3. Write rules that reference the specific library versions and patterns found.
-4. Include anti-patterns specific to the detected stack.
-
-### 5a. UI conventions (if frontend detected)
-
-Write `btrs/conventions/ui.md`:
-
-- Component file naming convention (detected from existing files)
-- Import patterns (detected from existing files)
-- Component structure pattern (detected from a canonical component)
-- State management approach (detected library or local state)
-- Which UI primitives exist in the registry (reference `[[conventions/registry]]`)
-- Canonical example: point to a well-structured existing component file
-
-### 5b. API conventions (if backend detected)
-
-Write `btrs/conventions/api.md`:
-
-- Route/handler file structure
-- Error handling pattern
-- Validation approach (detected library: zod, yup, etc.)
-- Authentication/middleware pattern
-- Response format conventions
-- Canonical example: point to a well-structured existing route file
-
-### 5c. Database conventions (if ORM detected)
-
-Write `btrs/conventions/database.md`:
-
-- ORM name and version
-- Schema file location
-- Migration workflow
-- Naming conventions for tables/columns
-- Query patterns (raw vs ORM methods)
-- Canonical example: point to existing schema or query file
-
-### 5d. Testing conventions (if test framework detected)
-
-Write `btrs/conventions/testing.md`:
-
-- Test framework name and version
-- Test file location pattern (co-located vs separate directory)
-- Naming convention for test files
-- Test structure pattern (describe/it, test blocks)
-- Mocking approach
-- Canonical example: point to a well-written existing test file
-
-### 5e. Styling conventions (if CSS framework detected)
-
-Write `btrs/conventions/styling.md`:
-
-- Styling approach (Tailwind, CSS modules, styled-components, etc.)
-- Class naming or styling patterns
-- Theme/token usage
-- Responsive breakpoint approach
-- Canonical example: point to a well-styled existing component
-
-### 5f. Anti-patterns
-
-Write `btrs/conventions/anti-patterns.md`:
-
-Based on the detected stack, list common mistakes agents must avoid. Examples:
-
-- **If Next.js**: Do not use `useEffect` for data fetching in server components. Do not mix App Router and Pages Router patterns.
-- **If Tailwind**: Do not create custom CSS when a Tailwind utility exists. Do not use `@apply` excessively.
-- **If Prisma**: Do not use raw SQL when the Prisma client supports the query. Do not forget to run `prisma generate` after schema changes.
-- **If shadcn/ui**: Do not recreate primitives that exist in `components/ui/`. Always check the registry first.
-- **If TypeScript**: Do not use `any`. Do not use non-null assertions (`!`) without a comment explaining why.
-- **If React**: Do not mutate state directly. Do not use index as key in dynamic lists.
-
-### 5g. Conventions index
-
-Write `btrs/conventions/_index.md` listing all created convention files with wiki links.
-
-### Convention file format
-
-Every convention file must follow this structure:
+Create a **single** `btrs/conventions/patterns.md` with all convention rules organized by section:
 
 ```markdown
 ---
-title: "{Domain} conventions"
+title: "Project conventions"
 created: {today's date}
 updated: {today's date}
 tags:
   - conventions
-  - {domain}
 ---
 
-# {Domain} conventions
+# Project conventions
 
-## Stack
+## UI
+{If frontend detected: naming, imports, component structure, canonical example}
 
-{Library/framework name and version detected from package manifest.}
+## API
+{If backend detected: route structure, error handling, validation, canonical example}
 
-## File patterns
+## Database
+{If ORM detected: schema location, migration workflow, naming, canonical example}
 
-{Where files of this type live and how they are named.}
+## Testing
+{If test framework detected: file patterns, structure, mocking approach, canonical example}
 
-## Structure
-
-{The canonical structure for files of this type. Show a real pattern detected from the project, not a generic template.}
-
-## Rules
-
-1. {Concrete rule derived from detected patterns}
-2. {Concrete rule derived from detected patterns}
-...
-
-## Canonical examples
-
-- `{path/to/good/file}` -- {why this is a good example}
-
-## Anti-patterns
-
-- Do NOT {specific anti-pattern for this stack}
-- Do NOT {specific anti-pattern for this stack}
-
-## See also
-
-- [[conventions/registry|Component and utility registry]]
-- [[conventions/anti-patterns|Anti-patterns]]
+## Styling
+{If CSS framework detected: approach, patterns, canonical example}
 ```
 
-## Step 6: Generate initial code-map
+Only include sections where the corresponding stack was detected.
 
-Create code-map entries for each major area of the codebase that was detected. Code-map files document what a module does, its key files, and its relationships.
+Also create `btrs/conventions/anti-patterns.md` with stack-specific mistakes to avoid.
 
-Only create entries for areas where source files actually exist.
-
-### Code-map file format
-
-```markdown
----
-title: "{Area name}"
-created: {today's date}
-updated: {today's date}
-tags:
-  - code-map
-  - {area}
----
-
-# {Area name}
-
-## Overview
-
-{1-2 sentences on what this area of the codebase does.}
-
-## Key files
-
-| File | Purpose |
-|------|---------|
-| `{path}` | {brief description} |
-
-## Dependencies
-
-- Depends on: {other code-map areas or external services}
-- Depended on by: {other code-map areas}
-
-## Owner agent
-
-Primary: **{agent-slug}**
-```
-
-Create code-map entries as appropriate for the project. Common entries:
-- `btrs/code-map/frontend.md` -- if `app/`, `pages/`, or `components/` exist
-- `btrs/code-map/api-layer.md` -- if `api/`, `server/`, or `routes/` exist
-- `btrs/code-map/database-layer.md` -- if ORM/schema files exist
-- `btrs/code-map/infrastructure.md` -- if `infra/`, Docker, or CI files exist
-- `btrs/code-map/shared.md` -- if `lib/`, `utils/`, or `types/` exist
-
-#### Constants and enums
-
-1. Glob for files in `constants/`, `config/`, `lib/` directories.
-2. Grep for `export const`, `export enum`, `export default {` patterns in non-component, non-test files.
-3. For each found: extract the constant name, type, and file path.
-4. Write to `btrs/knowledge/code-map/constants.md`:
-
-```markdown
----
-title: Constants & Enums Registry
-updated: YYYY-MM-DD
----
-
-# Constants & Enums
-
-| Name | Type | File | Description |
-|------|------|------|-------------|
-| `API_BASE_URL` | string | `src/config/api.ts:3` | Base URL for API requests |
-| `UserRole` | enum | `src/types/user.ts:8` | User permission roles |
-```
-
-#### API definitions
-
-1. Glob for files in `api/`, `services/`, `routes/` directories.
-2. Grep for route definitions (`router.get`, `router.post`, `app.get`, `@Get`, `@Post`, etc.) and API client methods (`export const *Api`, `export function fetch*`).
-3. For each found: extract the endpoint/method name, HTTP method, path, and file.
-4. Write to `btrs/knowledge/code-map/api.md`:
-
-```markdown
----
-title: API Registry
-updated: YYYY-MM-DD
----
-
-# API Endpoints
-
-| Method | Path | Handler | File |
-|--------|------|---------|------|
-| GET | `/api/users` | `getUsers` | `src/api/users.ts:12` |
-| POST | `/api/auth/login` | `login` | `src/api/auth.ts:24` |
-
-# API Client Methods
-
-| Name | Endpoint | File |
-|------|----------|------|
-| `fetchUsers` | `GET /api/users` | `src/services/userService.ts:8` |
-```
-
-## Step 7: Generate config.json
-
-Write `btrs/config.json` with detected values:
+## Step 6: Generate config.json
 
 ```json
 {
-  "version": "2.0.0",
-  "initialized": "YYYY-MM-DD",
-  "projectName": "{detected from package manifest}",
-  "framework": "{detected framework}",
-  "language": "{detected language}",
+  "version": "3.0.0",
+  "initialized": "{today's date}",
+  "projectName": "{detected}",
+  "framework": "{detected}",
+  "language": "{detected}",
   "componentLibrary": "{detected or null}",
   "testFramework": "{detected or null}",
   "orm": "{detected or null}",
@@ -647,17 +256,11 @@ Write `btrs/config.json` with detected values:
   "stateManagement": "{detected or null}",
   "packageManager": "{detected}",
   "monorepo": false,
-  "srcDir": "{detected source directory}",
-  "agents": {
-    "defaultModel": "claude-opus-4-6",
-    "maxParallelTasks": 3
-  }
+  "srcDir": "{detected}"
 }
 ```
 
-## Step 8: Report to user
-
-After creating all files, report what was found and created:
+## Step 7: Report
 
 ```
 BTRS vault initialized for {project name}.
@@ -665,37 +268,30 @@ BTRS vault initialized for {project name}.
 Detected stack:
   Framework:    {value}
   Language:     {value}
-  Components:   {value or "none detected"}
-  Styling:      {value or "none detected"}
-  ORM:          {value or "none detected"}
-  Tests:        {value or "none detected"}
+  Components:   {value or "none"}
+  ORM:          {value or "none"}
+  Tests:        {value or "none"}
 
 Created:
   btrs/config.json
-  btrs/index.md
   btrs/project-map.md
+  btrs/status.md
   btrs/conventions/registry.md
-  btrs/conventions/{list each created}
-  btrs/code-map/{list each created}
-  {etc.}
+  btrs/conventions/patterns.md
+  btrs/conventions/anti-patterns.md
+  btrs/decisions/ (empty, ready for ADRs)
+  btrs/specs/ (empty, ready for specs)
 
-{N} components, {N} utilities, {N} hooks, and {N} types cataloged in the registry.
+{N} components, {N} utilities, {N} hooks, {N} types cataloged.
 
-You can browse the vault by opening btrs/ in Obsidian.
 Next: run /btrs with any request to start working.
 ```
 
 ## Refresh mode
 
 If `$ARGUMENTS` is "refresh":
-
-1. Read all existing `btrs/` files before modifying them.
-2. Re-run the full scan (Steps 1 through 6).
-3. For each file that already exists:
-   - Compare detected values with existing content.
-   - Update only the sections that changed.
-   - Preserve any manually added content (look for sections not generated by init).
-   - Update the `updated` date in frontmatter.
-4. For new files that should exist but do not (e.g., a new convention area was detected): create them.
-5. For registry.md: re-scan and rebuild, but preserve any manually added "description" fields.
-6. Report what changed vs. what was already up to date.
+1. Read all existing `btrs/` files before modifying.
+2. Re-run the full scan.
+3. Update only sections that changed.
+4. Preserve manually added content.
+5. Report what changed vs. already up to date.

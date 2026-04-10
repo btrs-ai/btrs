@@ -1,8 +1,8 @@
 # BTRS
 
-**24 specialist AI agents. One command.**
+**12 specialist AI agents. 6 commands. Adaptive rigor.**
 
-BTRS is a Claude Code plugin that orchestrates specialist AI agents with behavioral discipline enforcement, persistent project knowledge, and session continuity. Every agent operates under Iron Law protocols -- test-first development, evidence-before-claims, root-cause-before-fix -- enforced automatically, not suggested optionally.
+BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptive discipline enforcement, persistent project knowledge via Obsidian, and session continuity. It auto-detects the right level of rigor for each task — strict TDD for production code, light verification for config changes.
 
 ---
 
@@ -16,138 +16,114 @@ BTRS is a Claude Code plugin that orchestrates specialist AI agents with behavio
 /btrs build me a user dashboard with analytics
 ```
 
-That's it. One command.
+---
+
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/btrs` | Main router — classifies and routes any request automatically |
+| `/build` | Feature building: brainstorm → plan → implement → verify → finish |
+| `/fix` | Systematic debugging with root cause investigation |
+| `/review` | Code review, security audit, or tech debt scan |
+| `/research` | Technology evaluation, brainstorming, or analysis |
+| `/dispatch` | Direct agent dispatch (power user shortcut) |
 
 ---
 
 ## What Happens When You Type `/btrs`
 
-1. **Session check** -- reads `btrs/work/status.md`. If you have active work, asks if you want to continue or start new.
-2. **Classification** -- categorizes your request: quick answer, debug, design, single-agent, multi-agent, decision, or clarification needed.
-3. **Workflow** -- depending on classification:
-   - Design requests: `btrs-brainstorm` then `btrs-plan` then `btrs-execute`
-   - Bug reports: `btrs-debug` (systematic 4-phase investigation)
-   - Implementation: worktree, TDD, agent dispatch, review, sanity check, finish
-4. **Discipline enforcement** -- every agent gets Iron Law protocols injected: test-first, evidence-before-claims, root-cause-before-fix.
-5. **Completion** -- 10-pass sanity check, then branch finish (merge/PR/keep/discard).
-
----
-
-## The `btrs/` Directory
-
-When you run `/btrs-init`, BTRS creates a `btrs/` directory in your project. This is both a structured knowledge base and an Obsidian vault.
-
-```
-btrs/
-├── config.json         ← Project configuration (framework, language, tools)
-├── knowledge/
-│   ├── conventions/
-│   ├── decisions/
-│   ├── code-map/
-│   │   ├── components.md
-│   │   ├── utilities.md
-│   │   ├── hooks.md
-│   │   ├── constants.md
-│   │   ├── types.md
-│   │   └── api.md
-│   └── tech-debt/
-├── work/
-│   ├── specs/
-│   ├── plans/
-│   ├── todos/
-│   ├── changelog/
-│   └── status.md
-├── evidence/
-│   ├── reviews/
-│   ├── verification/
-│   ├── debug/
-│   └── sessions/
-└── .obsidian/
-```
-
-Everything is plain markdown. Works with any editor, any workflow. Open in [Obsidian](https://obsidian.md) for graph visualization of how specs, decisions, and code connect.
-
----
-
-## Discipline Enforcement
-
-Three Iron Laws govern every agent:
-
-- **TDD** -- no production code without a failing test first.
-- **Verification** -- no completion claims without fresh evidence. Agents prove their work, not just assert it.
-- **Debugging** -- no fixes without root cause investigation. Four-phase systematic analysis before any code changes.
-
-Additional enforcement:
-
-- **Dependency justification** -- native solution > self-write > existing package > new dependency.
-- **Duplication prevention** -- code-map registry checked before creating anything new.
-- **Performance awareness** -- no unbounded operations, no O(n^2) where O(n) exists.
+1. **Session activation** — creates a marker so all subsequent messages auto-route through BTRS
+2. **Init check** — if first time, scans the project and creates the `btrs/` vault
+3. **Classification** — categorizes your request: build, fix, review, research, or direct dispatch
+4. **Rigor assessment** — auto-detects quick/standard/strict based on what you're touching
+5. **Dispatch** — routes to the right agent(s) with conventions and protocols injected
+6. **Verification** — based on rigor level, from file checks (quick) to full TDD (strict)
 
 ---
 
 ## Agents
 
-| Category | Agents |
-|----------|--------|
-| Management | boss |
-| Technical | architect, qa-test-engineering, documentation, research |
-| Engineering | api-engineer, web-engineer, mobile-engineer, desktop-engineer, ui-engineer, database-engineer |
-| Security | code-security, security-ops |
-| Operations | cloud-ops, cicd-ops, container-ops, monitoring-ops, devops |
-| Business | product, marketing, sales, accounting, customer-success, data-analyst |
+### Tier 1 — Always Loaded (12)
 
-Each agent has a dedicated instruction file at `agents/btrs-{name}/AGENT.md` with domain-specific protocols, verification requirements, and output formats.
+| Agent | Domain |
+|-------|--------|
+| `boss` | Multi-agent coordination |
+| `architect` | System design, ADRs |
+| `api-engineer` | Backend APIs |
+| `web-engineer` | Frontend apps |
+| `mobile-engineer` | Mobile apps |
+| `ui-engineer` | Components, design systems |
+| `database-engineer` | Schema, migrations |
+| `qa-test-engineering` | Testing |
+| `code-security` | Security review |
+| `devops` | Cloud, CI/CD, containers, monitoring |
+| `research` | Tech evaluation |
+| `documentation` | Technical writing |
+
+### Tier 2 — On-Demand (12)
+
+Available via `/dispatch`. Includes: desktop-engineer, security-ops, cloud-ops, cicd-ops, container-ops, monitoring-ops, product, marketing, sales, accounting, customer-success, data-analyst.
 
 ---
 
-## Skills
+## Adaptive Rigor
 
-| Purpose | Skills |
-|---------|--------|
-| Entry and Orchestration | btrs, btrs-init, btrs-execute, btrs-handoff |
-| Design and Planning | btrs-brainstorm, btrs-plan, btrs-propose, btrs-spec (deprecated) |
-| Discipline | btrs-tdd, btrs-debug, btrs-verify, btrs-receive-review, btrs-sanity-check |
-| Workflow | btrs-worktree, btrs-finish, btrs-request-review, btrs-dispatch |
-| Quality and Ops | btrs-implement, btrs-review, btrs-audit, btrs-deploy, btrs-health, btrs-tech-debt, btrs-research, btrs-analyze, btrs-doc |
+| Level | When | What |
+|-------|------|------|
+| **Quick** | Config, docs, small changes | File checks only, no tests |
+| **Standard** | Features, refactoring | Tests + inline self-review checklist |
+| **Strict** | Security, production, migrations | Full TDD + 5-step verification gate |
 
-You do not need to memorize these. `/btrs` routes to the right one automatically.
+Auto-detected. Override with "use strict mode" or "quick is fine".
+
+---
+
+## The `btrs/` Directory
+
+BTRS creates a `btrs/` directory in your project — an Obsidian vault for persistent project knowledge.
+
+```
+btrs/
+├── config.json          # Project config (framework, language, tools)
+├── project-map.md       # Agent scopes and architecture
+├── status.md            # Active work state
+├── decisions/           # Architecture Decision Records
+├── specs/               # Feature specifications
+└── conventions/
+    ├── registry.md      # Component/utility registry
+    ├── patterns.md      # Convention rules
+    └── anti-patterns.md # What NOT to do
+```
+
+Open `btrs/` in Obsidian for graph view, search, and visual navigation.
 
 ---
 
 ## Session Continuity
 
-`/btrs` reads `btrs/work/status.md` and picks up where you left off. No separate resume command needed. If you have active work from a previous session, BTRS will ask whether to continue it or start something new.
+Type `/btrs` once. A `UserPromptSubmit` hook ensures all subsequent messages in the session route through BTRS automatically. New sessions start fresh.
 
 ---
 
 ## Installation
 
-**From GitHub (recommended):**
-
 ```bash
-# Clones to ~/.claude/btrs/ and symlinks skills + agents
-curl -fsSL https://raw.githubusercontent.com/btrs-ai/btrs/main/install.sh | bash
+git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs
+~/.claude/btrs/install.sh
 ```
 
-**From local clone:**
+Or update an existing install:
 
 ```bash
-git clone git@github.com:btrs-ai/btrs.git
-cd btrs
-./install.sh
-```
-
-**Uninstall:**
-
-```bash
-./uninstall.sh
+~/.claude/btrs/install.sh
 ```
 
 ---
 
-## Configuration
+## Upgrading from v2
 
-`/btrs-init` scans your project and generates `btrs/config.json` with detected conventions, tech stack, file structure patterns, and project metadata. This configuration is injected into every agent's context automatically. Re-run `/btrs-init` after major project changes to refresh detection.
+Run `/btrs` in any project with a v2 vault. BTRS will detect the old `knowledge/work/evidence/` structure and automatically migrate to the v3 flat structure.
 
 ---
 

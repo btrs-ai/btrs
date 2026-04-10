@@ -1,227 +1,93 @@
-# BTRS Agents -- Project Instructions
+# BTRS v3 — Agent System
 
-> This file is the instruction set for the BTRS multi-agent system.
-> For Claude Code-specific features, see `CLAUDE.md`.
+## Overview
 
----
+BTRS is a 12-active-agent system with 12 on-demand agents. The `/btrs` router classifies requests and dispatches to the right agent via 6 tiered commands.
 
-## Platform Support
-
-BTRS is designed for **Claude Code** as the primary platform. The skills, agents, and workflow protocols are optimized for Claude Code's Agent tool, Skill tool, and TaskCreate capabilities.
-
-Other AI tools (Cursor, GitHub Copilot, Windsurf, Codex) may work with the agent definitions in `agents/` and the instruction set in this file, but the full workflow (subagent dispatch, two-stage review, session continuity) requires Claude Code.
-
----
-
-## System Overview
-
-BTRS is a 24-specialist-agent system with a single entry point: the **Boss Agent**. Every request flows through the Boss, who plans, delegates, and coordinates across specialist agents.
-
-**Core principles:**
-- All work flows through specs, conventions, and verification
-- Agents are scoped to specific domains and only modify files within their scope
-- The `AI/` directory holds persistent memory, config, and documentation
-- Agent definitions live in `agents/btrs-*/AGENT.md`
-
----
-
-## Project Structure
+## Architecture
 
 ```
-btrs/
-  agents/              # 24 specialist agents + 1 boss agent
-    btrs-boss/AGENT.md
-    btrs-architect/AGENT.md
-    btrs-api-engineer/AGENT.md
-    ...
-  skills/              # 15 slash-command skills
-    btrs/SKILL.md       # Router -- the single entry point
-    btrs-plan/SKILL.md
-    btrs-implement/SKILL.md
-    ...
-  AI/
-    config/            # Agent roles, shared configuration
-    docs/              # Agent documentation, workflow guides
-    memory/            # Persistent memory per agent + global + sessions
-      agents/          # Per-agent memory (JSON files)
-      global/          # Shared project state, architecture decisions
-      sessions/        # Session-scoped context
-  docs/                # User-facing documentation
-  src/                 # Source code
-  templates/           # Scaffolding templates
-  plugin.json          # Plugin manifest (skills + agents registry)
+User → /btrs (router) → /build, /fix, /review, /research, /dispatch
+                              ↓
+                        Agent dispatch (Tier 1 or Tier 2)
+                              ↓
+                        Adaptive rigor (quick / standard / strict)
+                              ↓
+                        Verification + completion
 ```
 
----
+## Tier 1 — Active Agents
 
-## Agent Registry
+Always loaded, available for immediate dispatch.
 
-### Management (1)
-| Agent | Domain | Use When |
-|-------|--------|----------|
-| Boss | Orchestration, planning | Any multi-step request, task coordination |
+| Agent | Slug | Domain | Typical Requests |
+|-------|------|--------|-----------------|
+| Boss | `boss` | Coordination | "Build a complete feature", multi-domain requests |
+| Architect | `architect` | System design | "Design the architecture", "Create an ADR" |
+| API Engineer | `api-engineer` | Backend | "Build an API for", "Add an endpoint" |
+| Web Engineer | `web-engineer` | Frontend | "Build a page", "Create a React component" |
+| Mobile Engineer | `mobile-engineer` | Mobile | "Build the mobile app", "Add push notifications" |
+| UI Engineer | `ui-engineer` | Components | "Create a Button component", "Set up design system" |
+| Database Engineer | `database-engineer` | Database | "Design the schema", "Optimize this query" |
+| QA/Test Engineer | `qa-test-engineering` | Testing | "Write tests for", "Check coverage" |
+| Code Security | `code-security` | App security | "Scan for vulnerabilities", "Security review" |
+| DevOps | `devops` | All ops | "Set up CI/CD", "Deploy", "Configure monitoring" |
+| Research | `research` | Evaluation | "Compare X vs Y", "Research approaches" |
+| Documentation | `documentation` | Writing | "Document the API", "Write a guide" |
 
-### Technical (4)
-| Agent | Domain | Use When |
-|-------|--------|----------|
-| Architect | System design, ADRs | Architecture decisions, tech stack choices |
-| QA & Test Engineering | Testing (unit, integration, e2e, perf) | Writing tests, test strategy, quality gates |
-| Documentation | Technical writing, API docs | Docs, guides, READMEs, changelogs |
-| Research | Tech evaluation, POCs | Evaluating tools, researching approaches |
+## Tier 2 — On-Demand Agents
 
-### Engineering (6)
-| Agent | Domain | Use When |
-|-------|--------|----------|
-| API Engineer | Backend APIs, REST, GraphQL | Endpoints, services, authentication |
-| Web Engineer | React, Vue, frontend apps | Web UI, SPA, frontend logic |
-| Mobile Engineer | React Native, Flutter, iOS, Android | Mobile apps, native features |
-| Desktop Engineer | Electron, Tauri, native desktop | Desktop apps, system integration |
-| UI Engineer | Component libraries, design systems | Shared components, Storybook, tokens |
-| Database Engineer | Schema design, migrations, optimization | Database changes, queries, indexing |
+Available via `/dispatch`. Not loaded by default to save context.
 
-### Security (2)
-| Agent | Domain | Use When |
-|-------|--------|----------|
-| Code Security | SAST/DAST, vulnerability scanning | Security reviews, dependency audits |
-| Security Ops | Infrastructure security, compliance | GDPR, SOC2, pen testing, incident response |
+| Agent | Slug | Domain |
+|-------|------|--------|
+| Desktop Engineer | `desktop-engineer` | Electron, Tauri |
+| Security Ops | `security-ops` | Infrastructure security, compliance |
+| Cloud Ops | `cloud-ops` | Deep AWS/Azure/GCP |
+| CI/CD Ops | `cicd-ops` | Deep pipeline optimization |
+| Container Ops | `container-ops` | Deep Kubernetes/Docker |
+| Monitoring Ops | `monitoring-ops` | Deep observability |
+| Product | `product` | Product strategy, roadmap |
+| Marketing | `marketing` | Campaigns, SEO |
+| Sales | `sales` | Pipeline, revenue |
+| Accounting | `accounting` | Finance, bookkeeping |
+| Customer Success | `customer-success` | Retention, support |
+| Data Analyst | `data-analyst` | BI, analytics |
 
-### Operations (4)
-| Agent | Domain | Use When |
-|-------|--------|----------|
-| Cloud Ops | AWS, Azure, GCP | Infrastructure provisioning, cloud config |
-| CI/CD Ops | Pipelines, GitHub Actions | Build/deploy automation, release workflows |
-| Container Ops | Docker, Kubernetes | Containerization, orchestration, Helm |
-| Monitoring Ops | Prometheus, Grafana, observability | Alerting, dashboards, log aggregation |
+## Routing Rules
 
-### Business (6)
-| Agent | Domain | Use When |
-|-------|--------|----------|
-| Product | Strategy, roadmap, requirements | Feature prioritization, PRDs, user stories |
-| Marketing | Campaigns, growth, SEO | Marketing strategy, content, analytics |
-| Sales | Pipeline, revenue, BD | Sales strategy, proposals, CRM |
-| Accounting | Financials, bookkeeping | Invoicing, budgets, financial reports |
-| Customer Success | Retention, support | Customer health, ticket triage, onboarding |
-| Data Analyst | BI, analytics, dashboards | Data queries, reports, visualizations |
+1. **Single domain** — Route directly to matching agent
+2. **Multi-domain** — Route to `boss` for coordination
+3. **Ops keywords** — Route to `devops` (delegates to specialized ops agents for deep dives)
+4. **Ambiguous** — Ask user to clarify
+5. **No match** — Default to `boss`
 
----
+## Adaptive Rigor
 
-## Workflow
+Replaces the v2 Iron Law always-on enforcement:
 
-### 1. Plan Mode (Default)
+| Level | Triggers | Requirements |
+|-------|----------|-------------|
+| **Quick** | Config, docs, single-file <50 lines | File checks only |
+| **Standard** | Features, refactoring, multi-file | Tests + inline self-review |
+| **Strict** | Security, production, migrations, 5+ files | Full TDD + 5-step verification |
 
-Every implementation request starts in plan mode:
-1. Analyze the request -- scope, complexity, domains involved
-2. Break down into TASK-001, TASK-002, etc. with agent assignments
-3. Identify dependencies and execution order
-4. Present the plan and wait for user approval
-5. Only execute after explicit approval
+Auto-detected based on file types, scope, domain, and user intent. User can override.
 
-### 2. Memory System
+## Agent Dispatch Protocol
 
-Agents persist context across sessions via JSON files:
-- **Per-agent**: `AI/memory/agents/<agent-name>/*.json`
-- **Global**: `AI/memory/global/*.json` (architecture decisions, project state)
-- **Sessions**: `AI/memory/sessions/latest.json`
+When dispatching any agent, include:
 
-When coordinating multi-agent work, pass context by having the next agent read the previous agent's memory output.
+1. **TASK** — Specific, actionable description
+2. **RIGOR** — Level and reason
+3. **SCOPE** — Primary file patterns, what NOT to modify
+4. **CONVENTIONS** — Inline (not file references)
+5. **VERIFICATION** — Based on rigor level
 
-### 3. Agent Scoping
+## Context Passing
 
-Each agent has a defined scope in its `AGENT.md` file. Agents should:
-- Only modify files within their declared scope
-- Flag any need to modify files outside scope
-- Read (but not write) other agents' memory for context
-
----
-
-## Convention System
-
-Conventions are mandatory rules, not suggestions.
-
-- **Check the registry** before creating any new component, utility, or pattern
-- **Follow anti-patterns list** -- never recreate what exists, never hardcode design tokens
-- **Read canonical examples** before writing new code in an unfamiliar area
-- **Match existing patterns** in the codebase exactly
-
-### Anti-Pattern Rules (Universal)
-1. Never recreate components/utilities that exist in the registry
-2. Never hardcode values that have design tokens or config
-3. Never skip verification
-4. Never modify files outside your agent scope without flagging
-5. Never execute tasks without user approval (plan mode default)
-6. Never write code without reading existing patterns first
-
----
-
-## Verification Protocol
-
-All code changes must be self-verified before reporting completion. Run these 5 checks:
-
-1. **File existence** -- Do all created/modified files exist and have content?
-2. **Pattern compliance** -- Does the code follow existing project conventions?
-3. **Functional claims** -- Does the code actually do what was claimed?
-4. **Integration points** -- Do imports resolve? Do types match? Do APIs connect?
-5. **Completeness** -- Is anything missing from the original requirement?
-
-Evidence is required for each claim. Fix failures before reporting done.
-
----
-
-## Output Requirements
-
-### Memory Files
-- All memory files use JSON format
-- Update relevant memory after completing work
-- Update `AI/memory/sessions/latest.json` with session summary
-
-### Documentation
-- Agent docs live in `AI/docs/agents/`
-- Workflow docs live in `AI/docs/workflows/`
-- User-facing docs live in `docs/`
-
----
-
-## How to Use Agent Instructions
-
-Each agent's full instructions are in `agents/btrs-<name>/AGENT.md`. These files contain:
-- Role and responsibilities
-- Memory read/write locations
-- Specific workflows and protocols
-- Skills the agent can invoke
-
-When working on a task, load the relevant agent's AGENT.md for domain-specific guidance.
-
----
-
-## Skills (Slash Commands)
-
-The system provides 15 skills as entry points:
-
-| Skill | Purpose |
-|-------|---------|
-| `/btrs` | Router -- dispatches to the right skill automatically |
-| `/btrs-init` | Initialize BTRS in a new project |
-| `/btrs-propose` | Propose a new feature or change |
-| `/btrs-plan` | Create a task breakdown and execution plan |
-| `/btrs-implement` | Write code from a spec or task |
-| `/btrs-review` | Code review with security and quality checks |
-| `/btrs-audit` | Deep audit of code, architecture, or process |
-| `/btrs-verify` | Run the 5-point verification protocol |
-| `/btrs-health` | Project health check across all dimensions |
-| `/btrs-deploy` | Deployment planning and execution |
-| `/btrs-research` | Technology research and evaluation |
-| `/btrs-analyze` | Analyze data, metrics, or codebase patterns |
-| `/btrs-spec` | Write a technical specification |
-| `/btrs-handoff` | Create handoff documents between agents/sessions |
-| `/btrs-doc` | Generate or update documentation |
-
----
-
-## Quick Start
-
-1. Read this file for universal instructions
-2. Load the relevant agent's `AGENT.md` for domain-specific guidance
-3. Check `AI/memory/global/project-state.json` for current project context
-4. Follow plan mode: plan first, execute after approval
-5. Verify all work before reporting completion
-6. Update memory files after completing work
+Sequential agents pass context via `btrs/` paths:
+- Architect writes to `btrs/decisions/`
+- Engineers read decisions, write implementations
+- Security reviews all outputs
+- All agents update `btrs/status.md`

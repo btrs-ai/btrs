@@ -770,7 +770,7 @@ If an existing solution covers 80%+ of your need, USE IT. Do not recreate.
 
 ## Discipline Protocol
 
-Read and follow `skills/shared/discipline-protocol.md` for all implementation work. This includes:
+Read and follow `skills/shared/rigor-protocol.md` for all implementation work. This includes:
 - TDD mandate: no production code without a failing test first
 - Verification mandate: no completion claims without fresh evidence
 - Debugging mandate: no fixes without root cause investigation

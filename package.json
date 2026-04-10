@@ -1,7 +1,7 @@
 {
   "name": "btrs",
-  "version": "2.0.1",
-  "description": "AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: /btrs.",
+  "version": "3.0.0",
+  "description": "AI agent orchestration plugin — 12 active specialists, 6 commands, adaptive rigor, and Obsidian docs. One command: /btrs.",
   "license": "MIT",
   "repository": {
     "type": "git",
