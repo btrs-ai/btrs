@@ -1,60 +1,77 @@
-# BTRS Agents -- Claude Code Instructions
-
-See **AGENTS.md** for the full BTRS instruction set. This file adds Claude Code-specific features.
+# BTRS v3 — Claude Code Instructions
 
 ## Entry Point
 
 Use `/btrs` as the primary entry point. It routes to the correct skill automatically.
-For direct access, use any of the 6 core skills: `/btrs-build`, `/btrs-fix`, `/btrs-review`,
-`/btrs-research`, `/btrs-dispatch`.
 
-## Plan Mode (Default)
+### Commands
 
-All requests default to plan mode. Create a task breakdown, show it, and wait for
-explicit user approval before executing. See AGENTS.md for the full protocol.
+| Command | Purpose |
+|---------|---------|
+| `/btrs` | Router — classifies and routes any request |
+| `/btrs-build` | Feature building: brainstorm → plan → implement → verify |
+| `/btrs-fix` | Systematic debugging with root cause investigation |
+| `/btrs-review` | Code review, security audit, tech debt scan |
+| `/btrs-research` | Technology evaluation, brainstorming, analysis |
+| `/btrs-dispatch` | Direct agent dispatch (power user shortcut) |
 
-## Dispatching Specialist Agents
+## Adaptive Rigor
 
-Use the Agent tool (subagent) to dispatch work to specialists. Each agent is defined
-in `agents/btrs-*/AGENT.md`. Available subagent types:
+BTRS v3 auto-detects the appropriate rigor level:
 
-| subagent_type | Agent |
-|---------------|-------|
-| `btrs-boss` | Orchestrator, task coordination |
+| Level | When | What |
+|-------|------|------|
+| Quick | Config, docs, small changes | File checks only, no tests |
+| Standard | Features, refactoring, code changes | Tests + inline self-review |
+| Strict | Security, production, migrations, 5+ files | Full TDD + 5-step verification |
+
+Override with "use strict mode" or "quick is fine".
+
+## Agents
+
+### Tier 1 — Always Loaded
+
+| Agent | Domain |
+|-------|--------|
+| `btrs-boss` | Multi-agent coordination |
 | `btrs-architect` | System design, ADRs |
-| `btrs-api-engineer` | Backend APIs, REST, GraphQL |
-| `btrs-web-engineer` | React, Vue, frontend apps |
-| `btrs-mobile-engineer` | React Native, Flutter, mobile |
-| `btrs-desktop-engineer` | Electron, Tauri, desktop apps |
-| `btrs-ui-engineer` | Component libraries, design systems |
-| `btrs-database-engineer` | Schema, migrations, optimization |
-| `btrs-qa-test-engineering` | Testing (unit, integration, e2e) |
-| `btrs-code-security` | SAST/DAST, vulnerability scanning |
-| `btrs-security-ops` | Infrastructure security, compliance |
-| `btrs-cloud-ops` | AWS, Azure, GCP infrastructure |
-| `btrs-cicd-ops` | Pipelines, GitHub Actions |
-| `btrs-container-ops` | Docker, Kubernetes |
-| `btrs-monitoring-ops` | Prometheus, Grafana, observability |
-| `btrs-documentation` | Technical writing, API docs |
-| `btrs-research` | Tech evaluation, POCs |
-| `btrs-product` | Product strategy, roadmap |
-| `btrs-marketing` | Campaigns, growth, SEO |
-| `btrs-sales` | Pipeline, revenue, BD |
-| `btrs-accounting` | Financials, bookkeeping |
-| `btrs-customer-success` | Retention, support |
-| `btrs-data-analyst` | BI, analytics, dashboards |
-| `btrs-devops` | General DevOps workflows |
+| `btrs-api-engineer` | Backend APIs |
+| `btrs-web-engineer` | Frontend apps |
+| `btrs-mobile-engineer` | Mobile apps |
+| `btrs-ui-engineer` | Components, design systems |
+| `btrs-database-engineer` | Schema, migrations |
+| `btrs-qa-test-engineering` | Testing |
+| `btrs-code-security` | Security review |
+| `btrs-devops` | Cloud, CI/CD, containers, monitoring |
+| `btrs-research` | Tech evaluation |
+| `btrs-documentation` | Technical writing |
 
-## Memory Context
+### Tier 2 — On-Demand (via `/btrs-dispatch`)
 
-When dispatching agents, pass relevant context from `AI/memory/` and instruct
-agents to write their output back to their memory location. See AGENTS.md for
-the full memory system layout.
+`desktop-engineer`, `security-ops`, `cloud-ops`, `cicd-ops`, `container-ops`, `monitoring-ops`, `product`, `marketing`, `sales`, `accounting`, `customer-success`, `data-analyst`
 
-## Additional Resources
+## Session Continuity
 
-- **Full Instructions**: `AGENTS.md`
-- **Quick Start Guide**: `docs/getting-started/QUICK-START-CLAUDE-CODE.md`
-- **Detailed Workflows**: `docs/getting-started/CLAUDE-CODE-USAGE.md`
-- **All Agent Definitions**: `agents/btrs-*/AGENT.md`
-- **Plugin Manifest**: `plugin.json`
+Type `/btrs` once and all subsequent messages route through BTRS automatically via a UserPromptSubmit hook.
+
+## Project Vault
+
+BTRS creates a `btrs/` directory (Obsidian vault) in each project:
+
+```
+btrs/
+├── config.json          # Project config
+├── project-map.md       # Agent scopes
+├── status.md            # Active work
+├── decisions/           # ADRs
+├── specs/               # Feature specs
+└── conventions/         # Patterns, registry, anti-patterns
+```
+
+## Key Files
+
+- **Agent definitions**: `agents/btrs-*/AGENT.md`
+- **Skill definitions**: `skills/*/SKILL.md`
+- **Rigor protocol**: `skills/shared/rigor-protocol.md`
+- **Agent registry**: `skills/shared/agent-registry.md`
+- **Plugin manifest**: `plugin.json`
