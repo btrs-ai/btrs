@@ -1,8 +1,8 @@
-# BTRS Agents v2.0.0 — Usage Guide
+# BTRS Agents v3.0.0 — Usage Guide
 
 Everything starts with `/btrs`. This guide shows real examples of what you can ask and what happens.
 
-BTRS v2.0.0 merges the Superpowers discipline system directly into the pipeline. Every task now follows a structured workflow with TDD enforcement, verification evidence, and session continuity built in.
+BTRS v3.0.0 consolidates skills and agents for a leaner pipeline. Every task follows a structured workflow with adaptive rigor, verification evidence, and session continuity built in.
 
 ---
 
@@ -115,7 +115,7 @@ What happens:
 ```
 
 What happens:
-- BTRS dispatches `/btrs-debug` with the 4-phase systematic process:
+- BTRS dispatches `/btrs-fix` with the 4-phase systematic process:
   1. **Observe**: Reads the login form code, identifies the double-submit behavior
   2. **Hypothesize**: Forms specific hypotheses — missing debounce, event propagation, race condition
   3. **Test**: Tests each hypothesis with evidence — adds logging, checks event handlers
@@ -128,7 +128,7 @@ What happens:
 ```
 
 What happens:
-- BTRS dispatches `/btrs-debug` for the API layer
+- BTRS dispatches `/btrs-fix` for the API layer
 - Systematic 4-phase process: observe logs, hypothesize causes, test with specific inputs, conclude with evidence
 - No guessing — every hypothesis is tested before a fix is attempted
 - Regression test written first, then fix applied
@@ -226,9 +226,9 @@ What happens:
 ```
 
 What happens:
-- BTRS dispatches **Code Security** and **Security Ops** in parallel
-- Code Security: OWASP top 10, injection vulnerabilities, auth issues, secrets in code
-- Security Ops: dependency vulnerabilities, infrastructure config, compliance
+- BTRS dispatches **Code Security**
+- OWASP top 10, injection vulnerabilities, auth issues, secrets in code
+- Dependency vulnerabilities, infrastructure config, compliance
 - Produces audit report in `btrs/evidence/`
 - Creates todos for any findings
 
@@ -273,7 +273,7 @@ What happens:
 ```
 
 What happens:
-- BTRS dispatches **CI/CD Ops** (or **DevOps** for full workflow)
+- BTRS dispatches **DevOps**
 - Detects your stack, creates GitHub Actions (or equivalent)
 - Includes build, test, lint, deploy stages
 - Creates infrastructure docs in `btrs/knowledge/docs/infrastructure.md`
@@ -293,7 +293,7 @@ What happens:
 ```
 
 What happens:
-- BTRS dispatches **Container Ops**
+- BTRS dispatches **DevOps**
 - Creates Dockerfile, docker-compose.yml following best practices
 - Adds to code-map and infrastructure docs
 
@@ -470,29 +470,12 @@ If you already know exactly what you want, skip the router:
 
 | You want... | Type... |
 |-------------|---------|
-| Brainstorm a feature | `/btrs-brainstorm notification system` |
-| Plan a feature | `/btrs-plan user notifications` |
-| Execute a plan | `/btrs-execute` |
-| Create a worktree | `/btrs-worktree feature/my-feature` |
-| Implement from a spec | `/btrs-implement specs/auth-system` |
-| Run TDD on a task | `/btrs-tdd rate limiting middleware` |
-| Debug a failure | `/btrs-debug test suite fails on CI` |
-| Sanity-check before merge | `/btrs-sanity-check` |
-| Finish a branch | `/btrs-finish` |
-| Request code review | `/btrs-request-review` |
-| Receive review feedback | `/btrs-receive-review` |
-| Dispatch an agent | `/btrs-dispatch web-engineer` |
+| Build a feature | `/btrs-build user notifications` |
+| Fix a bug or failure | `/btrs-fix test suite fails on CI` |
 | Review recent changes | `/btrs-review` |
-| Security audit | `/btrs-audit` |
-| Check conventions | `/btrs-verify src/components/` |
-| Project health | `/btrs-health` |
-| Refresh docs | `/btrs-doc` |
-| Compare approaches | `/btrs-propose real-time updates` |
 | Research a technology | `/btrs-research headless CMS options` |
-| Scan for tech debt | `/btrs-tech-debt scan` |
-| Fix top priority debt | `/btrs-tech-debt fix` |
-| Add tech debt item | `/btrs-tech-debt add missing rate limiting` |
-| Create a handoff | `/btrs-handoff` |
+| Dispatch a specific agent | `/btrs-dispatch web-engineer` |
+| Route automatically | `/btrs add real-time updates` |
 
 These all do the same thing `/btrs` would do — they just skip the classification step.
 
@@ -556,4 +539,4 @@ The agent instructions work with any AI. The skills, pipeline, and auto-routing 
 - **Session continuity is automatic.** Just type `/btrs` in a new session — it shows active work if any exists.
 - **Run /btrs-health periodically.** It catches drift before it becomes a problem.
 - **Plans are your source of truth.** If you want something built a specific way, shape it during the brainstorm phase.
-- **Debugging is systematic.** Do not guess — `/btrs-debug` follows the 4-phase process every time.
+- **Debugging is systematic.** Do not guess — `/btrs-fix` follows the 4-phase process every time.

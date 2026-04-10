@@ -1,6 +1,6 @@
 {
   "name": "btrs",
-  "description": "AI agent orchestration plugin — 24 specialists, 16 skills, convention enforcement, self-verification, tech debt tracking, and auto-generated Obsidian docs. One command: /btrs.",
+  "description": "AI agent orchestration plugin — 12 active specialists, 6 commands, adaptive rigor, and Obsidian docs. One command: /btrs.",
   "category": "development",
   "author": {
     "name": "BTRS AI"
