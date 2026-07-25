@@ -49,10 +49,10 @@ See AGENTS.md for the full list of 24 agents.
 When Cascade proposes multi-file changes:
 - Ensure changes stay within the assigned agent's scope
 - Check that imports resolve and types are consistent
-- Verify new code follows `.btrs/conventions/` rules
+- Verify new code follows `btrs/conventions/` rules
 
 ## Conventions (from AGENTS.md)
-1. Check `.btrs/conventions/registry.md` before creating new components or utilities
-2. Follow the 5-point verification protocol after changes
+1. Check `btrs/conventions/registry.md` before creating new components or utilities
+2. Follow the 5-point verification protocol from AGENTS.md after changes
 3. Match existing codebase patterns exactly
-4. Update `.btrs/` vault files after completing work (code-map, todos, changelog)
+4. Update `btrs/status.md` and `btrs/conventions/registry.md` after completing work — there is no `code-map/`, `todos/`, or `changelog/` directory; tasks are tracked with your tool's own task mechanism, and git history is the changelog

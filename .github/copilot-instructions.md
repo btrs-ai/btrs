@@ -57,10 +57,10 @@ See AGENTS.md for the full list of 24 agents.
 When writing code, Copilot's inline suggestions should follow:
 - Existing patterns in the codebase (check before accepting)
 - Anti-pattern rules from AGENTS.md
-- Convention rules from `.btrs/conventions/`
+- Convention rules from `btrs/conventions/`
 
 ## Conventions (from AGENTS.md)
-1. Check `.btrs/conventions/registry.md` before creating new components or utilities
-2. Follow the 5-point verification protocol after changes
+1. Check `btrs/conventions/registry.md` before creating new components or utilities
+2. Follow the 5-point verification protocol from AGENTS.md after changes
 3. Match existing codebase patterns exactly
-4. Update `.btrs/` vault files after completing work (code-map, todos, changelog)
+4. Update `btrs/status.md` and `btrs/conventions/registry.md` after completing work — there is no `code-map/`, `todos/`, or `changelog/` directory; tasks are tracked with your tool's own task mechanism, and git history is the changelog

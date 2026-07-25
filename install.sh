@@ -34,11 +34,15 @@ V3_SKILLS=(
   btrs-review
   btrs-research
   btrs-dispatch
+  btrs-init
+  btrs-deploy
+  btrs-health
+  btrs-update
 )
 
 echo ""
 echo "  BTRS v3 — Installing"
-echo "  12 specialist agents, 6 commands: /btrs /btrs-build /btrs-fix /btrs-review /btrs-research /btrs-dispatch"
+echo "  12 specialist agents, 10 commands: /btrs /btrs-build /btrs-fix /btrs-review /btrs-research /btrs-dispatch /btrs-init /btrs-deploy /btrs-health /btrs-update"
 echo ""
 
 # Clone or update the toolkit
@@ -133,6 +137,6 @@ echo "            Tier 2 agents available via /dispatch"
 
 echo ""
 echo "Done! Start any conversation with /btrs to get going."
-echo "Commands: /btrs /btrs-build /btrs-fix /btrs-review /btrs-research /btrs-dispatch"
+echo "Commands: /btrs /btrs-build /btrs-fix /btrs-review /btrs-research /btrs-dispatch /btrs-init /btrs-deploy /btrs-health /btrs-update"
 echo "To update later: ~/.claude/btrs/install.sh"
 echo ""

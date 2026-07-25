@@ -1,14 +1,18 @@
 {
   "name": "btrs",
-  "version": "3.0.0",
-  "description": "AI agent orchestration plugin — 12 active specialists, 6 commands, adaptive rigor, and Obsidian docs. One command: /btrs.",
+  "version": "3.1.0",
+  "description": "AI agent orchestration plugin — 12 active specialists, 10 commands, adaptive rigor, and Obsidian docs. One command: /btrs.",
   "skills": [
     "skills/btrs",
     "skills/btrs-build",
     "skills/btrs-fix",
     "skills/btrs-review",
     "skills/btrs-research",
-    "skills/btrs-dispatch"
+    "skills/btrs-dispatch",
+    "skills/btrs-init",
+    "skills/btrs-deploy",
+    "skills/btrs-health",
+    "skills/btrs-update"
   ],
   "agents": [
     "agents/btrs-boss",

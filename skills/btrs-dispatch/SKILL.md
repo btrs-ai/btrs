@@ -1,140 +1,85 @@
 ---
 name: btrs-dispatch
-description: Dispatch multiple agents in parallel for independent tasks. Use when facing 2+ independent problems that can be worked on without shared state or sequential dependencies.
+description: >
+  Direct dispatch to a single specialist agent — Tier 1 (always-loaded) or
+  Tier 2 (on-demand: desktop-engineer, security-ops, cloud-ops, cicd-ops,
+  container-ops, monitoring-ops, product, marketing, sales, accounting,
+  customer-success, data-analyst). Use when the user names a specific domain
+  or specialist directly, or wants a Tier 2 agent that isn't loaded by default.
 disable-model-invocation: true
-allowed-tools: Agent, Read, Grep, Glob, Bash(git *)
-argument-hint: <list of independent tasks>
+allowed-tools: Agent, Read, Grep, Glob
+argument-hint: <domain or agent name> <task>
 ---
 
-# BTRS Dispatch -- Parallel Agent Dispatch
+# /btrs-dispatch
 
-## Overview
+Direct agent dispatch. Resolves the user's request to exactly one specialist —
+Tier 1 or Tier 2 — and dispatches it via the Agent tool. This is the only path
+to Tier 2 specialists, which are not loaded by default and have no registered
+subagent type.
 
-You delegate tasks to specialized agents with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history -- you construct exactly what they need. This also preserves your own context for coordination work.
+The user's request is: $ARGUMENTS
 
-When you have multiple unrelated problems (different files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
+## Step 0: Load the routing table
 
-**Core principle:** Dispatch one agent per independent problem domain. Let them work concurrently.
+Read `~/.claude/btrs/skills/shared/agent-registry.md`.
 
-## Step 0 -- Load Context
+Use this absolute path, not the bare relative path `skills/shared/agent-registry.md`.
+A same-named `shared/` directory from an unrelated toolkit can shadow the
+relative path depending on the shell's working directory, silently serving the
+wrong registry.
 
-Before dispatching any agents, read these files:
+## Step 1: Resolve the target agent
 
-1. `config.md` -- project configuration and conventions
-2. `discipline-protocol.md` -- quality standards and constraints
-3. `workflow-protocol.md` -- dispatch rules and announcement requirements
-4. `agent-registry.md` -- available agent types and their capabilities
+1. Match the request against the registry's Quick Match Table (Tier 1 and Tier 2 sections).
+2. **Multi-domain** — route to `boss`.
+3. **Ambiguous** — ask the user to clarify, naming the two most likely agents.
+4. **No match** — default to `boss`.
+5. State the resolved agent and its tier before dispatching: "Dispatching to `{agent}` (Tier {1|2}) — {one-line reason}."
 
-Do NOT skip this step. You need to know what agents are available and what protocols govern dispatch.
+## Step 2: Dispatch
 
-## Decision Flow
-
-```dot
-digraph decision {
-    "2+ tasks?" [shape=diamond];
-    "Are they independent?" [shape=diamond];
-    "Single agent handles all" [shape=box];
-    "No shared state?" [shape=diamond];
-    "Parallel dispatch (btrs-dispatch)" [shape=box];
-    "Sequential dispatch (btrs-execute)" [shape=box];
-
-    "2+ tasks?" -> "Single agent handles all" [label="no"];
-    "2+ tasks?" -> "Are they independent?" [label="yes"];
-    "Are they independent?" -> "Sequential dispatch (btrs-execute)" [label="no - related"];
-    "Are they independent?" -> "No shared state?" [label="yes"];
-    "No shared state?" -> "Parallel dispatch (btrs-dispatch)" [label="yes"];
-    "No shared state?" -> "Sequential dispatch (btrs-execute)" [label="no - shared files/state"];
-}
-```
-
-**Use parallel dispatch when:**
-- 2+ tasks exist with different root causes
-- Multiple subsystems broken independently
-- Each problem can be understood without context from others
-- No shared state or files between tasks
-
-**Do NOT use parallel dispatch when:**
-- Failures are related (fixing one might fix others)
-- Agents would modify the same files
-- Tasks have sequential dependencies
-- You need to understand full system state before acting
-
-## Per-Agent Dispatch Requirements
-
-Each dispatched agent MUST receive:
-
-1. **Announcement** -- Announce each dispatch with context (who, what, why) per workflow protocol Rule 2
-2. **Specific scope** -- One file or one subsystem, never "fix everything"
-3. **Clear goal** -- Exact outcome expected, measurable where possible
-4. **Explicit constraints** -- What NOT to touch, what NOT to change
-5. **Discipline protocol injection** -- Include the discipline protocol so the agent follows quality standards
-6. **Project conventions** -- Relevant config and conventions from config.md
-7. **Output location** -- Each agent writes output to the appropriate btrs/ tier
-
-## Dispatch Prompt Examples
-
-### BAD Dispatch Prompts
+**Tier 1** (`architect`, `api-engineer`, `web-engineer`, `mobile-engineer`,
+`ui-engineer`, `database-engineer`, `qa-test-engineering`, `code-security`,
+`devops`, `research`, `documentation`, `boss`) — these are symlinked into
+`~/.claude/agents/` as `btrs-<name>`. Dispatch directly:
 
 ```
-Fix all failing tests
-```
-Too vague. Overlapping scope. Agent gets lost.
-
-```
-Fix the race condition
-```
-No context. Agent does not know where to look or what the symptoms are.
-
-```
-Refactor the auth module
-```
-No constraints. Agent might rewrite everything.
-
-### GOOD Dispatch Prompts
-
-```
-Fix auth-middleware.test.ts -- the JWT verification test expects a 401 but gets
-200. Only modify src/middleware/auth.ts and its test file. Do NOT change any
-other middleware or route handlers. Return: root cause summary and list of
-changed files.
+Agent(subagent_type: "btrs-<name>", prompt: "<task>", description: "<short label>")
 ```
 
-```
-Fix the batch-completion-behavior.test.ts failures -- 2 tests fail because
-tools are not executing. The threadId is in the wrong place in the event
-structure. Only modify src/events/batch.ts and its test. Return: what you
-found and what you fixed.
-```
+**Tier 2** (`desktop-engineer`, `security-ops`, `cloud-ops`, `cicd-ops`,
+`container-ops`, `monitoring-ops`, `product`, `marketing`, `sales`,
+`accounting`, `customer-success`, `data-analyst`) — these have no registered
+subagent type. Load the specialist manually:
 
-```
-Investigate why tool-approval-race-conditions.test.ts shows execution count = 0.
-Read the test, trace the async flow, and add proper awaits for async tool
-execution. Only modify the test file. Return: root cause and fix summary.
-```
+1. Read `~/.claude/btrs/agents/btrs-<name>/AGENT.md` in full. If it does not
+   exist, stop and tell the user — do not guess or proceed without it.
+2. Dispatch via `subagent_type: "general-purpose"`, with a prompt of the form:
 
-## After Agents Return
+   ```
+   You are acting as the following specialist. Follow its role, responsibilities,
+   and constraints exactly as written below.
 
-1. **Review summaries** -- Read each agent's output summary
-2. **Check for conflicts** -- Did any agents modify the same files or overlapping code?
-3. **Run full test suite** -- Verify all fixes work together
-4. **Spot check results** -- Agents can make systematic errors; verify key changes
-5. **If conflicts found** -- Resolve sequentially, do not re-dispatch in parallel
+   ---
+   {full contents of AGENT.md}
+   ---
 
-## Anti-Patterns
+   Task: {the user's actual request}
+   ```
 
-- **Do NOT** dispatch parallel agents that modify the same files
-- **Do NOT** dispatch implementation agents in parallel (use btrs-execute for sequential implementation)
-- **Do NOT** skip the conflict check after parallel completion
-- **Do NOT** dispatch without reading agent-registry.md first
-- **Do NOT** give agents broad scope ("fix everything in src/")
-- **Do NOT** skip announcing each dispatch per workflow protocol
+3. Note in your dispatch announcement that this is a Tier 2 agent running via
+   `general-purpose` (no native subagent type) — the user should know it isn't
+   a first-class registered agent.
 
-## Verification
+## Step 3: Report
 
-After all agents return and changes are integrated:
+1. Return the dispatched agent's output to the user, unmodified unless it needs summarizing for length.
+2. If the agent asked a clarifying question instead of completing the task, surface that question rather than guessing an answer.
 
-1. **Review each summary** -- Understand what changed and why
-2. **Check for conflicts** -- Verify no agents edited the same code
-3. **Run full suite** -- All tests must pass with combined changes
-4. **Spot check** -- Manually verify at least one fix per agent
-5. **If anything fails** -- Debug sequentially, do not re-dispatch blindly
+## Anti-patterns
+
+- Do not dispatch to `general-purpose` for a Tier 2 request without first reading and injecting its `AGENT.md` — an uninstructed general-purpose agent is not the specialist the user asked for.
+- Do not use the bare relative path `skills/shared/agent-registry.md` or `agents/btrs-<name>/AGENT.md` — resolve against `~/.claude/btrs/` explicitly, since a same-named `shared/` directory can otherwise resolve to an unrelated toolkit's files depending on the shell's cwd.
+- Do not invent a Tier 2 agent that isn't in the registry. If no match exists, say so.
+- Do not skip the ambiguous-match clarification for vague, multi-domain requests — that's what `boss` is for when genuinely broad, but a two-way ambiguity should be asked, not guessed.

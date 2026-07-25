@@ -67,8 +67,8 @@ This protocol replaces always-on strict enforcement with risk-aware auto-detecti
 - Anything involving user data, PII, or compliance
 
 **Requirements:**
-- Full TDD: RED-GREEN-REFACTOR cycle (see `skills/shared/discipline-reference.md` Section 1)
-- 5-step verification gate (see `skills/shared/discipline-reference.md` Section 2):
+- Full TDD: RED-GREEN-REFACTOR cycle (see `~/.claude/btrs/skills/shared/discipline-reference.md` Section 1)
+- 5-step verification gate (see `~/.claude/btrs/skills/shared/discipline-reference.md` Section 2):
   1. IDENTIFY the verification command
   2. RUN it fresh
   3. READ the full output
@@ -76,7 +76,7 @@ This protocol replaces always-on strict enforcement with risk-aware auto-detecti
   5. CLAIM only then
 - Forbidden words in completion claims: "should", "probably", "seems to", "I believe", "likely"
 - No premature celebration before verification
-- Contributing factor sweep for bug fixes (see `skills/shared/discipline-reference.md` Section 3)
+- Contributing factor sweep for bug fixes (see `~/.claude/btrs/skills/shared/discipline-reference.md` Section 3)
 
 **Announce:** `Rigor: strict — {reason (e.g., "auth-related, security-sensitive")}`
 

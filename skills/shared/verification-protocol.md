@@ -6,8 +6,8 @@ Every agent must follow this protocol before reporting a task as complete. No ex
 
 Run verification:
 - Before marking any task as `complete`
-- Before writing a final agent output file
-- When the `/btrs-verify` skill is invoked directly
+- Before reporting a review, build, or fix as done
+- When `/btrs-health` is invoked directly
 
 ## The Five Checks
 
@@ -34,7 +34,8 @@ Every file claimed to be created or modified must exist on disk.
 All code must follow the project's established conventions.
 
 **Process:**
-- Read `btrs/conventions/` for relevant convention files (ui.md, api.md, database.md, etc.)
+- Read `btrs/conventions/patterns.md` for the project's convention rules (organized by section: UI, API, database, testing, styling)
+- Read `btrs/conventions/registry.md` and `btrs/conventions/anti-patterns.md` for existing components/utilities and known mistakes to avoid
 - Read `btrs/config.json` for framework and tool settings
 - Check that new code matches existing patterns in the codebase
 - Verify naming conventions, file structure, import patterns
@@ -42,9 +43,9 @@ All code must follow the project's established conventions.
 **Evidence format:**
 ```markdown
 ### Pattern Compliance
-- [PASS] API route follows RESTful conventions per `btrs/conventions/api.md`
+- [PASS] API route follows RESTful conventions per `btrs/conventions/patterns.md`
 - [PASS] Component uses project's naming convention (PascalCase)
-- [WARN] No convention file found for this area -- matched existing patterns in `src/api/`
+- [WARN] No convention documented for this area -- matched existing patterns in `src/api/`
 - [FAIL] Uses `axios` but project convention specifies `fetch` wrapper
 ```
 
@@ -152,12 +153,11 @@ The complete verification report is included in the agent output file:
 2. **Re-verify** after fixing -- do not assume the fix worked.
 3. **If you cannot fix it**, report the task as `partial` with the verification report attached. Clearly describe what failed and what is needed.
 
-### During External Verification (/btrs-verify)
+### During External Verification (/btrs-review, /btrs-health)
 
 1. **Document all failures** in the verification report.
-2. **Create TODO items** for each failure that needs follow-up work.
-3. **Assign the TODOs** to the appropriate agent.
-4. **Do not mark the spec as complete** if there are any FAIL results (WARN and MANUAL are acceptable).
+2. **Use TaskCreate** for each failure that needs follow-up work.
+3. **Do not mark the spec as complete** if there are any FAIL results (WARN and MANUAL are acceptable).
 
 ## Verification Levels
 
@@ -182,12 +182,9 @@ During ANY task — not just scans or reviews — if you encounter tech debt, ca
 
 ### What to do when you find it:
 1. **Don't stop your current task** — note it and keep going
-2. After completing your task, write tech debt items to `btrs/tech-debt/TD-{NNN}.md`
-3. Use the template from `btrs/templates/tech-debt.md`
-4. Include specific fix instructions (not just "refactor this")
-5. Set `found-during: {your-current-task-type}` in the frontmatter
-6. Update `btrs/tech-debt/_index.md` with the new item(s)
-7. Mention captured tech debt in your agent output: "Found N tech debt items — see [[tech-debt/TD-NNN]]"
+2. v3 tracks tech debt inline, not in a dedicated directory: use TaskCreate for actionable fixes, or write an ADR to `btrs/decisions/` if it's architecturally significant enough to warrant a decision record.
+3. Include specific fix instructions (not just "refactor this") in the task or ADR.
+4. Mention what you captured in your output: "Found N tech debt items — filed as tasks: ..."
 
 ### Triage during capture:
 - **Critical**: Fix now — blocks or actively harms (flag to orchestrator)

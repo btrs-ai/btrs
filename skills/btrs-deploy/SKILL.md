@@ -2,7 +2,7 @@
 name: btrs-deploy
 description: Deployment and release workflow with pre-deploy checks, changelog, and post-deploy verification. Use when deploying, releasing, or shipping.
 disable-model-invocation: true
-allowed-tools: Agent, Read, Write, Edit, Grep, Glob, Bash(git *), Bash(npm *), Bash(npx *), Bash(docker *)
+allowed-tools: Agent, Read, Write, Edit, Grep, Glob, Bash(git *), Bash(npm *), Bash(npx *), Bash(docker *), TaskList
 argument-hint: <environment or version>
 ---
 
@@ -14,12 +14,12 @@ Deployment and release workflow skill. Runs pre-deploy checks, generates changel
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
 2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 3. Read `btrs/conventions/` for any deployment-related conventions.
 4. Read `btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
-5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
-6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+5. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
+6. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Determine deployment target
 
@@ -37,8 +37,8 @@ Run these checks before any deployment action. All must pass for production depl
 2. **Branch**: On the correct branch for the target environment (e.g., `main` for production).
 3. **Tests**: Check that the test suite passes (`npm test` or equivalent).
 4. **Build**: Check that the project builds successfully (`npm run build` or equivalent).
-5. **Convention compliance**: Run a quick `/btrs-verify` pass on recently changed files.
-6. **Open critical TODOs**: Check `btrs/todos/` for any critical-priority items that are incomplete.
+5. **Convention compliance**: Run a quick `/btrs-review` pass on recently changed files.
+6. **Open critical tasks**: Use TaskList to check for any critical-priority tasks that are incomplete.
 7. **Spec completion**: Check `btrs/specs/` for any in-progress specs that should be completed first.
 
 Report the pre-deploy checklist:
@@ -58,14 +58,13 @@ If any FAIL, stop and report. Do not proceed.
 
 ### Step 3: Generate changelog
 
-1. Read `btrs/changelog/` files since the last release tag.
-2. Read git log since the last release tag.
-3. Categorize changes:
+1. Read git log since the last release tag — git history is the changelog in v3, there is no separate `btrs/changelog/` directory.
+2. Categorize changes:
    - **Features**: New functionality
    - **Fixes**: Bug fixes
    - **Breaking**: Breaking changes
    - **Other**: Refactors, docs, chores
-4. Write the release changelog section.
+3. Write the release changelog section.
 
 ### Step 4: Version bump
 
@@ -104,11 +103,10 @@ Wait for explicit user approval.
 2. If health check endpoints exist, verify they respond correctly.
 3. Report deployment status.
 
-### Step 8: Write output to vault
+### Step 8: Record the release
 
-1. Write the release notes to `btrs/changelog/{version}.md` with proper frontmatter.
-2. Write deployment record to `btrs/agents/{deployer-slug}/deploy-{version}.md`.
-3. Update `btrs/changelog/{today}.md` with the deployment event.
+1. Write or update the release notes in a root-level `CHANGELOG.md` (a real, versioned file, not a `btrs/` vault path).
+2. Report the deployment outcome directly to the user — there is no `btrs/agents/` path in v3 to persist a deployment record to.
 
 ## Anti-patterns
 

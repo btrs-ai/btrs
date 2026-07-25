@@ -14,12 +14,12 @@ Technology evaluation and comparison skill. Researches options, creates comparis
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
 2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 3. Read `btrs/decisions/` for existing ADRs that may constrain or inform the research.
 4. Read `btrs/conventions/` for any rules about technology choices.
-5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
-6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+5. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
+6. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Define the research question
 
@@ -114,11 +114,9 @@ Format the output as:
    - Consequences (trade-offs accepted)
 3. Set status to `proposed` -- the user must accept it.
 
-### Step 7: Write output to vault
+### Step 7: Present findings
 
-1. Write the full research report to `btrs/agents/research/research-{slug}.md` with proper frontmatter.
-2. Update `btrs/changelog/{today}.md` with a line item about this research.
-3. Present the recommendation and ADR to the user.
+1. Present the full research report, recommendation, and ADR directly to the user — there is no `btrs/agents/` path in v3 to persist a standalone report to. If the research produced a lasting decision, that decision lives in the ADR written in Step 6; the surrounding research is conversational output, not a vault artifact.
 
 ## Anti-patterns
 

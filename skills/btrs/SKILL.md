@@ -33,7 +33,7 @@ Then continue to Step 0.
 1. Use Glob to check if `btrs/project-map.md` exists in the project root.
 2. **If `btrs/project-map.md` does NOT exist:**
    - Tell the user: "First time here — let me scan your project."
-   - Read `~/.claude/skills/btrs-init/SKILL.md` and follow its workflow inline.
+   - Read `~/.claude/btrs/skills/btrs-init/SKILL.md` and follow its workflow inline.
    - After init completes, continue to Step 1.
 3. **If `btrs/project-map.md` exists:**
    - Read `btrs/project-map.md` and `btrs/config.json` to load project context.
@@ -55,11 +55,11 @@ Based on `$ARGUMENTS`, classify and route:
 | Category | Signals | Route |
 |----------|---------|-------|
 | Quick answer | "What framework?", "Show conventions", "List agents" | Answer directly from btrs/ files |
-| Debug/fix | "Fix", "bug", "test failing", "error", "broken", "not working" | Read and follow `skills/btrs-fix/SKILL.md` |
-| Build/create | "Build", "create", "implement", "add", "design", "feature" | Read and follow `skills/btrs-build/SKILL.md` |
-| Review/audit | "Review", "audit", "tech debt", "scan", "quality" | Read and follow `skills/btrs-review/SKILL.md` |
-| Research/analyze | "Compare", "research", "evaluate", "brainstorm", "analyze", "explore" | Read and follow `skills/btrs-research/SKILL.md` |
-| Direct dispatch | Agent name mentioned explicitly | Read and follow `skills/btrs-dispatch/SKILL.md` |
+| Debug/fix | "Fix", "bug", "test failing", "error", "broken", "not working" | Read and follow `~/.claude/btrs/skills/btrs-fix/SKILL.md` |
+| Build/create | "Build", "create", "implement", "add", "design", "feature" | Read and follow `~/.claude/btrs/skills/btrs-build/SKILL.md` |
+| Review/audit | "Review", "audit", "tech debt", "scan", "quality" | Read and follow `~/.claude/btrs/skills/btrs-review/SKILL.md` |
+| Research/analyze | "Compare", "research", "evaluate", "brainstorm", "analyze", "explore" | Read and follow `~/.claude/btrs/skills/btrs-research/SKILL.md` |
+| Direct dispatch | Agent name mentioned explicitly | Read and follow `~/.claude/btrs/skills/btrs-dispatch/SKILL.md` |
 | Status/health | "Status", "health", "what's active" | Read `btrs/status.md` and report |
 | Unclear | Ambiguous or insufficient detail | Ask 1-2 clarifying questions |
 

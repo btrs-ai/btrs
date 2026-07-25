@@ -13,7 +13,11 @@ Use `/btrs` as the primary entry point. It routes to the correct skill automatic
 | `/btrs-fix` | Systematic debugging with root cause investigation |
 | `/btrs-review` | Code review, security audit, tech debt scan |
 | `/btrs-research` | Technology evaluation, brainstorming, analysis |
-| `/btrs-dispatch` | Direct agent dispatch (power user shortcut) |
+| `/btrs-dispatch` | Direct agent dispatch — Tier 1 or Tier 2 |
+| `/btrs-init` | Scan a project and create/refresh the `btrs/` vault (runs automatically on first `/btrs` use) |
+| `/btrs-deploy` | Deployment and release workflow with pre-deploy checks |
+| `/btrs-health` | Project-wide drift and consistency check |
+| `/btrs-update` | Pull the latest BTRS release and reinstall |
 
 ## Adaptive Rigor
 

@@ -2,12 +2,12 @@
 
 ## Overview
 
-BTRS is a 12-active-agent system with 12 on-demand agents. The `/btrs` router classifies requests and dispatches to the right agent via 6 tiered commands.
+BTRS is a 12-active-agent system with 12 on-demand agents. The `/btrs` router classifies requests and dispatches to the right agent via 10 tiered commands: `/btrs`, `/btrs-build`, `/btrs-fix`, `/btrs-review`, `/btrs-research`, `/btrs-dispatch`, `/btrs-init`, `/btrs-deploy`, `/btrs-health`, `/btrs-update`.
 
 ## Architecture
 
 ```
-User → /btrs (router) → /build, /fix, /review, /research, /dispatch
+User → /btrs (router) → /btrs-build, /btrs-fix, /btrs-review, /btrs-research, /btrs-dispatch
                               ↓
                         Agent dispatch (Tier 1 or Tier 2)
                               ↓
@@ -91,3 +91,34 @@ Sequential agents pass context via `btrs/` paths:
 - Engineers read decisions, write implementations
 - Security reviews all outputs
 - All agents update `btrs/status.md`
+
+## Project Vault
+
+BTRS stores project knowledge in `btrs/` (no dot prefix) at the project root — a plain-Markdown, Obsidian-compatible vault:
+
+```
+btrs/
+  config.json              # Project configuration (framework, language, tools)
+  project-map.md           # Agent scopes and architecture overview
+  status.md                # Current work state
+  decisions/               # Architecture Decision Records (ADRs)
+  specs/                   # Feature specifications + plans
+  conventions/
+    registry.md             # Component/utility/hook/type registry — check before creating anything new
+    patterns.md              # All convention rules, organized by section (UI, API, database, testing, styling)
+    anti-patterns.md         # Known mistakes to avoid
+```
+
+Tasks and tech debt are tracked with the AI tool's own task/TODO mechanism where available, or as ADRs when architecturally significant — not as separate `btrs/` subdirectories. Changelogs are git history, not a stored file.
+
+## Verification Protocol
+
+Before reporting any task complete, verify with evidence — do not assert without checking:
+
+1. **File existence** — every file claimed created/modified actually exists and is non-empty.
+2. **Pattern compliance** — code matches `btrs/conventions/patterns.md` and the existing codebase style.
+3. **Functional claims** — every behavior claimed is backed by a test run, a log, or a specific code reference (not "should work").
+4. **Integration points** — imports resolve, types match, API contracts hold.
+5. **Completeness** — every requirement from the task or spec is addressed, or explicitly deferred with a reason.
+
+If any check fails: fix it and re-verify, or report the task as partial with the specific failure named. Never report success with a known failing check.

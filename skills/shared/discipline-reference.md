@@ -188,7 +188,7 @@ A dependency is the last resort, not the first. When you do add one, check:
 
 **Before creating any new function, constant, type, or component:**
 
-1. **Check the code-map registry** at `btrs/knowledge/code-map/`. The registry indexes existing utilities, components, types, and constants across the project.
+1. **Check the registry** at `btrs/conventions/registry.md`. It indexes existing utilities, components, types, and constants across the project.
 2. **Grep the codebase.** The registry is a snapshot, not a complete picture. Search for similar function names, type names, and string patterns.
 3. **If something does 80% of what you need, extend it.** Do not create a parallel implementation. Add the missing 20% to the existing code (with tests) rather than duplicating the 80% you already have.
 

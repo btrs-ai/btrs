@@ -14,8 +14,8 @@ Mode: If `$ARGUMENTS` is "refresh", update existing files rather than creating f
 
 ## Step 0: Read config reference
 
-1. Read `skills/shared/config.md` for standard paths and structure.
-2. Read `skills/shared/obsidian-conventions.md` for formatting rules.
+1. Read `~/.claude/btrs/skills/shared/config.md` for standard paths and structure.
+2. Read `~/.claude/btrs/skills/shared/obsidian-conventions.md` for formatting rules.
 
 ## Step 0.5: Detect and migrate existing structures
 

@@ -1,6 +1,6 @@
 # BTRS
 
-**12 specialist AI agents. 6 commands. Adaptive rigor.**
+**12 specialist AI agents. 10 commands. Adaptive rigor.**
 
 BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptive discipline enforcement, persistent project knowledge via Obsidian, and session continuity. It auto-detects the right level of rigor for each task — strict TDD for production code, light verification for config changes.
 
@@ -23,11 +23,15 @@ BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptiv
 | Command | Purpose |
 |---------|---------|
 | `/btrs` | Main router — classifies and routes any request automatically |
-| `/btrs-build` | Feature building: brainstorm → plan → implement → verify → finish |
+| `/btrs-build` | Feature building: brainstorm → plan → implement → verify |
 | `/btrs-fix` | Systematic debugging with root cause investigation |
 | `/btrs-review` | Code review, security audit, or tech debt scan |
 | `/btrs-research` | Technology evaluation, brainstorming, or analysis |
-| `/btrs-dispatch` | Direct agent dispatch (power user shortcut) |
+| `/btrs-dispatch` | Direct agent dispatch — Tier 1 or Tier 2 |
+| `/btrs-init` | Scan a project and create/refresh the `btrs/` vault |
+| `/btrs-deploy` | Deployment and release workflow with pre-deploy checks |
+| `/btrs-health` | Project-wide drift and consistency check |
+| `/btrs-update` | Pull the latest BTRS release and reinstall |
 
 ---
 
