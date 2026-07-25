@@ -2,7 +2,7 @@
 name: btrs-review
 description: Review code, architecture, or pull requests for quality, conventions, and security. Use when reviewing changes, auditing code quality, or validating implementations.
 disable-model-invocation: true
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git *)
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(git *), TaskCreate
 argument-hint: <file, directory, PR number, or scope>
 ---
 
@@ -14,12 +14,12 @@ Code and architecture review skill. Checks convention compliance, pattern consis
 
 ### Step 0: Read configuration
 
-1. Read `skills/shared/config.md` to resolve `btrs/` paths and project structure.
+1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
 2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 3. Read `btrs/conventions/` files relevant to the code under review.
-4. Read `skills/shared/verification-protocol.md` for the verification checklist.
-5. Read `skills/shared/discipline-protocol.md` for TDD, verification, and debugging mandates.
-6. Read `skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+4. Read `~/.claude/btrs/skills/shared/verification-protocol.md` for the verification checklist.
+5. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
+6. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
 
 ### Step 1: Determine review scope
 
@@ -106,11 +106,10 @@ Format the output as:
 2. {Actionable recommendation}
 ```
 
-### Step 8: Write output to vault
+### Step 8: Report
 
-1. Write the review to `btrs/agents/{reviewer-slug}/review-{slug}.md` with proper frontmatter.
-2. If critical or major findings exist, create TODO items in `btrs/todos/` for each.
-3. Update `btrs/changelog/{today}.md` with a line item about this review.
+1. Present the review directly to the user — v3 has no `btrs/agents/` vault path to persist it to; reviews go in the conversation (or a PR, if reviewing a PR).
+2. If critical or major findings exist, use TaskCreate to track each one — v3 tracks work via Claude's task tools, not a `btrs/todos/` directory.
 
 ## Anti-patterns
 

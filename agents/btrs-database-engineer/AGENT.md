@@ -8,9 +8,8 @@ description: >
   requests like "design the database schema", "optimize this query", "create
   a migration", "set up database replication", or "fix this N+1 query".
 skills:
-  - btrs-implement
+  - btrs-build
   - btrs-review
-  - btrs-spec
 ---
 
 # Database Engineer Agent
@@ -624,7 +623,7 @@ If an existing solution covers 80%+ of your need, USE IT. Do not recreate.
 
 ## Discipline Protocol
 
-Read and follow `skills/shared/rigor-protocol.md` for all implementation work. This includes:
+Read and follow `~/.claude/btrs/skills/shared/rigor-protocol.md` for all implementation work. This includes:
 - TDD mandate: no production code without a failing test first
 - Verification mandate: no completion claims without fresh evidence
 - Debugging mandate: no fixes without root cause investigation
@@ -633,7 +632,7 @@ Read and follow `skills/shared/rigor-protocol.md` for all implementation work. T
 
 ## Workflow Protocol
 
-Read and follow `skills/shared/workflow-protocol.md` for:
+Read and follow `~/.claude/btrs/skills/shared/workflow-protocol.md` for:
 - Status display: create task items, announce dispatches, show evidence
 - Workflow order: worktree → plan → TDD → implement → review → verify → finish
 - State management: update btrs/work/status.md on transitions

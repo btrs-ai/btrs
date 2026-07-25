@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BTRS Documentation</title>
-<meta name="description" content="AI agent orchestration plugin — 12 specialists, 6 commands, adaptive rigor, session continuity, and auto-generated Obsidian docs. One command: /btrs.">
+<meta name="description" content="AI agent orchestration plugin — 12 specialists, 10 commands, adaptive rigor, session continuity, and auto-generated Obsidian docs. One command: /btrs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -228,7 +228,7 @@ tr:hover td{background:var(--bg-card)}
 <div class="header-left">
 <button class="hamburger" id="hamburger" aria-label="Open navigation">&#9776;</button>
 <a href="#top" class="header-logo"><img src="https://avatars.githubusercontent.com/u/270062936?s=200&v=4" alt="BTRS" style="width:28px;height:28px;border-radius:6px;object-fit:cover"><span>BTRS</span> Documentation</a>
-<span class="badge badge-green" style="margin-left:4px">v3.0.0</span>
+<span class="badge badge-green" style="margin-left:4px">v3.1.0</span>
 </div>
 <div class="header-right">
 <a href="https://github.com/btrs-ai/btrs" class="gh-link" target="_blank" rel="noopener">
@@ -266,12 +266,8 @@ GitHub
 <div class="sidebar-section">
 <div class="sidebar-heading">Skills</div>
 <a href="#skills-core" class="sidebar-link" data-section="skills-core">Core</a>
-<a href="#skills-planning" class="sidebar-link" data-section="skills-planning">Planning</a>
-<a href="#skills-building" class="sidebar-link" data-section="skills-building">Building</a>
-<a href="#skills-discipline" class="sidebar-link" data-section="skills-discipline">Discipline</a>
 <a href="#skills-workflow" class="sidebar-link" data-section="skills-workflow">Workflow</a>
-<a href="#skills-quality" class="sidebar-link" data-section="skills-quality">Quality</a>
-<a href="#skills-knowledge" class="sidebar-link" data-section="skills-knowledge">Knowledge</a>
+<a href="#skills-operations" class="sidebar-link" data-section="skills-operations">Operations</a>
 </div>
 <div class="sidebar-section">
 <div class="sidebar-heading">Features</div>
@@ -280,7 +276,6 @@ GitHub
 <a href="#session-continuity" class="sidebar-link" data-section="session-continuity">Session Continuity</a>
 <a href="#convention-system" class="sidebar-link" data-section="convention-system">Convention System</a>
 <a href="#self-verification" class="sidebar-link" data-section="self-verification">Self-Verification</a>
-<a href="#multi-solution" class="sidebar-link" data-section="multi-solution">Multi-Solution Exploration</a>
 <a href="#obsidian-vault" class="sidebar-link" data-section="obsidian-vault">Obsidian Vault</a>
 <a href="#cross-ai" class="sidebar-link" data-section="cross-ai">Cross-AI Compatibility</a>
 </div>
@@ -303,7 +298,7 @@ GitHub
 <div class="hero">
 <div class="hero-badge">Open Source &middot; MIT License</div>
 <h1><span>BTRS</span> Documentation</h1>
-<p class="tagline">12 specialist AI agents. 6 commands. Adaptive rigor.</p>
+<p class="tagline">12 specialist AI agents. 10 commands. Adaptive rigor.</p>
 <p class="desc">AI agent orchestration with adaptive rigor, streamlined commands, and session continuity. /btrs picks up where you left off and scales discipline to match every task.</p>
 <a href="#quick-start" class="hero-btn">Get Started &rarr;</a>
 </div>
@@ -398,19 +393,19 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 </div>
 
 <div class="tab-panel" id="tab-cursor">
-<p>BTRS is designed for Claude Code. For Cursor, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
+<p>BTRS is designed for Claude Code. For Cursor, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, adaptive rigor enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-copilot">
-<p>BTRS is designed for Claude Code. For GitHub Copilot, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
+<p>BTRS is designed for Claude Code. For GitHub Copilot, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, adaptive rigor enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-windsurf">
-<p>BTRS is designed for Claude Code. For Windsurf, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
+<p>BTRS is designed for Claude Code. For Windsurf, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, adaptive rigor enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-codex">
-<p>BTRS is designed for Claude Code. For OpenAI Codex, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, TDD enforcement, session continuity) requires Claude Code.</p>
+<p>BTRS is designed for Claude Code. For OpenAI Codex, you can reference the agent definitions at <code>agents/btrs-*/AGENT.md</code> and the universal instructions in <code>AGENTS.md</code>. The full skill workflow (subagent dispatch, adaptive rigor enforcement, session continuity) requires Claude Code.</p>
 </div>
 
 <div class="tab-panel" id="tab-web">
@@ -726,65 +721,9 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 <table>
 <thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
 <tbody>
-<tr><td><code>/btrs</code></td><td>Universal router. Classifies your request, resumes active work, and dispatches the right agent(s).</td><td>Starting any new task or resuming a session. This is your default entry point.</td></tr>
-<tr><td><code>/btrs-init</code></td><td>Initializes BTRS in the current project. Scans conventions, creates vault.</td><td>First time using BTRS in a project (auto-runs on first <code>/btrs</code>).</td></tr>
-<tr><td><code>/btrs-dispatch</code></td><td>Routes work to specialist agents with context injection and progress tracking.</td><td>Used internally by the pipeline. Power users can invoke directly.</td></tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<!-- SKILLS: PLANNING -->
-<section>
-<span class="section-anchor" id="skills-planning"></span>
-<h2 class="section-title">Skills &mdash; Planning</h2>
-<span class="badge badge-blue">4 Skills</span>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
-<tbody>
-<tr><td><code>/btrs-brainstorm</code></td><td>Explores intent, requirements, and design before implementation. Mandatory before any creative work.</td><td>Automatically invoked before building features. Also available directly.</td></tr>
-<tr><td><code>/btrs-plan</code></td><td>Creates a detailed implementation plan with task breakdown and agent assignments.</td><td>Before starting complex, multi-step work.</td></tr>
-<tr><td><code>/btrs-propose</code></td><td>Generates a proposal with multiple solution approaches (minimal, conventional, scalable).</td><td>When you need to evaluate options before committing to an approach.</td></tr>
-<tr><td><code>/btrs-spec</code></td><td>Writes a technical specification with requirements, constraints, and acceptance criteria.</td><td>Before building a new feature or system.</td></tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<!-- SKILLS: BUILDING -->
-<section>
-<span class="section-anchor" id="skills-building"></span>
-<h2 class="section-title">Skills &mdash; Building</h2>
-<span class="badge badge-purple">4 Skills</span>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
-<tbody>
-<tr><td><code>/btrs-execute</code></td><td>Executes implementation plans task-by-task with TDD enforcement and review checkpoints.</td><td>When you have a plan and are ready to build. Replaces manual agent dispatching.</td></tr>
-<tr><td><code>/btrs-implement</code></td><td>Implements a plan or spec. Dispatches engineering agents with conventions enforced.</td><td>When you have a plan and are ready to build.</td></tr>
-<tr><td><code>/btrs-worktree</code></td><td>Creates isolated git worktrees for feature work. Keeps main branch clean.</td><td>Before starting any feature branch work. Auto-invoked by the pipeline.</td></tr>
-<tr><td><code>/btrs-deploy</code></td><td>Handles deployment configuration, CI/CD setup, and release management.</td><td>When code is ready to ship.</td></tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<!-- SKILLS: DISCIPLINE -->
-<section>
-<span class="section-anchor" id="skills-discipline"></span>
-<h2 class="section-title">Skills &mdash; Discipline</h2>
-<span class="badge badge-red">3 Skills</span>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
-<tbody>
-<tr><td><code>/btrs-tdd</code></td><td>Test-driven development enforcement. Red &rarr; Green &rarr; Refactor cycle on every implementation.</td><td>Automatically invoked during execution. Can also be used standalone for any coding task.</td></tr>
-<tr><td><code>/btrs-debug</code></td><td>Systematic 4-phase debugging: observe, hypothesize, test, conclude. No guessing allowed.</td><td>Any bug, test failure, or unexpected behavior.</td></tr>
-<tr><td><code>/btrs-sanity-check</code></td><td>Runs all tests, linters, and checks. Produces evidence of pass/fail status.</td><td>After implementation, before finishing. Auto-invoked by the pipeline.</td></tr>
+<tr><td><code>/btrs</code></td><td>Universal router. Classifies your request, checks for active work, and routes to the right skill.</td><td>Starting any new task or resuming a session. This is your default entry point.</td></tr>
+<tr><td><code>/btrs-init</code></td><td>Scans your project and creates the <code>btrs/</code> vault &mdash; conventions, registry, and project map.</td><td>First time using BTRS in a project (runs automatically on first <code>/btrs</code>). Pass <code>refresh</code> to re-scan later.</td></tr>
+<tr><td><code>/btrs-dispatch</code></td><td>Direct dispatch to a single specialist &mdash; Tier 1 (already loaded) or Tier 2 (on-demand, loaded on the fly).</td><td>When you want to name a specific specialist directly, or reach a Tier 2 agent.</td></tr>
 </tbody>
 </table>
 </div>
@@ -794,54 +733,34 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 <section>
 <span class="section-anchor" id="skills-workflow"></span>
 <h2 class="section-title">Skills &mdash; Workflow</h2>
-<span class="badge badge-yellow">4 Skills</span>
+<span class="badge badge-blue">4 Skills</span>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
 <tbody>
-<tr><td><code>/btrs-finish</code></td><td>Completes a development branch: merge, PR, or cleanup with structured options.</td><td>When implementation is done and all tests pass.</td></tr>
-<tr><td><code>/btrs-request-review</code></td><td>Requests code review before merging. Produces structured review request.</td><td>After completing a feature, before merge.</td></tr>
-<tr><td><code>/btrs-receive-review</code></td><td>Processes code review feedback with technical rigor. No blind agreement.</td><td>When receiving review comments. Verifies suggestions before implementing.</td></tr>
-<tr><td><code>/btrs-handoff</code></td><td>Creates a context handoff document for continuing work in a new session.</td><td>End of session. Passing work to another developer.</td></tr>
+<tr><td><code>/btrs-build</code></td><td>Feature building &mdash; understand the task, read conventions, plan, build, self-verify. The primary skill for all construction work.</td><td>Building a feature, implementing a spec, or any ad-hoc construction task.</td></tr>
+<tr><td><code>/btrs-fix</code></td><td>Systematic debugging &mdash; root cause investigation before any fix, hypothesis testing one variable at a time, and a 3-attempt rule before escalating to you.</td><td>Any bug, test failure, or unexpected behavior.</td></tr>
+<tr><td><code>/btrs-review</code></td><td>Code, architecture, or PR review &mdash; convention compliance, security basics, test coverage, documentation accuracy.</td><td>Before merging code, auditing quality, or scanning for tech debt.</td></tr>
+<tr><td><code>/btrs-research</code></td><td>Technology evaluation and feasibility studies. Writes an ADR to <code>btrs/decisions/</code> for the recommendation.</td><td>Comparing libraries or approaches, or making a technology decision.</td></tr>
 </tbody>
 </table>
 </div>
 </section>
 
-<!-- SKILLS: QUALITY -->
+<!-- SKILLS: OPERATIONS -->
 <section>
-<span class="section-anchor" id="skills-quality"></span>
-<h2 class="section-title">Skills &mdash; Quality</h2>
-<span class="badge badge-red">4 Skills</span>
+<span class="section-anchor" id="skills-operations"></span>
+<h2 class="section-title">Skills &mdash; Operations</h2>
+<span class="badge badge-purple">3 Skills</span>
 
 <div class="table-wrap">
 <table>
 <thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
 <tbody>
-<tr><td><code>/btrs-review</code></td><td>Code review with convention compliance, best practices, and security checks.</td><td>Before merging code. After implementation.</td></tr>
-<tr><td><code>/btrs-audit</code></td><td>Deep security and compliance audit of code and infrastructure.</td><td>Before releases. Periodic security checks.</td></tr>
-<tr><td><code>/btrs-verify</code></td><td>Verifies convention compliance across the project. Catches drift.</td><td>Periodically, or after large changes.</td></tr>
-<tr><td><code>/btrs-health</code></td><td>Project health check &mdash; dependency freshness, tech debt, test coverage.</td><td>Regular maintenance. Sprint planning.</td></tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<!-- SKILLS: KNOWLEDGE -->
-<section>
-<span class="section-anchor" id="skills-knowledge"></span>
-<h2 class="section-title">Skills &mdash; Knowledge</h2>
-<span class="badge badge-orange">4 Skills</span>
-
-<div class="table-wrap">
-<table>
-<thead><tr><th>Skill</th><th>Description</th><th>When to Use</th></tr></thead>
-<tbody>
-<tr><td><code>/btrs-research</code></td><td>Deep research on technologies, patterns, or business topics with citations.</td><td>Evaluating new tools. Making technology decisions.</td></tr>
-<tr><td><code>/btrs-analyze</code></td><td>Data analysis, metrics review, and insights generation.</td><td>Understanding user behavior. Measuring impact.</td></tr>
-<tr><td><code>/btrs-doc</code></td><td>Generates or updates documentation (API docs, guides, READMEs).</td><td>After building features. Onboarding new team members.</td></tr>
-<tr><td><code>/btrs-tech-debt</code></td><td>Tech debt lifecycle &mdash; scan, triage, fix, report.</td><td>Sprint planning. Reducing accumulated debt. Maintenance cycles.</td></tr>
+<tr><td><code>/btrs-deploy</code></td><td>Deployment and release workflow &mdash; pre-deploy checks, changelog from git history, version bump, post-deploy verification.</td><td>When code is ready to ship.</td></tr>
+<tr><td><code>/btrs-health</code></td><td>Project-wide drift check &mdash; convention violations, stale registry entries, spec-code alignment.</td><td>Regular maintenance, or before a release.</td></tr>
+<tr><td><code>/btrs-update</code></td><td>Pulls the latest BTRS release from GitHub and reinstalls skills and agents.</td><td>When a new BTRS version is out and you want to update your local install.</td></tr>
 </tbody>
 </table>
 </div>
@@ -853,69 +772,75 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 <section>
 <span class="section-anchor" id="workflow-pipeline"></span>
 <h2 class="section-title">Workflow Pipeline</h2>
-<p>Every task in BTRS v3.0.0 follows a structured pipeline. No shortcuts, no skipped steps.</p>
+<p>Every task in BTRS v3.1.0 goes through the same lean pipeline. The router classifies and gets out of the way &mdash; it does not do the work itself.</p>
 
 <div class="diagram">
 <div class="diagram-node">/btrs</div>
 <div class="diagram-arrow">&rarr;</div>
 <div class="diagram-node">Classify</div>
 <div class="diagram-arrow">&rarr;</div>
-<div class="diagram-node">Brainstorm</div>
+<div class="diagram-center">Build / Fix / Review<br>Research / Dispatch</div>
 <div class="diagram-arrow">&rarr;</div>
-<div class="diagram-node">Plan</div>
+<div class="diagram-node">Rigor Check</div>
 <div class="diagram-arrow">&rarr;</div>
-<div class="diagram-node">Worktree</div>
+<div class="diagram-node">Self-Verify</div>
 <div class="diagram-arrow">&rarr;</div>
-<div class="diagram-center">Execute<br><span style="font-weight:400;font-size:.8rem;opacity:.7">TDD per task</span></div>
-<div class="diagram-arrow">&rarr;</div>
-<div class="diagram-node">Sanity-Check</div>
-<div class="diagram-arrow">&rarr;</div>
-<div class="diagram-node">Finish</div>
+<div class="diagram-node">Report</div>
 </div>
 
 <div class="steps">
-<div class="step"><div class="step-body"><h4>Classify</h4><p>BTRS analyzes your request and determines the type: feature, bugfix, question, research, or multi-domain task.</p></div></div>
-<div class="step"><div class="step-body"><h4>Brainstorm</h4><p>Explores your intent, requirements, and design constraints before touching any code. Uses <code>/btrs-brainstorm</code>.</p></div></div>
-<div class="step"><div class="step-body"><h4>Plan</h4><p>Creates a detailed implementation plan with task breakdown, agent assignments, and acceptance criteria.</p></div></div>
-<div class="step"><div class="step-body"><h4>Worktree</h4><p>Isolates work in a git worktree so your main branch stays clean. Uses <code>/btrs-worktree</code>.</p></div></div>
-<div class="step"><div class="step-body"><h4>Execute with TDD</h4><p>Each task is implemented test-first: write failing test, write minimal code to pass, refactor. Uses <code>/btrs-execute</code> and <code>/btrs-tdd</code>.</p></div></div>
-<div class="step"><div class="step-body"><h4>Sanity-Check</h4><p>Runs all tests, linters, and verification checks. Uses <code>/btrs-sanity-check</code>.</p></div></div>
-<div class="step"><div class="step-body"><h4>Finish</h4><p>Merges work, cleans up worktree, updates documentation. Uses <code>/btrs-finish</code>.</p></div></div>
+<div class="step"><div class="step-body"><h4>Classify</h4><p>The router matches your request against a table of signals &mdash; build, fix, review, research, or a named agent &mdash; and routes to the matching skill. Ambiguous requests get 1-2 clarifying questions instead of a guess.</p></div></div>
+<div class="step"><div class="step-body"><h4>Session awareness</h4><p>If <code>btrs/status.md</code> shows active work, BTRS asks whether to resume it or start something new, instead of barreling ahead.</p></div></div>
+<div class="step"><div class="step-body"><h4>Rigor check</h4><p>The target skill states its rigor level &mdash; quick, standard, or strict &mdash; and why, before doing any work.</p></div></div>
+<div class="step"><div class="step-body"><h4>Do the work</h4><p><code>/btrs-build</code> plans then builds; <code>/btrs-fix</code> investigates root cause before touching code; <code>/btrs-review</code> and <code>/btrs-research</code> read and report; <code>/btrs-dispatch</code> hands off to one named specialist.</p></div></div>
+<div class="step"><div class="step-body"><h4>Self-verify</h4><p>Before reporting done, the skill checks its own work against the five-point verification protocol &mdash; file existence, pattern compliance, functional claims, integration points, completeness.</p></div></div>
+<div class="step"><div class="step-body"><h4>Report</h4><p>Findings, reviews, and research are presented directly &mdash; only decisions (ADRs), specs, and conventions persist to the <code>btrs/</code> vault.</p></div></div>
 </div>
 
 <div class="callout tip">
 <span class="callout-icon">&#128161;</span>
-<div class="callout-body"><strong>Tip</strong><p>For simple questions or quick lookups, BTRS skips the full pipeline and answers directly from conventions.</p></div>
+<div class="callout-body"><strong>Tip</strong><p>For simple questions or quick lookups, BTRS skips straight to an answer from your project's conventions &mdash; no dispatch needed.</p></div>
 </div>
 </section>
 
-<!-- DISCIPLINE (IRON LAWS) -->
+<!-- DISCIPLINE (ADAPTIVE RIGOR) -->
 <section>
 <span class="section-anchor" id="discipline"></span>
 <h2 class="section-title">Discipline &mdash; Adaptive Rigor</h2>
-<p>BTRS v3.0.0 applies adaptive rigor to every task, scaling discipline to match complexity.</p>
+<p>BTRS v3.1.0 auto-detects the right rigor level for each task, instead of applying the same heavyweight process to everything. Every skill states its level and why before doing any work.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Level</th><th>When</th><th>What</th></tr></thead>
+<tbody>
+<tr><td><strong>Quick</strong></td><td>Config, docs, small changes</td><td>File checks only, no tests</td></tr>
+<tr><td><strong>Standard</strong></td><td>Features, refactoring, code changes</td><td>Tests + inline self-review</td></tr>
+<tr><td><strong>Strict</strong></td><td>Security, production, migrations, 5+ files</td><td>Full TDD + 5-step verification</td></tr>
+</tbody>
+</table>
+</div>
 
 <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))">
 <div class="card" style="border-top:3px solid var(--accent)">
-<div class="card-icon">&#129514;</div>
-<h4>1. TDD or No Code</h4>
-<p>Every implementation starts with a failing test. No test, no code. Enforced by <code>/btrs-tdd</code>. Red &rarr; Green &rarr; Refactor on every task.</p>
+<div class="card-icon">&#128270;</div>
+<h4>Root Cause Before Fixes</h4>
+<p><code>/btrs-fix</code> never proposes a fix in its investigation phase. Read errors, reproduce, trace the data flow, form one hypothesis, test it minimally &mdash; then fix.</p>
 </div>
 <div class="card" style="border-top:3px solid var(--blue)">
 <div class="card-icon">&#9989;</div>
-<h4>2. Evidence Before Assertions</h4>
-<p>Never claim "it works" without proof. Show test output, build logs, or command results. Verification is mandatory, not optional.</p>
+<h4>Evidence Before Assertions</h4>
+<p>Never claim "it works" without proof. The five-point verification protocol requires a test run, log, or code reference for every claim &mdash; not "should work."</p>
 </div>
 <div class="card" style="border-top:3px solid var(--purple)">
-<div class="card-icon">&#128270;</div>
-<h4>3. Systematic Debugging</h4>
-<p>No guessing. Bugs are debugged through a 4-phase process: observe, hypothesize, test, conclude. Uses <code>/btrs-debug</code>.</p>
+<div class="card-icon">&#9888;&#65039;</div>
+<h4>The 3-Attempt Rule</h4>
+<p>After 3 failed fix attempts, <code>/btrs-fix</code> stops and discusses architecture with you instead of guessing a fourth time.</p>
 </div>
 </div>
 
-<div class="callout warn">
-<span class="callout-icon">&#9888;&#65039;</span>
-<div class="callout-body"><strong>Non-Negotiable</strong><p>These laws are enforced automatically. Agents cannot skip TDD, cannot claim success without evidence, and cannot guess at bug fixes. This is what makes BTRS output reliable.</p></div>
+<div class="callout tip">
+<span class="callout-icon">&#128161;</span>
+<div class="callout-body"><strong>Tip</strong><p>Override the auto-detected level any time &mdash; say "use strict mode" or "quick is fine."</p></div>
 </div>
 </section>
 
@@ -923,22 +848,22 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 <section>
 <span class="section-anchor" id="session-continuity"></span>
 <h2 class="section-title">Session Continuity</h2>
-<p>Start a new session and <code>/btrs</code> picks up where you left off. No manual handoffs needed.</p>
+<p>Type <code>/btrs</code> once and every message in that session routes through BTRS automatically &mdash; no need to prefix each follow-up. A <code>UserPromptSubmit</code> hook does this at the harness level.</p>
 
 <div class="code-block">
 <div class="code-header"><span class="code-lang">example</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
-<pre><span class="cmt"># New session — BTRS detects active work</span>
-<span class="cmd">/btrs</span>
+<pre><span class="cmt"># First message in the session</span>
+<span class="cmd">/btrs</span> <span class="str">build a notification system</span>
 
 <span class="cmt"># Output:</span>
-<span class="str">Active work detected in btrs/work/:</span>
-<span class="str">  Feature: user-notifications (3/5 tasks complete)</span>
-<span class="str">  Worktree: feature/user-notifications</span>
-<span class="str">  Next task: Build push notification service</span>
-<span class="str">Resume? [Y/n]</span></pre>
+<span class="str">BTRS session activated. All messages will route through BTRS automatically.</span>
+
+<span class="cmt"># Later, same session — active work is detected from btrs/status.md</span>
+<span class="cmd">/btrs</span>
+<span class="str">You have active work on user-notifications. Continue, or start something new?</span></pre>
 </div>
 
-<p>BTRS tracks active work in the <code>btrs/work/</code> directory. Plans, progress, and evidence are all persisted so sessions can resume seamlessly across conversations.</p>
+<p>BTRS tracks active work in <code>btrs/status.md</code>. New sessions start fresh &mdash; type <code>/btrs</code> again to re-activate routing.</p>
 </section>
 
 <!-- CONVENTION SYSTEM -->
@@ -953,7 +878,7 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 <div class="step"><div class="step-body"><h4>Injected into agent context</h4><p>Conventions are loaded as mandatory context for every agent dispatch. Agents cannot ignore them &mdash; they are part of the prompt.</p></div></div>
 <div class="step"><div class="step-body"><h4>Component registry prevents duplicates</h4><p>A registry of existing components, utilities, and services means agents reuse what exists instead of recreating it.</p></div></div>
 <div class="step"><div class="step-body"><h4>Anti-pattern lists prevent mistakes</h4><p>Known bad patterns from your codebase are explicitly flagged so agents avoid them.</p></div></div>
-<div class="step"><div class="step-body"><h4>/btrs-verify catches violations</h4><p>Run <code>/btrs-verify</code> to scan the entire project for convention violations and get automated fix suggestions.</p></div></div>
+<div class="step"><div class="step-body"><h4>/btrs-health catches drift</h4><p>Run <code>/btrs-health</code> to scan the entire project for convention violations and registry drift, or <code>/btrs-review</code> to check a specific scope.</p></div></div>
 </div>
 
 <div class="callout warn">
@@ -970,11 +895,11 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 
 <h3 class="sub-title">The 5-Point Check</h3>
 <ul class="checklist">
-<li class="checked"><strong>Convention compliance</strong> &mdash; Does the output follow all detected project conventions?</li>
-<li class="checked"><strong>Functional correctness</strong> &mdash; Does the code compile, run, and produce correct results?</li>
-<li class="checked"><strong>Integration safety</strong> &mdash; Does it break any existing functionality?</li>
-<li class="checked"><strong>Security baseline</strong> &mdash; Are there any obvious security issues (injection, exposure, etc.)?</li>
-<li class="checked"><strong>Evidence provided</strong> &mdash; Can the agent show proof of verification (test output, build success, etc.)?</li>
+<li class="checked"><strong>File existence</strong> &mdash; Does every file claimed created or modified actually exist and is it non-empty?</li>
+<li class="checked"><strong>Pattern compliance</strong> &mdash; Does the code follow the project's documented conventions and registry?</li>
+<li class="checked"><strong>Functional claims</strong> &mdash; Is every behavior claimed backed by a test run, log, or specific code reference?</li>
+<li class="checked"><strong>Integration points</strong> &mdash; Do imports resolve, types match, and API contracts hold?</li>
+<li class="checked"><strong>Completeness</strong> &mdash; Is every requirement from the task or spec addressed, or explicitly deferred with a reason?</li>
 </ul>
 
 <div class="callout tip">
@@ -983,62 +908,28 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 </div>
 </section>
 
-<!-- MULTI-SOLUTION EXPLORATION -->
-<section>
-<span class="section-anchor" id="multi-solution"></span>
-<h2 class="section-title">Multi-Solution Exploration</h2>
-<p>When you use <code>/btrs-propose</code>, the system generates three distinct approaches to solve your problem, ranked by complexity and scalability.</p>
-
-<h3 class="sub-title">The 3-Approach Pattern</h3>
-<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(210px,1fr))">
-<div class="card" style="border-top:3px solid var(--accent)">
-<div class="card-icon">&#128994;</div>
-<h4>Approach A: Minimal</h4>
-<p>Fewest changes. Solves the immediate problem. Low risk, fast to ship. Best when time is critical.</p>
-</div>
-<div class="card" style="border-top:3px solid var(--blue)">
-<div class="card-icon">&#128309;</div>
-<h4>Approach B: Conventional</h4>
-<p>Industry-standard solution. Balanced effort and quality. Good documentation and community support.</p>
-</div>
-<div class="card" style="border-top:3px solid var(--purple)">
-<div class="card-icon">&#128995;</div>
-<h4>Approach C: Scalable</h4>
-<p>Future-proof architecture. Higher upfront cost but handles 10x growth. Best for core systems.</p>
-</div>
-</div>
-
-<p>Each approach includes estimated effort, tradeoffs, and a recommendation. You pick the one that fits your situation.</p>
-</section>
-
 <!-- OBSIDIAN VAULT -->
 <section>
 <span class="section-anchor" id="obsidian-vault"></span>
 <h2 class="section-title">Obsidian Vault</h2>
-<p>BTRS v3.0.0 uses a <code>btrs/</code> directory (no dot prefix) with a three-tier structure: knowledge, work, and evidence. It is plain Markdown, compatible with Obsidian for visual graph exploration.</p>
+<p>BTRS v3.1.0 uses a flat <code>btrs/</code> directory (no dot prefix, no nested tiers) at the project root. It is plain Markdown, compatible with Obsidian for visual graph exploration &mdash; and readable with any text editor.</p>
 
-<h3 class="sub-title">Three-Tier Directory Structure</h3>
+<h3 class="sub-title">Directory Structure</h3>
 <div class="tree">
 <span class="dir">btrs/</span>
-<br>&nbsp;&nbsp;<span class="file">config.json</span>
-<br>&nbsp;&nbsp;<span class="dir">knowledge/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Persistent project knowledge</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">conventions/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">decisions/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">code-map/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">tech-debt/</span>
-<br>&nbsp;&nbsp;<span class="dir">work/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Active session state</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">specs/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">plans/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">todos/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">changelog/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">status.md</span>
-<br>&nbsp;&nbsp;<span class="dir">evidence/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Verification proof</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">reviews/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">verification/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">debug/</span>
-<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">sessions/</span>
+<br>&nbsp;&nbsp;<span class="file">config.json</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Project config (framework, language, tools)</span>
+<br>&nbsp;&nbsp;<span class="file">project-map.md</span> &nbsp;&nbsp;<span class="cmt"># Agent scopes and architecture overview</span>
+<br>&nbsp;&nbsp;<span class="file">status.md</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Current work state</span>
+<br>&nbsp;&nbsp;<span class="dir">decisions/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Architecture Decision Records (ADRs)</span>
+<br>&nbsp;&nbsp;<span class="dir">specs/</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt"># Feature specs + plans</span>
+<br>&nbsp;&nbsp;<span class="dir">conventions/</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">registry.md</span> &nbsp;&nbsp;&nbsp;<span class="cmt"># Component/utility/hook/type registry</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">patterns.md</span> &nbsp;&nbsp;&nbsp;<span class="cmt"># All convention rules, one file</span>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="file">anti-patterns.md</span> <span class="cmt"># What NOT to do</span>
 <br>&nbsp;&nbsp;<span class="dir">.obsidian/</span>
 </div>
+
+<p>Tasks and tech debt are tracked with your AI tool's own task mechanism (Claude Code's <code>TaskCreate</code>, for instance) or as ADRs when architecturally significant &mdash; not as separate vault subdirectories. Git history is the changelog; there is no stored changelog file.</p>
 
 <div class="callout info">
 <span class="callout-icon">&#8505;&#65039;</span>
@@ -1115,7 +1006,7 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 
 <div class="acc-item">
 <div class="acc-header" onclick="toggleAccordion(this)">How do I update?<span class="acc-chevron">&#9660;</span></div>
-<div class="acc-body"><div class="acc-content">If installed as a plugin, it auto-updates. For manual installs, run <code>~/.claude/btrs/install.sh</code> again — it pulls the latest and re-links everything.</div></div>
+<div class="acc-body"><div class="acc-content">Type <code>/btrs-update</code> — it pulls the latest release from GitHub and reinstalls skills and agents in one step. Or run <code>~/.claude/btrs/install.sh</code> directly, which does the same thing.</div></div>
 </div>
 
 <div class="acc-item">
@@ -1135,7 +1026,7 @@ git clone https://github.com/btrs-ai/btrs.git ~/.claude/btrs &amp;&amp; ~/.claud
 
 <div class="acc-item">
 <div class="acc-header" onclick="toggleAccordion(this)">What happens if an agent makes a mistake?<span class="acc-chevron">&#9660;</span></div>
-<div class="acc-body"><div class="acc-content">Every agent self-verifies with evidence before reporting done. The 5-point check covers convention compliance, functional correctness, integration safety, security baseline, and evidence. If any check fails, the agent fixes the issue and re-verifies automatically.</div></div>
+<div class="acc-body"><div class="acc-content">Every agent self-verifies with evidence before reporting done. The 5-point check covers file existence, pattern compliance, functional claims, integration points, and completeness. If any check fails, the agent fixes the issue and re-verifies automatically — or reports the task as partial rather than claiming false success.</div></div>
 </div>
 
 </div>

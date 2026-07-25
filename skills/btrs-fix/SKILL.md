@@ -1,5 +1,5 @@
 ---
-name: fix
+name: btrs-fix
 description: >
   Systematic debugging and bug fixing. Use for any bug, test failure, error,
   or unexpected behavior. Enforces root cause investigation before fixes.
@@ -17,7 +17,7 @@ The user's request is: $ARGUMENTS
 ## Step 0: Load context
 
 1. Read `btrs/config.json` if it exists.
-2. Read `skills/shared/rigor-protocol.md` — debugging always uses at least **standard** rigor.
+2. Read `~/.claude/btrs/skills/shared/rigor-protocol.md` — debugging always uses at least **standard** rigor.
 3. State: "Rigor: {standard|strict} — {reason}"
 
 ## Phase 1: Root Cause Investigation

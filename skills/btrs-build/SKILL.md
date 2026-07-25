@@ -1,5 +1,5 @@
 ---
-name: build
+name: btrs-build
 description: >
   Build features, implement specs, create new functionality. The primary skill for
   all construction work — from ad-hoc tasks to spec-driven implementation. Follows
@@ -19,7 +19,7 @@ The user's request is: $ARGUMENTS
 ## Step 0: Load context
 
 1. Read `btrs/config.json` if it exists.
-2. Read `skills/shared/rigor-protocol.md` to determine rigor level.
+2. Read `~/.claude/btrs/skills/shared/rigor-protocol.md` to determine rigor level.
 3. State: "Rigor: {adaptive|standard|strict} — {reason}"
 
 ## Step 1: Understand the task
@@ -31,7 +31,7 @@ The user's request is: $ARGUMENTS
 ## Step 2: Read conventions and existing patterns
 
 1. Read `btrs/conventions/` files relevant to the domain.
-2. Read `btrs/code-map/` entries for modules being modified.
+2. Read `btrs/conventions/registry.md` for existing components, utilities, hooks, and types.
 3. Grep and Glob the source tree for canonical examples of similar patterns.
 4. Identify existing components, utilities, and helpers to reuse. Do not reinvent.
 
@@ -63,9 +63,9 @@ If any check fails, fix and re-verify. Do not report done with known failures.
 
 ## Step 6: Update tracking
 
-1. Update spec/todo status if working from one.
-2. Update `btrs/code-map/` if new modules or significant changes.
-3. Append to `btrs/changelog/{today}.md`.
+1. Update spec status if working from one.
+2. Update `btrs/conventions/registry.md` if new components, utilities, hooks, or types were added.
+3. Git history is the changelog in v3 — no separate changelog file to update.
 
 ## Step 7: Report completion
 
