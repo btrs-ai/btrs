@@ -1,0 +1,11 @@
+# BTRS directory scope — controls where BTRS *auto-activates*.
+#
+# Inside this path (at any depth), BTRS routing turns on automatically at
+# session start. Outside it, BTRS stays dormant until you type /btrs.
+#
+# Explicit invocation always works from any directory — scope only governs
+# automatic activation, never availability.
+#
+# install.sh copies this file to scope.conf on first install. Edit scope.conf,
+# not this file. Changes take effect immediately (no reinstall needed).
+BTRS_SCOPE="$HOME/PERSONAL"

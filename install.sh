@@ -63,6 +63,15 @@ echo ""
 mkdir -p "$SKILLS_DIR"
 mkdir -p "$AGENTS_DIR"
 
+# Seed the scope config on first install. Kept out of git so `git pull` on
+# update never conflicts with a user-edited scope.
+if [ ! -f "$TOOLKIT_DIR/scope.conf" ] && [ -f "$TOOLKIT_DIR/scope.conf.example" ]; then
+  cp "$TOOLKIT_DIR/scope.conf.example" "$TOOLKIT_DIR/scope.conf"
+  echo "Scope:      created scope.conf (auto-activates under \$HOME/PERSONAL)"
+else
+  echo "Scope:      keeping existing scope.conf"
+fi
+
 # Clean up old v2 skill symlinks
 echo "Cleaning old skill symlinks..."
 for old_link in "$SKILLS_DIR"/btrs-*/; do
