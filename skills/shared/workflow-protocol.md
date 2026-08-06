@@ -29,7 +29,7 @@ Example:
 
 ```
 ☑ Reading project conventions
-☑ Checking btrs/work/status.md for active work
+☑ Checking btrs/status.md for active work
 ☐ Classifying request  ← (spinner: "Classifying request...")
 ☐ Dispatching btrs-web-engineer
 ☐ Running sanity check
@@ -90,7 +90,7 @@ Workflow: brainstorm → plan → [worktree] → execute → sanity-check → fi
 
 ## 3. State Management
 
-Every state transition updates `btrs/work/status.md`:
+Every state transition updates `btrs/status.md`:
 
 - **Plan created** → add to active work
 - **Task completed** → update progress

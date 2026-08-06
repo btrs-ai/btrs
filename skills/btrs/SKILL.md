@@ -18,15 +18,16 @@ The user's request is: $ARGUMENTS
 
 ## Step -1: Activate session persistence
 
-Run this command FIRST, before anything else:
+Inside `BTRS_SCOPE` (see `~/.claude/btrs/scope.conf`, default `~/PERSONAL`) the
+SessionStart hook has already activated routing — this step is a no-op there.
+
+Run this once, so explicit `/btrs` also persists when invoked from outside the scope:
 
 ```bash
 touch "/tmp/btrs-session-$(echo "$(pwd)" | shasum -a 256 | cut -c1-12)"
 ```
 
-Tell the user: "BTRS session activated. All messages will route through BTRS automatically."
-
-Then continue to Step 0.
+Say "BTRS session activated" only if it was not already active. Then continue to Step 0.
 
 ## Step 0: Check initialization
 

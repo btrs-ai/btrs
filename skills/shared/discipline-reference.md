@@ -1,6 +1,11 @@
 # Discipline Protocol
 
-This protocol is mandatory for all implementation work. It is read at Step 0 by every skill and injected into every agent dispatch. Violating the letter of these rules is violating the spirit of these rules.
+This protocol is mandatory for all implementation work — writing, modifying, or
+debugging production code. Violating the letter of these rules is violating the spirit.
+
+**Load it only when you are about to do implementation work**, and only if it is not
+already in context. Read-only work (review, research, health checks, status reporting)
+does not need it, and loading it there costs ~2.5k tokens for rules that will not apply.
 
 ---
 
@@ -43,54 +48,21 @@ Always. New features, bug fixes, refactoring. The cycle applies to all productio
 | "TDD will slow me down" | TDD slows down typing. It speeds up delivery. The difference is debugging time, rework time, and regression time — none of which you are accounting for. |
 | "Just this once" | There is no "just this once." Every exception becomes precedent. The discipline exists precisely because the temptation is constant. |
 
-### Full Skill Reference
-
-See `btrs-tdd` for the full TDD skill with worked examples and language-specific patterns.
-
 ---
 
 ## 2. Verification
 
 **Iron Law:** `NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE`
 
-### The 5-Step Gate
+Never claim something "works," "passes," or "is complete" without running a fresh
+command, reading its full output, and confirming it supports the specific claim.
+Words like "should," "probably," or "seems to" mean you have not verified — replace
+them with evidence or say "I have not verified this." Do not celebrate ("Great!",
+"Done!") before the output is in hand.
 
-Every claim that something "works," "passes," or "is complete" must pass through all five steps in order:
-
-1. **IDENTIFY** the command that produces evidence (test runner, build command, linter, curl request, etc.)
-2. **RUN** it fresh. Not from memory. Not from a previous run. Fresh.
-3. **READ** the full output. Not the first line. Not the summary. The full output.
-4. **VERIFY** the output confirms the specific claim you are about to make.
-5. **CLAIM** only then.
-
-Skip any step and you are lying, not verifying. Step 2 is not optional because "it passed last time." Step 3 is not optional because "the exit code was 0." Step 4 is not optional because "it usually works."
-
-### Forbidden Words
-
-Never use these in completion claims:
-
-- "should"
-- "probably"
-- "seems to"
-- "I believe"
-- "likely"
-
-These words mean you have not verified. Replace them with evidence or replace the claim with "I have not verified this."
-
-### Forbidden Behavior
-
-Do not express satisfaction before verification:
-
-- "Great!" — before running the tests
-- "Done!" — before confirming the output
-- "All good!" — before reading the results
-- "That should fix it!" — before proving it did
-
-Premature celebration is a completion claim without evidence. It triggers the same failure mode: you stop investigating because you already announced success.
-
-### Full Skill Reference
-
-See `btrs-verify` for the full verification skill with checklists and evidence templates.
+**Do not load the full protocol from here.** The 5-step gate, the report format, and
+the failure-handling rules live in `verification-protocol.md`. Read that file only
+when you are about to verify — and only if it is not already in context.
 
 ---
 
@@ -143,9 +115,6 @@ Only now write the fix. The fix should address the root cause identified in Phas
 
 After 3 failed fix attempts: **STOP.** You are not debugging anymore — you are guessing. Step back and question your assumptions about the architecture. Discuss with the user before attempting a fourth fix.
 
-### Full Skill Reference
-
-See `btrs-debug` for the full debugging skill with companion techniques (bisection, minimal reproduction, logging strategy).
 
 ---
 

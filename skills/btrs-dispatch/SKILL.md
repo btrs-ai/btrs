@@ -53,17 +53,18 @@ Agent(subagent_type: "btrs-<name>", prompt: "<task>", description: "<short label
 `accounting`, `customer-success`, `data-analyst`) — these have no registered
 subagent type. Load the specialist manually:
 
-1. Read `~/.claude/btrs/agents/btrs-<name>/AGENT.md` in full. If it does not
-   exist, stop and tell the user — do not guess or proceed without it.
-2. Dispatch via `subagent_type: "general-purpose"`, with a prompt of the form:
+1. Confirm `~/.claude/btrs/agents/btrs-<name>/AGENT.md` exists using Glob. **Do not
+   read it.** These files are 17–23 KB; reading one here loads it into *your* context
+   and pasting it into the prompt below sends the same bytes a second time, for a file
+   only the subagent needs. If Glob finds nothing, stop and tell the user.
+2. Dispatch via `subagent_type: "general-purpose"`, having the subagent load its own
+   role as its first action:
 
    ```
-   You are acting as the following specialist. Follow its role, responsibilities,
-   and constraints exactly as written below.
-
-   ---
-   {full contents of AGENT.md}
-   ---
+   Your first action is to read ~/.claude/btrs/agents/btrs-<name>/AGENT.md in full.
+   That file defines your role, responsibilities, and constraints — adopt it exactly
+   as written and follow it for the rest of this task. If the file is missing, stop
+   and report that instead of guessing.
 
    Task: {the user's actual request}
    ```
@@ -79,7 +80,9 @@ subagent type. Load the specialist manually:
 
 ## Anti-patterns
 
-- Do not dispatch to `general-purpose` for a Tier 2 request without first reading and injecting its `AGENT.md` — an uninstructed general-purpose agent is not the specialist the user asked for.
+- Do not dispatch to `general-purpose` for a Tier 2 request without instructing it to load its `AGENT.md` first — an uninstructed general-purpose agent is not the specialist the user asked for.
+- Do not read a Tier 2 `AGENT.md` into your own context in order to paste it into the prompt. The subagent reads it itself; doing both loads 17–23 KB twice for no benefit.
+- Do not read a **Tier 1** `AGENT.md` at all — the registered `btrs-<name>` subagent type already loads it as its system prompt.
 - Do not use the bare relative path `skills/shared/agent-registry.md` or `agents/btrs-<name>/AGENT.md` — resolve against `~/.claude/btrs/` explicitly, since a same-named `shared/` directory can otherwise resolve to an unrelated toolkit's files depending on the shell's cwd.
 - Do not invent a Tier 2 agent that isn't in the registry. If no match exists, say so.
 - Do not skip the ambiguous-match clarification for vague, multi-domain requests — that's what `boss` is for when genuinely broad, but a two-way ambiguity should be asked, not guessed.
