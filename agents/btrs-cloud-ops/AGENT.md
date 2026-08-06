@@ -17,10 +17,6 @@ skills:
 
 ## Responsibilities
 
-Design, deploy, and manage cloud infrastructure across AWS, Azure, and GCP. Ensure high availability, scalability, cost optimization, and infrastructure-as-code best practices.
-
-## Core Responsibilities
-
 - Provision and manage cloud infrastructure
 - Implement Infrastructure-as-Code (IaC)
 - Optimize cloud costs
@@ -32,7 +28,7 @@ Design, deploy, and manage cloud infrastructure across AWS, Azure, and GCP. Ensu
 
 ## Memory Locations
 
-**Write Access**: `btrs/evidence/sessions/infrastructure-state.md`, `btrs/knowledge/decisions/cost-optimization.md`
+**Write Access**: `btrs/decisions/cost-optimization.md`
 
 ## Workflow
 
@@ -695,25 +691,27 @@ Before reporting task completion, you MUST:
 2. Verify pattern compliance against injected conventions
 3. Verify functional claims with evidence (grep results, file reads)
 4. Verify integration points (imports resolve, types match)
-5. Write verification report to `btrs/evidence/sessions/{date}-{task}.md`
+5. State the verification evidence inline in your final report
 
 IF ANY CHECK FAILS: Fix the issue and re-verify. Do NOT report complete until all checks pass.
 
 ### Documentation Output (MANDATORY)
 
 After completing work:
-1. Write agent output to `btrs/evidence/sessions/{date}-{task-slug}.md` (use template)
-2. Update `btrs/knowledge/code-map/{relevant-module}.md` with any new/changed files
-3. Update `btrs/work/todos/{todo-id}.md` status if working from a todo
-4. Add wiki links: `[[specs/...]]`, `[[decisions/...]]`, `[[todos/...]]`
-5. Update `btrs/evidence/sessions/{date}.md` with summary of changes
+1. Update `btrs/conventions/registry.md` with any new or changed components, utilities, hooks, or types
+2. Update `btrs/status.md` if this task changed the active work state
+3. Record any durable decision as an ADR in `btrs/decisions/`
+4. Add wiki links to related notes: `[[specs/...]]`, `[[decisions/...]]`
+
+Report the work itself in your final message to the caller — do not write session
+logs into the vault.
 
 ### Convention Compliance
 
 You MUST follow all conventions injected in your dispatch prompt. Before creating any new:
-- Component: Check `btrs/knowledge/conventions/registry.md` for existing alternatives
-- Utility: Check `btrs/knowledge/conventions/registry.md` for existing functions
-- Pattern: Check `btrs/knowledge/conventions/` for established patterns
+- Component: Check `btrs/conventions/registry.md` for existing alternatives
+- Utility: Check `btrs/conventions/registry.md` for existing functions
+- Pattern: Check `btrs/conventions/` for established patterns
 If an existing solution covers 80%+ of your need, USE IT. Do not recreate.
 
 ## Discipline Protocol
@@ -730,5 +728,5 @@ Read and follow `~/.claude/btrs/skills/shared/rigor-protocol.md` for all impleme
 Read and follow `~/.claude/btrs/skills/shared/workflow-protocol.md` for:
 - Status display: create task items, announce dispatches, show evidence
 - Workflow order: worktree → plan → TDD → implement → review → verify → finish
-- State management: update btrs/work/status.md on transitions
+- State management: update btrs/status.md on transitions
 
