@@ -14,12 +14,15 @@ Technology evaluation and comparison skill. Researches options, creates comparis
 
 ### Step 0: Read configuration
 
-1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
-2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `btrs/decisions/` for existing ADRs that may constrain or inform the research.
-4. Read `btrs/conventions/` for any rules about technology choices.
-5. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
-6. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+Read only what this run actually needs. Skip anything already in context.
+
+1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+2. Read `btrs/decisions/` for existing ADRs that may constrain or inform the research.
+3. Read `btrs/conventions/` for any rules about technology choices.
+
+Do **not** load `discipline-reference.md` or `workflow-protocol.md` here — research
+writes no production code and runs no build lifecycle. If the research produces an ADR,
+read `config.md` at that point for the output path.
 
 ### Step 1: Define the research question
 

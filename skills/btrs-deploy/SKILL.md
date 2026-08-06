@@ -14,12 +14,15 @@ Deployment and release workflow skill. Runs pre-deploy checks, generates changel
 
 ### Step 0: Read configuration
 
-1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
-2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `btrs/conventions/` for any deployment-related conventions.
-4. Read `btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
-5. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
-6. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+Read only what this run actually needs. Skip anything already in context.
+
+1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+2. Read `btrs/conventions/` for any deployment-related conventions.
+3. Read `btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
+4. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for the release lifecycle and status format.
+
+Do **not** load `discipline-reference.md` here — deploying runs an existing pipeline.
+If a pre-deploy check fails and you start fixing code, load it at that point.
 
 ### Step 1: Determine deployment target
 

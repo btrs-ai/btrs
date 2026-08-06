@@ -14,12 +14,15 @@ Code and architecture review skill. Checks convention compliance, pattern consis
 
 ### Step 0: Read configuration
 
-1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
-2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read `btrs/conventions/` files relevant to the code under review.
-4. Read `~/.claude/btrs/skills/shared/verification-protocol.md` for the verification checklist.
-5. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
-6. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+Read only what this run actually needs. Skip anything already in context.
+
+1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+2. Read `btrs/conventions/` files relevant to the code under review.
+3. Read `~/.claude/btrs/skills/shared/verification-protocol.md` — the review checklist.
+
+Do **not** load `discipline-reference.md` here: its TDD and debugging mandates govern
+writing code, and review is read-only. If the review turns into a fix, load it then.
+`config.md` is only needed if you will write into `btrs/` — reviews normally report inline.
 
 ### Step 1: Determine review scope
 

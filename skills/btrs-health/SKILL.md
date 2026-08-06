@@ -14,11 +14,14 @@ Project-wide drift detection skill. Checks convention violations across the code
 
 ### Step 0: Read configuration
 
-1. Read `~/.claude/btrs/skills/shared/config.md` to resolve `btrs/` paths and project structure.
-2. Read `btrs/config.json` if it exists for framework, language, and tooling context.
-3. Read all files in `btrs/conventions/` to establish the baseline.
-4. Read `~/.claude/btrs/skills/shared/discipline-reference.md` for TDD, verification, and debugging mandates.
-5. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for status display and lifecycle requirements.
+Read only what this run actually needs. Skip anything already in context.
+
+1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+2. Read all files in `btrs/conventions/` to establish the baseline.
+3. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for the status display format.
+
+Do **not** load `discipline-reference.md` here — a health check is read-only drift
+detection and writes no production code.
 
 ### Step 1: Determine check scope
 
