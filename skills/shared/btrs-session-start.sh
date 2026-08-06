@@ -9,9 +9,11 @@ PROJECT_DIR="$(pwd)"
 HASH="$(echo "$PROJECT_DIR" | shasum -a 256 | cut -c1-12)"
 MARKER="/tmp/btrs-session-$HASH"
 ROUTED_MARKER="/tmp/btrs-routed-$HASH"
+CONTEXT_MARKER="/tmp/btrs-context-$HASH"
 
-# Always clear the once-per-session routing marker so the trigger fires again.
-rm -f "$ROUTED_MARKER" 2>/dev/null
+# Always clear the once-per-session routing marker so the trigger fires again,
+# and the context marker so protocol files are loaded fresh in the new session.
+rm -f "$ROUTED_MARKER" "$CONTEXT_MARKER" 2>/dev/null
 
 # Load scope config (default: ~/PERSONAL)
 SCOPE_FILE="$HOME/.claude/btrs/scope.conf"

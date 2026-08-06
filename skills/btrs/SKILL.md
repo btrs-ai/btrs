@@ -16,33 +16,29 @@ You are the BTRS router. You classify the user's request and route to the right 
 
 The user's request is: $ARGUMENTS
 
-## Step -1: Activate session persistence
+## Step 0: Boot
 
-Inside `BTRS_SCOPE` (see `~/.claude/btrs/scope.conf`, default `~/PERSONAL`) the
-SessionStart hook has already activated routing — this step is a no-op there.
-
-Run this once, so explicit `/btrs` also persists when invoked from outside the scope:
+Run this ONE command first. It activates the session, checks scope, reports init
+state, and dumps `btrs/config.json`, `btrs/status.md`, and `btrs/project-map.md`,
+plus an **index** of `conventions/`, `decisions/`, and `specs/` (names + sizes +
+titles, not contents):
 
 ```bash
-touch "/tmp/btrs-session-$(echo "$(pwd)" | shasum -a 256 | cut -c1-12)"
+bash ~/.claude/btrs/skills/shared/btrs-boot.sh "$ARGUMENTS"
 ```
 
-Say "BTRS session activated" only if it was not already active. Then continue to Step 0.
+Parse the output. **Do not re-read anything it already emitted** — that is the
+whole point of the single call. Read an indexed file only when the request needs it.
 
-## Step 0: Check initialization
-
-1. Use Glob to check if `btrs/project-map.md` exists in the project root.
-2. **If `btrs/project-map.md` does NOT exist:**
-   - Tell the user: "First time here — let me scan your project."
-   - Read `~/.claude/btrs/skills/btrs-init/SKILL.md` and follow its workflow inline.
-   - After init completes, continue to Step 1.
-3. **If `btrs/project-map.md` exists:**
-   - Read `btrs/project-map.md` and `btrs/config.json` to load project context.
-   - Continue to Session Awareness.
+| Boot output | Action |
+|---|---|
+| `scope: OUT` | Note it, continue (explicit `/btrs` always works) |
+| `init: MISSING` | Read `~/.claude/btrs/skills/btrs-init/SKILL.md` and follow it inline, using the emitted init hints — do not re-detect the framework, language, or file layout |
+| `init: READY` | Project context is already in the boot output — skip to Session Awareness |
 
 #### Session Awareness
 
-4. Read `btrs/status.md` if it exists.
+Use the `btrs/status.md` section already in the boot output — do not Read it again.
 5. If active work exists:
    - If `$ARGUMENTS` relates to active work → "Continuing work on [active spec]" and resume.
    - If `$ARGUMENTS` is unrelated → present active work and ask: "You have active work on [X]. Want to pause it and start this, or finish [X] first?"

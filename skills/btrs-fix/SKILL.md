@@ -17,7 +17,11 @@ The user's request is: $ARGUMENTS
 ## Step 0: Load context
 
 1. Read `btrs/config.json` if it exists.
-2. Read `~/.claude/btrs/skills/shared/rigor-protocol.md` — debugging always uses at least **standard** rigor.
+2. Load the rigor protocol in one call, skipping it if already in context (debugging always uses at least **standard** rigor):
+   ```bash
+   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --build
+   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --build
+   ```
 3. State: "Rigor: {standard|strict} — {reason}"
 
 ## Phase 1: Root Cause Investigation

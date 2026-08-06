@@ -18,7 +18,11 @@ Read only what this run actually needs. Skip anything already in context.
 
 1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 2. Read `btrs/conventions/` files relevant to the code under review.
-3. Read `~/.claude/btrs/skills/shared/verification-protocol.md` — the review checklist.
+3. Load the verification checklist in one call, skipping it if already in context:
+   ```bash
+   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --review
+   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --review
+   ```
 
 Do **not** load `discipline-reference.md` here: its TDD and debugging mandates govern
 writing code, and review is read-only. If the review turns into a fix, load it then.
