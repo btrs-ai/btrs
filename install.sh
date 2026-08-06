@@ -100,16 +100,13 @@ for skill_name in "${V3_SKILLS[@]}"; do
 done
 echo "Skills:     $SKILL_COUNT linked"
 
-# Symlink shared references
-SHARED_TARGET="$SKILLS_DIR/btrs-shared"
-if [ -L "$SHARED_TARGET" ]; then
-  rm "$SHARED_TARGET"
-fi
-if [ ! -d "$SHARED_TARGET" ]; then
-  ln -s "$TOOLKIT_DIR/skills/shared" "$SHARED_TARGET"
-  echo "Shared:     linked"
-else
-  echo "Shared:     SKIP (directory exists, not a symlink)"
+# Remove the legacy btrs-shared alias. Nothing references it: every skill and
+# agent reaches the shared files through ~/.claude/btrs/skills/shared directly.
+# It only ever registered as a skill entry with no SKILL.md behind it.
+LEGACY_SHARED="$SKILLS_DIR/btrs-shared"
+if [ -L "$LEGACY_SHARED" ]; then
+  rm "$LEGACY_SHARED"
+  echo "Shared:     removed legacy btrs-shared alias"
 fi
 
 # Clean up old v2 agent symlinks
