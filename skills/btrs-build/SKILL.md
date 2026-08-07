@@ -44,7 +44,9 @@ The user's request is: $ARGUMENTS
 2. For each file, describe changes at a high level.
 3. Identify dependencies between files (write in dependency order).
 4. If the plan deviates from the spec, note why.
-5. **Present the plan to the user and wait for approval before writing code.**
+5. At **standard or strict** rigor: present the plan to the user and **wait for
+   approval** before writing code. At **quick** rigor: state the plan in one line
+   and proceed without waiting — quick-mode changes are small and easily reverted.
 
 ## Step 4: Build
 
