@@ -7,9 +7,6 @@ description: >
   mitigate churn risks, expand accounts (upsell/cross-sell), manage customer
   feedback and feature requests, track customer health scores, or build
   customer advocacy and community.
-skills:
-  - btrs-research
-  - btrs-review
 ---
 
 # Customer Success Agent

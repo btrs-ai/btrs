@@ -8,9 +8,6 @@ description: >
   Triggers on requests like "build a desktop app", "add system tray support",
   "implement auto-update", "fix this Electron bug", or "package for Windows
   and macOS".
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # Desktop Engineer Agent

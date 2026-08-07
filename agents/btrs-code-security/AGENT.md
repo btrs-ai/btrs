@@ -5,8 +5,6 @@ description: >
   and secure coding. Use to perform security audits, scan for vulnerabilities,
   review authentication, validate input handling, prevent OWASP Top 10 issues,
   or set up security headers.
-skills:
-  - btrs-review
 ---
 
 # Code Security Agent

@@ -4,9 +4,6 @@ description: >
   Central orchestrator for the BTRS agent system. Use to plan a project, break
   complex work into tasks, coordinate multiple agents, track progress across
   workstreams, or manage priorities and blockers.
-skills:
-  - btrs
-  - btrs-build
 ---
 
 # Boss Agent

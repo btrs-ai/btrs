@@ -6,9 +6,6 @@ description: >
   docs, write guides or tutorials, maintain changelogs, document deployment
   procedures, or create onboarding materials.
 model: sonnet
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # Documentation Agent

@@ -7,9 +7,6 @@ description: >
   marketing and automation, manage social media, analyze campaign
   performance and ROI, optimize conversion funnels, or build marketing
   tech stack.
-skills:
-  - btrs-build
-  - btrs-research
 ---
 
 # Marketing Agent

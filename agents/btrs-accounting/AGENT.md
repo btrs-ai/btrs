@@ -6,9 +6,6 @@ description: >
   process accounts payable/receivable, perform monthly/quarterly/annual close,
   generate financial statements, manage budgets and forecasts, ensure tax
   compliance, handle payroll, or conduct financial analysis and planning (FP&A).
-skills:
-  - btrs-research
-  - btrs-review
 ---
 
 # Accounting Agent

@@ -7,9 +7,6 @@ description: >
   configure WAF rules, manage secrets and certificates, set up SIEM monitoring,
   conduct penetration testing, handle security incidents, or achieve compliance
   certifications.
-skills:
-  - btrs-review
-  - btrs-deploy
 ---
 
 # Security Ops Agent

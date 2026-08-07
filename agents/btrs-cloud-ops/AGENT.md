@@ -6,9 +6,6 @@ description: >
   Infrastructure-as-Code, optimize cloud costs, configure high availability,
   set up disaster recovery, manage auto-scaling, load balancing, CDN,
   edge computing, or multi-region deployments.
-skills:
-  - btrs-deploy
-  - btrs-review
 ---
 
 # Cloud Ops Agent

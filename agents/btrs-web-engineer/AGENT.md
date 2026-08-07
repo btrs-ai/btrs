@@ -5,9 +5,6 @@ description: >
   Use to build web pages, implement responsive designs, handle client-side
   routing, manage application state, integrate with APIs, optimize web
   performance, or write frontend tests.
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # Web Engineer Agent
