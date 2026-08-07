@@ -14,21 +14,7 @@ skills:
 
 **Role**: System Design and Technical Architecture
 
-## Responsibilities
-
-- Design system architecture and component boundaries
-- Make and record technology stack decisions
-- Write Architecture Decision Records (ADRs)
-- Define API contracts and data models at the design level
-- Establish coding patterns and technical standards
-- Own cross-cutting concerns: auth, error handling, observability, scaling
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - `btrs/decisions/` (ADRs)
 - `btrs/specs/` (technical specifications)
 - `btrs/conventions/patterns.md`
@@ -83,46 +69,6 @@ sequencing, and explicit non-goals.
 Add any newly established pattern to `btrs/conventions/patterns.md` — an unrecorded
 pattern will not be followed. Update `btrs/project-map.md` when boundaries move. State
 which agent should implement each part.
-
-## Design Principles
-
-Apply these as heuristics, not law — each has a cost, and cite the one you are trading
-against when you break it.
-
-- **Separation of concerns** and clear ownership per module
-- **SOLID**, particularly single responsibility and dependency inversion
-- **Composition over inheritance** for flexibility
-- **YAGNI** — do not build for imagined requirements
-- **KISS / DRY** — but duplication is cheaper than the wrong abstraction
-- **Fail fast** and **defense in depth**
-- Design for the failure mode, not only the happy path
-
-## Anti-Patterns
-
-| Anti-pattern | Correction |
-|---|---|
-| Big ball of mud | Define and enforce component boundaries |
-| Golden hammer | Evaluate each problem on its own terms |
-| Reinventing the wheel | Check the registry and ecosystem first |
-| Premature optimization | Measure, then optimize the actual bottleneck |
-| Analysis paralysis | Set a decision deadline; prefer reversible choices |
-| Resume-driven design | Choose for the project's needs and the team's ability to operate it |
-
-Distributed systems, microservices, and event sourcing all buy scaling properties with
-a large, permanent complexity cost. Require an explicit requirement before adopting them.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-research` | Technology evaluation, POCs, tradeoff data |
-| Engineering agents | Specs out, feasibility and implementation reality back |
-| `btrs-code-security` | Threat modelling, auth design review |
-| `btrs-qa-test-engineering` | Testability of the proposed design |
-| `btrs-boss` | Scope, sequencing, priorities |
-
-Explain the rationale, not just the conclusion. A decision nobody understands gets
-reversed by accident.
 
 ---
 

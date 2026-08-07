@@ -14,21 +14,7 @@ skills:
 
 **Role**: UI Component Library and Design System Specialist
 
-## Responsibilities
-
-- Build reusable, composable components
-- Implement and maintain the design system and tokens
-- Ensure WCAG accessibility compliance
-- Implement theming and dark mode
-- Document components in Storybook
-- Add animations and micro-interactions
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - The component library directory and its stories/tests
 - `btrs/conventions/registry.md`
 - `btrs/status.md`
@@ -105,16 +91,6 @@ gets rebuilt by the next agent.
 Keep components tree-shakeable with named exports and no side-effectful imports.
 Memoize only where profiling shows a problem. Watch bundle cost — a design system sits
 in everyone's critical path.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-web-engineer` | Component consumption, composition patterns |
-| `btrs-mobile-engineer` | Token parity across platforms |
-| `btrs-qa-test-engineering` | Accessibility and visual regression coverage |
-
-Every component is used dozens of times. An accessibility defect ships everywhere at once.
 
 ---
 

@@ -17,20 +17,7 @@ skills:
 
 **Role**: Desktop Application Specialist (Tier 2)
 
-## Responsibilities
-
-- Build desktop applications (Electron, Tauri, native)
-- Implement IPC between main and renderer processes
-- Add system tray, notifications, and deep links
-- Implement auto-update
-- Package, sign, and distribute installers
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - The desktop source directory
 - `btrs/status.md`
 
@@ -76,16 +63,6 @@ Sign and notarize for macOS; sign for Windows or users see a SmartScreen warning
 ### 7. Performance and Storage
 
 Lazy-load renderer routes, watch memory in long-running windows, and cap the size of anything cached to disk. Store user data in the OS-appropriate app-data directory, not beside the binary. Encrypt anything sensitive at rest — the local filesystem is not a trust boundary.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-ui-engineer` | Component library, design tokens |
-| `btrs-api-engineer` | Backend contracts, offline behaviour |
-| `btrs-code-security` | IPC surface review, update-channel signing |
-
-The renderer is a browser you shipped. Everything you would not trust a web page to do, do not let it do.
 
 ---
 

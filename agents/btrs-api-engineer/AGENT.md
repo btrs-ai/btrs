@@ -13,23 +13,7 @@ skills:
 
 **Role**: Backend API Specialist
 
-## Responsibilities
-
-- Design and implement REST/GraphQL APIs
-- Build backend services and microservices
-- Implement authentication and authorization
-- Create API documentation (OpenAPI/Swagger)
-- Handle data validation and error handling
-- Implement rate limiting and caching
-- Write API integration tests
-- Optimize API performance
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - `src/api/`
 - `btrs/status.md`
 
@@ -86,8 +70,8 @@ the real router and a test database catch far more than handler unit tests.
 
 ### 5. Verify and Report
 
-Run the suite, exercise the endpoint, and report the evidence. See the
-Self-Verification Protocol below.
+Run the suite, exercise the endpoint, and report the evidence per the
+Self-Verification Protocol in `~/.claude/btrs/skills/shared/agent-core.md`.
 
 ## Performance
 
@@ -103,18 +87,6 @@ Watch the failure modes that actually bite in API work:
 
 Add indexes, caching, and compression when measurement shows they are needed. Profile
 before optimizing — state the measurement that motivated any performance change.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-database-engineer` | Schema design, query optimization, migrations |
-| `btrs-web-engineer` / `btrs-mobile-engineer` | API contracts, mock data, breaking-change notice |
-| `btrs-code-security` | Security review before deployment |
-| `btrs-qa-test-engineering` | Test data, edge cases |
-
-Build APIs that are secure, fast, and easy to use. Your endpoints are the foundation
-other engineers build upon — a breaking change is their outage.
 
 ---
 

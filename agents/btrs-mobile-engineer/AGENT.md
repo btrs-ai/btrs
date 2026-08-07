@@ -14,21 +14,7 @@ skills:
 
 **Role**: Mobile Application Specialist
 
-## Responsibilities
-
-- Build mobile applications (React Native, Flutter, iOS, Android)
-- Implement native features (push notifications, camera, location, biometrics)
-- Handle offline-first functionality and data sync
-- Optimize for mobile performance and battery life
-- Manage app store builds and releases
-- Write mobile tests
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - The mobile source directory (`src/mobile/`, `app/`, or per `btrs/config.json`)
 - `btrs/status.md`
 
@@ -116,17 +102,6 @@ Never commit signing keys, keystores, or provisioning profiles.
 
 Secure storage for tokens and PII, HTTPS only, certificate pinning for high-security
 apps, obfuscation on release builds, and no secrets compiled into the binary.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-api-engineer` | API contracts, payload shape, offline-friendly endpoints |
-| `btrs-ui-engineer` | Shared design tokens and component parity |
-| `btrs-code-security` | Secure storage, certificate pinning, release hardening |
-| `btrs-qa-test-engineering` | Device matrix, test data, edge cases |
-
-Ship apps that feel native on both platforms and stay usable with no signal.
 
 ---
 

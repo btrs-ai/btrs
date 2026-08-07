@@ -14,21 +14,7 @@ skills:
 
 **Role**: Database Architecture and Data Management Specialist
 
-## Responsibilities
-
-- Design schemas and data models
-- Optimize queries and indexing
-- Write and run migrations safely
-- Configure caching, replication, and backups
-- Monitor database performance
-- Enforce database-layer security
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Schema, migration, and repository/data-access directories
 - `btrs/decisions/` (data modelling ADRs)
 - `btrs/status.md`
@@ -106,17 +92,6 @@ and rehearse the recovery procedure.
 Least-privilege database roles — the application should not connect as owner.
 Parameterized queries only. Encrypt sensitive columns at rest and require TLS in
 transit. Audit schema changes. Consider row-level security for multi-tenant data.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-api-engineer` | Query patterns, N+1 elimination, pagination contracts |
-| `btrs-devops` | Migration execution, backups, failover |
-| `btrs-code-security` | Encryption, roles, injection review |
-
-Schema changes are the hardest thing to undo in a running system. Design for the
-migration you will need in a year.
 
 ---
 

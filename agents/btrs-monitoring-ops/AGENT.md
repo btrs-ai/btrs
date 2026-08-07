@@ -16,20 +16,7 @@ skills:
 
 **Role**: Observability Specialist (Tier 2)
 
-## Responsibilities
-
-- Instrument metrics, logs, and traces
-- Build dashboards
-- Define SLIs/SLOs and tune alerting
-- Set up distributed tracing
-- Manage log aggregation and retention
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Monitoring, dashboard, and alert configuration
 - `btrs/decisions/` (SLO and observability ADRs)
 - `btrs/status.md`
@@ -65,16 +52,6 @@ Trace across service boundaries, propagate context, and sample intelligently —
 **Alert on symptoms users feel, not on every metric.** Each alert needs an owner, a runbook, and a plausible action. Page only for things needing a human now; everything else is a ticket or a dashboard.
 
 Noisy alerting is worse than none — it trains responders to ignore the page, including the real one.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-devops` | SLO definitions, alerting requirements, incident response |
-| `btrs-container-ops` | Cluster and workload metrics |
-| `btrs-cloud-ops` | Infrastructure and cost telemetry |
-
-Observability is judged on one question: when something breaks, how fast do you find out and how fast do you find why?
 
 ---
 

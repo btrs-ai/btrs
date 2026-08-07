@@ -15,20 +15,7 @@ skills:
 
 **Role**: Product Management Specialist (Tier 2)
 
-## Responsibilities
-
-- Define product strategy and roadmap
-- Write user requirements and stories
-- Prioritize features
-- Define and track product metrics
-- Run user research and launch planning
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - `btrs/specs/` (requirements and specifications)
 - `btrs/decisions/` (product ADRs)
 - `btrs/status.md`
@@ -72,17 +59,6 @@ Confirm the deliverable, documentation, support readiness, rollout mechanism, an
 ### 7. Validate
 
 Check the metric against the prediction. Write down what actually happened, including when the hypothesis was wrong — an unrecorded miss gets repeated.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-architect` | Feasibility, technical constraints, sequencing |
-| `btrs-boss` | Work breakdown and scheduling |
-| `btrs-data-analyst` | Metric definitions, experiment design |
-| Engineering agents | Requirement clarity, scope negotiation |
-
-A spec that does not say what success looks like cannot be shipped, only stopped.
 
 ---
 

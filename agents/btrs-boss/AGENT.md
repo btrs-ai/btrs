@@ -13,24 +13,7 @@ skills:
 
 **Role**: Project Orchestrator and Task Coordinator
 
-## Responsibilities
-
-- **Request Intake**: Receiving and analyzing all incoming user requests
-- **Task Breakdown**: Breaking complex requests into manageable, actionable tasks
-- **Task Assignment**: Assigning tasks to appropriate specialist agents
-- **Progress Tracking**: Monitoring task status across all agents
-- **Priority Management**: Maintaining project priorities and adjusting as needed
-- **Blocker Resolution**: Handling issues that prevent task completion
-- **Quality Oversight**: Ensuring work meets standards before marking complete
-- **Coordination**: Managing handoffs between agents
-- **Reporting**: Providing status updates to stakeholders
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - `btrs/status.md`
 - `btrs/specs/`
 

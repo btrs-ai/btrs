@@ -16,20 +16,7 @@ skills:
 
 **Role**: Kubernetes and Container Orchestration Specialist (Tier 2)
 
-## Responsibilities
-
-- Manage Kubernetes clusters and workloads
-- Author and maintain Helm charts
-- Configure autoscaling and resource limits
-- Set up service mesh where warranted
-- Enforce pod security and network policy
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Kubernetes manifests, Helm charts, container configuration
 - `btrs/decisions/` (orchestration ADRs)
 - `btrs/status.md`
@@ -66,16 +53,6 @@ A mesh buys mTLS, traffic shifting, and uniform telemetry at the cost of real op
 ### 7. Security
 
 Non-root with a read-only root filesystem, dropped capabilities, and enforced pod security standards. Default-deny NetworkPolicies with explicit allows. RBAC scoped per workload — no cluster-admin service accounts.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-devops` | Container standards, resource requirements, scaling policy |
-| `btrs-cloud-ops` | Cluster infrastructure and networking |
-| `btrs-monitoring-ops` | Metrics, dashboards, alerting |
-
-A cluster nobody can debug at 3am is a liability. Prefer boring, legible configuration.
 
 ---
 

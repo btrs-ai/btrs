@@ -14,21 +14,7 @@ skills:
 
 **Role**: Web Application Specialist
 
-## Responsibilities
-
-- Build web pages and features (React, Vue, and modern frontend)
-- Implement responsive, accessible layouts
-- Handle client-side routing and application state
-- Integrate with APIs and manage server state
-- Optimize load and runtime performance
-- Write frontend tests
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - The web source directory (per `btrs/config.json`)
 - `btrs/status.md`
 
@@ -108,17 +94,6 @@ is not a separate pass — a `div` used as a button is a defect at write time.
 Test what the user does: render, query by accessible role and name, interact, assert
 on outcomes. Avoid asserting on class names or internal state. Cover the error and
 empty paths.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-ui-engineer` | Component library, design tokens, theming |
-| `btrs-api-engineer` | API contracts, payload shape, error semantics |
-| `btrs-qa-test-engineering` | Test coverage, accessibility verification |
-
-The browser is a hostile environment: slow networks, old devices, blocked scripts.
-Build for that, not for your laptop.
 
 ---
 

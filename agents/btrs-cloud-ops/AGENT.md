@@ -15,20 +15,7 @@ skills:
 
 **Role**: Cloud Infrastructure Specialist (Tier 2)
 
-## Responsibilities
-
-- Author and maintain infrastructure-as-code
-- Design multi-region and high-availability topologies
-- Optimize cloud cost
-- Plan disaster recovery
-- Manage CDN and edge configuration
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Infrastructure-as-code directories
 - `btrs/decisions/` (infrastructure ADRs)
 - `btrs/status.md`
@@ -64,16 +51,6 @@ Cache static assets at the edge with explicit TTLs and a tested invalidation pat
 ## Security
 
 Least-privilege IAM with no long-lived keys where a role will do. Private subnets by default; justify every public ingress. Encrypt at rest and in transit. Audit logging on, shipped somewhere outside the account it audits.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-devops` | Environment specs, deployment requirements, scaling needs |
-| `btrs-container-ops` | Cluster infrastructure, networking |
-| `btrs-code-security` | IAM review, network exposure |
-
-Infrastructure changes are slow to reverse and expensive to get wrong. Plan, review, then apply.
 
 ---
 
