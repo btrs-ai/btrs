@@ -11,7 +11,7 @@ BTRS v3.0.0 consolidates skills and agents for a leaner pipeline. Every task fol
 Every non-trivial task flows through this pipeline:
 
 ```
-/btrs → classify → brainstorm → plan → worktree → execute (TDD per task) → sanity-check → finish
+/btrs → classify → plan → execute → review → verify → report
 ```
 
 You do not need to invoke each step manually. `/btrs` drives the pipeline automatically. For simple questions or quick lookups, BTRS skips the full pipeline and answers directly.
@@ -45,10 +45,9 @@ What happens:
 - **Classify**: BTRS identifies this as a multi-domain feature (API + Web + possibly Mobile)
 - **Brainstorm**: Explores your intent — what triggers notifications? What channels? What templates?
 - **Plan**: Creates a detailed plan with tasks, agent assignments, and acceptance criteria
-- **Worktree**: Creates `feature/notification-system` worktree to isolate work
-- **Execute**: Each task runs through TDD — failing test first, then implementation, then refactor
-- **Sanity-check**: All tests pass, linting clean, no regressions
-- **Finish**: Presents options: merge to main, create PR, or continue iterating
+- **Execute**: Each task runs at the assessed rigor level — tests are offered before a PR and required only in strict mode
+- **Review & verify**: Self-review, then evidence-backed verification of every claim
+- **Report**: Presents the outcome and next steps: merge, create PR (offering tests first), or continue iterating
 
 ### Simple feature (single agent)
 
@@ -201,10 +200,10 @@ Creates a handoff document with full context so the next session (or another dev
 ```
 
 What happens:
-- BTRS dispatches **Architect** via `/btrs-plan`
-- Creates a spec at `btrs/knowledge/specs/multi-tenancy.md`
+- BTRS dispatches **Architect** (via `/btrs-dispatch architect` or automatic routing)
+- Creates a spec at `btrs/specs/SPEC-NNN-multi-tenancy.md`
 - Breaks it into tasks with agent assignments
-- Creates an ADR at `btrs/knowledge/decisions/ADR-xxx-multi-tenancy.md`
+- Creates an ADR at `btrs/decisions/ADR-NNN-multi-tenancy.md`
 - You review the spec, then say "implement it" to start execution through the pipeline
 
 ```
@@ -481,28 +480,21 @@ These all do the same thing `/btrs` would do — they just skip the classificati
 
 ---
 
-## The btrs/ Directory (Three-Tier Structure)
+## The btrs/ Directory (Project Vault)
 
 ```
 btrs/
-  knowledge/              # Persistent project knowledge
-    conventions/           # Auto-detected project patterns
-    decisions/             # ADRs and design decisions
-    docs/                  # Auto-generated documentation
-    tech-debt/             # Tech debt backlog items
-  work/                   # Active session state
-    current-plan.md        # Active implementation plan
-    progress.md            # Task completion tracking
-    handoff.md             # Session continuity context
-  evidence/               # Verification proof
-    test-results.md        # Test output evidence
-    review-log.md          # Code review records
-    sanity-check.md        # Pre-merge verification
+├── config.json          # Project config (framework, language, tooling)
+├── project-map.md       # Agent scopes
+├── status.md            # Active work
+├── decisions/           # ADRs
+├── specs/               # Feature specs
+└── conventions/         # Patterns, registry, anti-patterns
 ```
 
-- **knowledge/** persists across sessions. Conventions, decisions, and documentation accumulate here.
-- **work/** tracks the current task. This is how session continuity works — `/btrs` reads this on startup.
-- **evidence/** stores proof of verification. Every claim of "it works" has evidence here.
+- **conventions/, decisions/, specs/** persist across sessions and accumulate project knowledge.
+- **status.md** tracks active work — this is how session continuity works; `/btrs` reads it on startup.
+- Verification evidence is reported inline in each task's output; tech debt is tracked via Claude's task tools or ADRs.
 
 ---
 
@@ -534,8 +526,8 @@ The agent instructions work with any AI. The skills, pipeline, and auto-routing 
 ## Tips
 
 - **Start broad, get specific.** "/btrs build auth" works better than trying to pick the right agent yourself.
-- **Trust the pipeline.** TDD, verification, and sanity-checks are automatic. You do not need to ask for them.
-- **Check the evidence.** Open `btrs/evidence/` after any task to see actual test output and verification proof.
+- **Trust the pipeline.** Rigor detection and verification are automatic. Tests are optional below strict mode — BTRS offers them before a PR, and you can always say "write tests" or "use strict mode".
+- **Check the evidence.** Verification evidence is shown inline in each task's report.
 - **Session continuity is automatic.** Just type `/btrs` in a new session — it shows active work if any exists.
 - **Run /btrs-health periodically.** It catches drift before it becomes a problem.
 - **Plans are your source of truth.** If you want something built a specific way, shape it during the brainstorm phase.

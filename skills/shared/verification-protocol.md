@@ -34,9 +34,9 @@ Every file claimed to be created or modified must exist on disk.
 All code must follow the project's established conventions.
 
 **Process:**
-- Read `btrs/conventions/patterns.md` for the project's convention rules (organized by section: UI, API, database, testing, styling)
-- Read `btrs/conventions/registry.md` and `btrs/conventions/anti-patterns.md` for existing components/utilities and known mistakes to avoid
-- Read `btrs/config.json` for framework and tool settings
+- Consult `btrs/conventions/patterns.md`, `btrs/conventions/registry.md`,
+  `btrs/conventions/anti-patterns.md`, and `btrs/config.json` — **skip any of these
+  already in context from earlier steps; do not re-read them**
 - Check that new code matches existing patterns in the codebase
 - Verify naming conventions, file structure, import patterns
 
@@ -104,45 +104,21 @@ All requirements from the spec or task description must be addressed.
 - [PASS] "Users can register with email and password" -- implemented in register.ts
 - [PASS] "Invalid credentials return 401" -- implemented in login.ts line 28
 - [SKIP] "Rate limiting on auth endpoints" -- deferred to TASK-008 per boss agent decision
-- [FAIL] "All endpoints have integration tests" -- tests not written
+- [WARN] "Integration tests" -- not written (tests are optional at standard rigor; FAIL only if the spec or user required them)
 ```
 
 ## Verification Report Format
 
-The complete verification report is included in the agent output file:
+Include a compact report in your final message. Summary counts plus every FAIL and
+WARN line (with evidence); omit PASS detail unless a check was non-obvious:
 
 ```markdown
 ## Verification Report
+**Overall status**: PASS | PARTIAL | FAIL — {N passed / N failed / N warnings}
 
-**Verified by**: {agent-slug}
-**Date**: YYYY-MM-DD
-**Overall status**: PASS | PARTIAL | FAIL
-
-### Summary
-- Total checks: N
-- Passed: N
-- Failed: N
-- Warnings: N
-- Manual: N
-- Skipped: N
-
-### File Existence
-[results]
-
-### Pattern Compliance
-[results]
-
-### Functional Claims
-[results]
-
-### Integration Points
-[results]
-
-### Completeness
-[results]
-
-### Failures and Remediation
-[For each FAIL, describe what went wrong and what needs to happen to fix it]
+### Failures and Warnings
+- [FAIL] {check} -- {what went wrong, and what is needed to fix it}
+- [WARN] {check} -- {evidence}
 ```
 
 ## What To Do When Checks Fail
@@ -202,7 +178,7 @@ orchestrator in your output rather than silently capturing it.
 3. **Be honest about failures.** A `PARTIAL` report with known issues is far more valuable than a false `PASS`.
 4. **Verify your own work.** Do not rely on another agent to catch your mistakes.
 5. **Re-verify after fixes.** A fix that is not re-verified is not verified.
-6. **Include the report.** The verification report must be in the agent output file, not just mentioned.
+6. **Include the report.** The verification report goes in your final message to the caller, not just mentioned.
 7. **Capture tech debt proactively.** If you see it, log it — even if it's not part of your task.
 8. **Prove fixes work.** Run the actual test, command, or reproduction that demonstrates the fix. "Should fix it" is not evidence. If you cannot run a test, state exactly what remains unverified.
 9. **Check for contributing factors.** Before closing a bug fix, confirm no other code paths contribute to the same symptom. A fix that addresses one cause while ignoring co-factors will regress.

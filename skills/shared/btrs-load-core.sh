@@ -4,22 +4,27 @@
 # Emits the shared protocol files a skill needs at Step 0. Loading them with
 # separate Read calls costs one full context re-send each; this cats them in one.
 #
-# On success it writes a per-directory context marker, so a skill routed to
-# later in the same session can call btrs-check-context.sh, get HIT, and skip
-# re-loading protocol text that is already in context.
+# Idempotent per session per directory: a marker records what has been loaded,
+# and a repeat call for the same mode is a silent no-op — skills call this
+# unconditionally, no separate check script needed.
 #
 # Usage:
 #   btrs-load-core.sh --build      # rigor (implementation work)
 #   btrs-load-core.sh --review     # verification checklist
 #   btrs-load-core.sh --lifecycle  # workflow/status display (deploy, health)
-#   btrs-load-core.sh --paths      # vault layout + output paths
 #   btrs-load-core.sh --all        # everything (rare; prefer a narrower set)
 
 set -uo pipefail
 
 SHARED="$HOME/.claude/btrs/skills/shared"
 MODE="${1:---build}"
-HASH="$(echo "$(pwd)" | shasum -a 256 | cut -c1-12)"
+MARKER="/tmp/btrs-context-$(echo "$(pwd)" | shasum -a 256 | cut -c1-12)"
+
+# HIT: already loaded this session — do not re-emit.
+if [ -f "$MARKER" ] && { grep -qx -- "$MODE" "$MARKER" || grep -qx -- "--all" "$MARKER"; }; then
+  echo "HIT: $MODE already in context — nothing loaded, do not re-read."
+  exit 0
+fi
 
 emit() {
   local f="$SHARED/$1"
@@ -37,7 +42,6 @@ case "$MODE" in
   --build)     emit rigor-protocol.md ;;
   --review)    emit verification-protocol.md ;;
   --lifecycle) emit workflow-protocol.md ;;
-  --paths)     emit config.md ;;
   --all)
     emit config.md
     emit rigor-protocol.md
@@ -45,13 +49,13 @@ case "$MODE" in
     emit workflow-protocol.md
     ;;
   *)
-    echo "unknown mode: $MODE (use --build|--review|--lifecycle|--paths|--all)" >&2
+    echo "unknown mode: $MODE (use --build|--review|--lifecycle|--all)" >&2
     exit 2
     ;;
 esac
 
-# Record what is now in context so downstream skills can skip re-loading.
-echo "$MODE" >> "/tmp/btrs-context-$HASH"
+# Record what is now in context so later calls no-op.
+echo "$MODE" >> "$MARKER"
 
 echo ""
 echo "Loaded above — do not re-read these files this session."

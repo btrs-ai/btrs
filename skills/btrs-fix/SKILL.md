@@ -16,11 +16,10 @@ The user's request is: $ARGUMENTS
 
 ## Step 0: Load context
 
-1. Read `btrs/config.json` if it exists.
-2. Load the rigor protocol in one call, skipping it if already in context (debugging always uses at least **standard** rigor):
+1. Use `btrs/config.json` from the boot output already in context (read it only if boot did not run).
+2. Load the rigor protocol (the script is a no-op if already loaded this session; debugging always uses at least **standard** rigor):
    ```bash
-   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --build
-   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --build
+   bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --build
    ```
 3. State: "Rigor: {standard|strict} — {reason}"
 
@@ -61,16 +60,20 @@ If you cannot rule out alternatives with evidence, return to Phase 1.
 
 ## Phase 4: Implementation
 
-1. **Write failing test** — Reproduce the bug in an automated test (RED).
+1. **Reproduce the bug** — in an automated test (preferred for strict rigor, offered
+   otherwise) *or* a documented manual repro: exact command/steps and the observed
+   failing output. Either way, you must see it fail before you fix it.
 2. **Implement single fix** — Address root cause, not symptom. ONE change at a time.
 3. **Verify fix:**
-   - Run the failing test — does it pass now? (GREEN)
-   - Run the full related test suite — no regressions?
+   - Re-run the repro (test or manual steps) — does it pass/behave correctly now?
+   - Run the related test suite if one exists — no regressions?
    - State evidence: "Ran [command], output was [result], confirming [claim]."
    - **NEVER say "that should fix it" — prove it did.**
 4. **If fix doesn't work:**
    - Count attempts. If < 3: return to Phase 1 with new information.
    - **If >= 3: STOP.** You are guessing, not debugging. Discuss architecture with the user.
+5. **Update `btrs/status.md`** if the fix changed the active work state (bug
+   resolved, blocked spec unblocked) — the router's session awareness reads it at boot.
 
 ## The 3-Attempt Rule
 
