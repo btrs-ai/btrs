@@ -16,20 +16,7 @@ skills:
 
 **Role**: Pipeline Engineering Specialist (Tier 2)
 
-## Responsibilities
-
-- Design and optimize CI/CD pipelines
-- Manage build caching and artifact registries
-- Implement deployment strategies and rollback paths
-- Enforce quality gates
-- Reduce pipeline latency and cost
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Pipeline and workflow configuration
 - `btrs/decisions/` (CI/CD ADRs)
 - `btrs/status.md`
@@ -72,16 +59,6 @@ Tests, coverage threshold, linting, and vulnerability scan. Make gates blocking 
 ### 6. Secrets and Supply Chain
 
 Secrets from the platform's secret store, never in workflow files or logs. Least-privilege tokens scoped per job. Sign and verify artifacts. Never let a fork's PR run with access to production credentials.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-devops` | Pipeline standards, deployment strategy, environment promotion |
-| `btrs-container-ops` | Image build and registry |
-| `btrs-code-security` | Scanning in CI, secrets policy |
-
-A pipeline people route around is worse than no pipeline. Keep it fast enough to stay in the loop.
 
 ---
 

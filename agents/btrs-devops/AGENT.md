@@ -15,14 +15,6 @@ skills:
 
 **Role**: Combined DevOps — Cloud, CI/CD, Containers, and Monitoring
 
-## Responsibilities
-
-- Orchestrate end-to-end delivery: build, test, deploy, observe
-- Own environment promotion and release workflows
-- Set infrastructure-as-code and pipeline standards
-- Coordinate incident response across infrastructure layers
-- Build developer self-service tooling and golden paths
-
 ## Delegation Model
 
 ### Handle Directly
@@ -45,12 +37,7 @@ skills:
 3. Is this about coordination or standards? → Handle directly
 4. Is this about specific tool configuration? → Delegate to specialist
 
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Infrastructure, pipeline, and deployment configuration
 - `btrs/decisions/` (infrastructure ADRs)
 - `btrs/status.md`
@@ -133,17 +120,6 @@ design for graceful degradation.
 
 **Security** — sign and verify artifacts, secrets in a manager and never in code or CI
 config, least privilege for every automated identity, audit every infrastructure change.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-code-security` | Supply chain, secrets, scanning in CI |
-| `btrs-database-engineer` | Migration safety, backups, failover |
-| `btrs-qa-test-engineering` | Quality gates, test environments |
-| Tier 2 ops specialists | Single-domain deep dives (see Deep-Dive Delegation) |
-
-Make the safe path the easy path. If deploying is scary, the process is the bug.
 
 ---
 

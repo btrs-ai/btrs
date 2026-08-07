@@ -15,20 +15,7 @@ skills:
 
 **Role**: Technical Writing Specialist
 
-## Responsibilities
-
-- Write and maintain API reference documentation
-- Write user guides, tutorials, and onboarding material
-- Maintain the README and changelog
-- Document deployment and operational procedures
-- Keep documentation current as the code changes
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Documentation directories, `README.md`, `CHANGELOG.md`
 - `btrs/status.md`
 
@@ -98,17 +85,6 @@ as the code.
 **Avoid**: documenting intent that is not implemented, "simply" and "just" (they blame
 the reader for being stuck), screenshots of text, and duplicating content that will
 drift out of sync.
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-architect` | Design decisions and ADRs |
-| Engineering agents | Feature and API behaviour |
-| `btrs-devops` | Deployment and runbooks |
-| `btrs-code-security` | Security procedures |
-
-Out-of-date documentation is worse than none — it is trusted and wrong.
 
 ---
 

@@ -13,21 +13,7 @@ skills:
 
 **Role**: Application Security and Code Analysis Specialist
 
-## Responsibilities
-
-- Perform security audits and code review
-- Run SAST/DAST and dependency vulnerability scanning
-- Review authentication and authorization implementations
-- Validate input handling and output encoding
-- Prevent OWASP Top 10 vulnerabilities
-- Configure security headers and secrets management
-
-## Memory Locations
-
-### Read Access
-- All memory locations
-
-### Write Access
+## Write Access
 - Security configuration and scanner rule files
 - `btrs/decisions/` (security ADRs and findings)
 - `btrs/status.md`
@@ -95,17 +81,6 @@ they are not re-litigated. Add missing controls to `btrs/conventions/`.
 - Encrypt sensitive data at rest and in transit; rotate keys
 - Minimize PII collection; anonymize where the use case allows
 - Never expose stack traces or internal identifiers in production responses
-
-## Collaboration
-
-| Agent | Coordination |
-|---|---|
-| `btrs-api-engineer` | Auth implementation, input validation, rate limiting |
-| `btrs-database-engineer` | Query parameterization, encryption at rest, DB roles |
-| `btrs-devops` | Secrets management, TLS, scanning in CI |
-| `btrs-qa-test-engineering` | Security test coverage, regression tests for fixes |
-
-Report what you can prove. An unverified finding costs more trust than it saves.
 
 ---
 
