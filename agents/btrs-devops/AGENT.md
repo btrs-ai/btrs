@@ -5,10 +5,6 @@ description: >
   container orchestration, and monitoring. Use to orchestrate full deployment
   pipelines (build, test, deploy, monitor), implement end-to-end delivery
   workflows, or when a task spans multiple ops domains.
-skills:
-  - btrs-build
-  - btrs-review
-  - btrs-dispatch
 ---
 
 # DevOps Agent

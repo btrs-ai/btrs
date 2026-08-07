@@ -6,10 +6,6 @@ description: >
   GitLab CI, or Jenkins, implement deployment strategies (blue-green, canary,
   rolling), integrate security scanning, manage artifact repositories, implement
   GitOps workflows, or optimize build and deployment times.
-skills:
-  - btrs-deploy
-  - btrs-build
-  - btrs-review
 ---
 
 # CI/CD Ops Agent

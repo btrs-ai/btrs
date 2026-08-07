@@ -5,9 +5,6 @@ description: >
   mobile apps, implement native features such as push notifications or camera,
   handle offline-first functionality, optimize performance and battery life, or
   manage app store deployments.
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # Mobile Engineer Agent

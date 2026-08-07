@@ -5,9 +5,6 @@ description: >
   optimization, and migrations. Use to design schemas, optimize queries,
   implement migrations, set up replication, configure caching strategies, or
   handle database security.
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # Database Engineer Agent

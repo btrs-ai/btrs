@@ -7,8 +7,6 @@ description: >
   generate automated reports, analyze user behavior and product metrics,
   track KPIs, provide data-driven recommendations, or ensure data quality
   and governance.
-skills:
-  - btrs-research
 ---
 
 # Data Analyst Agent

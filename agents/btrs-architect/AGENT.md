@@ -5,9 +5,6 @@ description: >
   to design a system, make technology choices, write ADRs, establish coding
   patterns, define API contracts, plan database schemas, or review technical
   approaches.
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # Architect Agent

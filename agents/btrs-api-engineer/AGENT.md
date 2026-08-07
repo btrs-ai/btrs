@@ -4,9 +4,6 @@ description: >
   Backend API specialist for REST, GraphQL, and microservices. Use to build API
   endpoints, implement authentication, create backend services, handle data
   validation, set up rate limiting or caching, or write API integration tests.
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # API Engineer Agent

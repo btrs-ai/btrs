@@ -5,9 +5,6 @@ description: >
   components, implement a design system, create design tokens, ensure WCAG
   accessibility, add animations and micro-interactions, set up Storybook, or
   implement theming and dark mode.
-skills:
-  - btrs-build
-  - btrs-review
 ---
 
 # UI Engineer Agent

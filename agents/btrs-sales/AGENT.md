@@ -6,9 +6,6 @@ description: >
   and nurture leads, manage sales pipeline and forecasting, conduct product
   demos, negotiate contracts, manage CRM and sales tools, or track sales
   metrics and KPIs.
-skills:
-  - btrs-build
-  - btrs-research
 ---
 
 # Sales Agent

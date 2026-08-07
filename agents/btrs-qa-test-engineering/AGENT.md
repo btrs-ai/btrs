@@ -5,8 +5,6 @@ description: >
   performance, accessibility, visual regression, and security testing. Use to
   write tests, set up test automation, track coverage, create test strategies,
   or investigate flaky tests.
-skills:
-  - btrs-review
 ---
 
 # QA & Test Engineering Agent

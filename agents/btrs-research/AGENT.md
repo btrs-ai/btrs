@@ -6,9 +6,6 @@ description: >
   best practices, conduct competitive analysis, create proof-of-concepts, or
   investigate new approaches to technical challenges.
 model: sonnet
-skills:
-  - btrs-research
-  - btrs-build
 ---
 
 # Research Agent

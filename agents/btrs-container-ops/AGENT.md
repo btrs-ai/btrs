@@ -6,10 +6,6 @@ description: >
   containerized applications, implement service mesh (Istio, Linkerd),
   configure Helm charts or Kustomize, manage resource limits and autoscaling
   (HPA, VPA), implement pod security policies, or optimize container images.
-skills:
-  - btrs-deploy
-  - btrs-build
-  - btrs-review
 ---
 
 # Container Ops Agent

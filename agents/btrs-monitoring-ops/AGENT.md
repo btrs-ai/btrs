@@ -7,9 +7,6 @@ description: >
   (ELK, Loki), configure distributed tracing (Jaeger, OpenTelemetry),
   create dashboards, set up alerting, monitor SLIs/SLOs/SLAs, or analyze
   performance bottlenecks.
-skills:
-  - btrs-health
-  - btrs-review
 ---
 
 # Monitoring Ops Agent

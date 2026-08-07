@@ -6,9 +6,6 @@ description: >
   and prioritize user requirements, conduct user research, define success
   metrics (OKRs, KPIs), coordinate product launches, analyze product
   performance, or manage feature requests and backlog.
-skills:
-  - btrs-build
-  - btrs-research
 ---
 
 # Product Agent
