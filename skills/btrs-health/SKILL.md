@@ -18,7 +18,11 @@ Read only what this run actually needs. Skip anything already in context.
 
 1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 2. Read all files in `btrs/conventions/` to establish the baseline.
-3. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for the status display format.
+3. Load the workflow protocol in one call, skipping it if already in context:
+   ```bash
+   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --lifecycle
+   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --lifecycle
+   ```
 
 Do **not** load `discipline-reference.md` here — a health check is read-only drift
 detection and writes no production code.

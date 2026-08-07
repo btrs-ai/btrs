@@ -19,7 +19,11 @@ Read only what this run actually needs. Skip anything already in context.
 1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
 2. Read `btrs/conventions/` for any deployment-related conventions.
 3. Read `btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
-4. Read `~/.claude/btrs/skills/shared/workflow-protocol.md` for the release lifecycle and status format.
+4. Load the workflow protocol in one call, skipping it if already in context:
+   ```bash
+   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --lifecycle
+   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --lifecycle
+   ```
 
 Do **not** load `discipline-reference.md` here — deploying runs an existing pipeline.
 If a pre-deploy check fails and you start fixing code, load it at that point.

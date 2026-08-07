@@ -19,7 +19,12 @@ The user's request is: $ARGUMENTS
 ## Step 0: Load context
 
 1. Read `btrs/config.json` if it exists.
-2. Read `~/.claude/btrs/skills/shared/rigor-protocol.md` to determine rigor level.
+2. Load the rigor protocol in one call, skipping it if already in context:
+   ```bash
+   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --build
+   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --build
+   ```
+   On HIT the protocol is already in context — do not re-load it.
 3. State: "Rigor: {adaptive|standard|strict} — {reason}"
 
 ## Step 1: Understand the task
