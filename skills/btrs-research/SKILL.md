@@ -16,13 +16,11 @@ Technology evaluation and comparison skill. Researches options, creates comparis
 
 Read only what this run actually needs. Skip anything already in context.
 
-1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+1. Use `btrs/config.json` from the boot output already in context (read it only if boot did not run).
 2. Read `btrs/decisions/` for existing ADRs that may constrain or inform the research.
 3. Read `btrs/conventions/` for any rules about technology choices.
 
-Do **not** load `discipline-reference.md` or `workflow-protocol.md` here — research
-writes no production code and runs no build lifecycle. If the research produces an ADR,
-read `config.md` at that point for the output path.
+If the research produces an ADR, read `skills/shared/config.md` at that point for the output path.
 
 ### Step 1: Define the research question
 

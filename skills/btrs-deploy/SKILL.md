@@ -16,17 +16,13 @@ Deployment and release workflow skill. Runs pre-deploy checks, generates changel
 
 Read only what this run actually needs. Skip anything already in context.
 
-1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+1. Use `btrs/config.json` from the boot output already in context (read it only if boot did not run).
 2. Read `btrs/conventions/` for any deployment-related conventions.
 3. Read `btrs/decisions/` for deployment-related ADRs (infrastructure, CI/CD choices).
-4. Load the workflow protocol in one call, skipping it if already in context:
+4. Load the workflow protocol (the script is a no-op if already loaded this session):
    ```bash
-   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --lifecycle
-   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --lifecycle
+   bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --lifecycle
    ```
-
-Do **not** load `discipline-reference.md` here — deploying runs an existing pipeline.
-If a pre-deploy check fails and you start fixing code, load it at that point.
 
 ### Step 1: Determine deployment target
 

@@ -2,10 +2,8 @@
 name: btrs-dispatch
 description: >
   Direct dispatch to a single specialist agent — Tier 1 (always-loaded) or
-  Tier 2 (on-demand: desktop-engineer, security-ops, cloud-ops, cicd-ops,
-  container-ops, monitoring-ops, product, marketing, sales, accounting,
-  customer-success, data-analyst). Use when the user names a specific domain
-  or specialist directly, or wants a Tier 2 agent that isn't loaded by default.
+  Tier 2 (on-demand; see agent-registry.md). Use when the user names a specific
+  domain or specialist directly.
 disable-model-invocation: true
 allowed-tools: Agent, Read, Grep, Glob
 argument-hint: <domain or agent name> <task>
@@ -39,26 +37,23 @@ wrong registry.
 
 ## Step 2: Dispatch
 
-**Tier 1** (`architect`, `api-engineer`, `web-engineer`, `mobile-engineer`,
-`ui-engineer`, `database-engineer`, `qa-test-engineering`, `code-security`,
-`devops`, `research`, `documentation`, `boss`) — these are symlinked into
-`~/.claude/agents/` as `btrs-<name>`. Dispatch directly:
+The registry's tier tables (Step 0) are the source of truth for which agents are
+Tier 1 vs Tier 2 and which model tier each dispatches on — do not restate them here.
+
+**Tier 1** — symlinked into `~/.claude/agents/` as `btrs-<name>`. Dispatch directly:
 
 ```
 Agent(subagent_type: "btrs-<name>", prompt: "<task>", description: "<short label>")
 ```
 
-**Tier 2** (`desktop-engineer`, `security-ops`, `cloud-ops`, `cicd-ops`,
-`container-ops`, `monitoring-ops`, `product`, `marketing`, `sales`,
-`accounting`, `customer-success`, `data-analyst`) — these have no registered
-subagent type. Load the specialist manually:
+**Tier 2** — no registered subagent type. Load the specialist manually:
 
 1. Confirm `~/.claude/btrs/agents/btrs-<name>/AGENT.md` exists using Glob. **Do not
-   read it.** These files are 17–23 KB; reading one here loads it into *your* context
-   and pasting it into the prompt below sends the same bytes a second time, for a file
-   only the subagent needs. If Glob finds nothing, stop and tell the user.
+   read it** — the file is only needed by the subagent; reading it here loads it into
+   *your* context for nothing. If Glob finds nothing, stop and tell the user.
 2. Dispatch via `subagent_type: "general-purpose"`, having the subagent load its own
-   role as its first action:
+   role as its first action. If the registry's Model column marks the agent `sonnet`,
+   pass `model: "sonnet"` on the Agent call:
 
    ```
    Your first action is to read ~/.claude/btrs/agents/btrs-<name>/AGENT.md in full.
@@ -70,8 +65,7 @@ subagent type. Load the specialist manually:
    ```
 
 3. Note in your dispatch announcement that this is a Tier 2 agent running via
-   `general-purpose` (no native subagent type) — the user should know it isn't
-   a first-class registered agent.
+   `general-purpose` (no native subagent type), and which model it runs on.
 
 ## Step 3: Report
 

@@ -2,7 +2,7 @@
 
 **12 specialist AI agents. 10 commands. Adaptive rigor.**
 
-BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptive discipline enforcement, persistent project knowledge via Obsidian, and session continuity. It auto-detects the right level of rigor for each task — strict TDD for production code, light verification for config changes.
+BTRS is a Claude Code plugin that orchestrates specialist AI agents with adaptive discipline enforcement, persistent project knowledge via Obsidian, and session continuity. It auto-detects the right level of rigor for each task — strict TDD for production code, light verification for config changes, and optional tests (offered before a PR) for everyday feature work.
 
 ---
 
@@ -76,7 +76,7 @@ Available via `/btrs-dispatch`. Includes: desktop-engineer, security-ops, cloud-
 | Level | When | What |
 |-------|------|------|
 | **Quick** | Config, docs, small changes | File checks only, no tests |
-| **Standard** | Features, refactoring | Tests + inline self-review checklist |
+| **Standard** | Features, refactoring | Inline self-review checklist; tests offered before PR, written on request |
 | **Strict** | Security, production, migrations | Full TDD + 5-step verification gate |
 
 Auto-detected. Override with "use strict mode" or "quick is fine".
@@ -106,7 +106,7 @@ Open `btrs/` in Obsidian for graph view, search, and visual navigation.
 
 ## Session Continuity
 
-Type `/btrs` once. A `UserPromptSubmit` hook ensures all subsequent messages in the session route through BTRS automatically. New sessions start fresh.
+Type `/btrs` once. A `UserPromptSubmit` hook injects the routing instruction on the first prompt of each session in scoped directories; the router then stays in context for the rest of the session. New sessions start fresh.
 
 ---
 

@@ -16,16 +16,12 @@ Project-wide drift detection skill. Checks convention violations across the code
 
 Read only what this run actually needs. Skip anything already in context.
 
-1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+1. Use `btrs/config.json` from the boot output already in context (read it only if boot did not run).
 2. Read all files in `btrs/conventions/` to establish the baseline.
-3. Load the workflow protocol in one call, skipping it if already in context:
+3. Load the workflow protocol (the script is a no-op if already loaded this session):
    ```bash
-   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --lifecycle
-   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --lifecycle
+   bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --lifecycle
    ```
-
-Do **not** load `discipline-reference.md` here — a health check is read-only drift
-detection and writes no production code.
 
 ### Step 1: Determine check scope
 
@@ -39,8 +35,9 @@ Parse the argument to determine which checks to run:
 
 ### Step 2: Convention drift check
 
-1. Read `btrs/conventions/patterns.md` and `btrs/conventions/registry.md`.
-2. For each convention, Grep the codebase for violations project-wide.
+1. Using `btrs/conventions/patterns.md` and `btrs/conventions/registry.md` (already
+   in context from Step 0 — do not re-read), for each convention, Grep the codebase
+   for violations project-wide.
 3. Report the current violation count per convention. There is no historical
    baseline to trend against — git history is the changelog, so compare
    against the previous commit's state via `git log`/`git diff` if a trend is
@@ -48,7 +45,7 @@ Parse the argument to determine which checks to run:
 
 ### Step 3: Registry and convention staleness check
 
-1. Read `btrs/conventions/registry.md` and compare against actual source files.
+1. Compare `btrs/conventions/registry.md` (already in context) against actual source files.
    - Components/utilities/hooks/types listed that no longer exist.
    - Source files with no registry entry.
 2. Read `btrs/decisions/` for ADRs that reference deprecated technologies or patterns.

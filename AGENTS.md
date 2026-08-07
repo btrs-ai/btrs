@@ -69,7 +69,7 @@ Replaces the v2 Iron Law always-on enforcement:
 | Level | Triggers | Requirements |
 |-------|----------|-------------|
 | **Quick** | Config, docs, single-file <50 lines | File checks only |
-| **Standard** | Features, refactoring, multi-file | Tests + inline self-review |
+| **Standard** | Features, refactoring, multi-file | Inline self-review; tests offered before PR, written on request |
 | **Strict** | Security, production, migrations, 5+ files | Full TDD + 5-step verification |
 
 Auto-detected based on file types, scope, domain, and user intent. User can override.

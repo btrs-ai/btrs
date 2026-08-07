@@ -18,14 +18,12 @@ The user's request is: $ARGUMENTS
 
 ## Step 0: Load context
 
-1. Read `btrs/config.json` if it exists.
-2. Load the rigor protocol in one call, skipping it if already in context:
+1. Use `btrs/config.json` from the boot output already in context (read it only if boot did not run).
+2. Load the rigor protocol (the script is a no-op if already loaded this session):
    ```bash
-   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --build
-   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --build
+   bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --build
    ```
-   On HIT the protocol is already in context — do not re-load it.
-3. State: "Rigor: {adaptive|standard|strict} — {reason}"
+3. State: "Rigor: {quick|standard|strict} — {reason}"
 
 ## Step 1: Understand the task
 
@@ -70,14 +68,18 @@ If any check fails, fix and re-verify. Do not report done with known failures.
 
 1. Update spec status if working from one.
 2. Update `btrs/conventions/registry.md` if new components, utilities, hooks, or types were added.
-3. Git history is the changelog in v3 — no separate changelog file to update.
+3. Update `btrs/status.md` — add or refresh the active-work entry, or mark it
+   completed. The router's session awareness reads this file at boot; skipping
+   this step is what makes "continuing work on X" go stale.
+4. Git history is the changelog in v3 — no separate changelog file to update.
 
 ## Step 7: Report completion
 
 1. Summary of what was built.
 2. Verification report (pass/fail/warn).
 3. Deferred items or known limitations.
-4. Suggested next steps.
+4. Suggested next steps. If a PR/MR is the next step and rigor was standard with no
+   tests written, offer to write tests before opening it.
 
 ## Anti-Patterns
 

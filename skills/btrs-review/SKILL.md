@@ -16,17 +16,12 @@ Code and architecture review skill. Checks convention compliance, pattern consis
 
 Read only what this run actually needs. Skip anything already in context.
 
-1. Read `btrs/config.json` if it exists for framework, language, and tooling context.
+1. Use `btrs/config.json` from the boot output already in context (read it only if boot did not run).
 2. Read `btrs/conventions/` files relevant to the code under review.
-3. Load the verification checklist in one call, skipping it if already in context:
+3. Load the verification checklist (the script is a no-op if already loaded this session):
    ```bash
-   bash ~/.claude/btrs/skills/shared/btrs-check-context.sh --review
-   # MISS -> bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --review
+   bash ~/.claude/btrs/skills/shared/btrs-load-core.sh --review
    ```
-
-Do **not** load `discipline-reference.md` here: its TDD and debugging mandates govern
-writing code, and review is read-only. If the review turns into a fix, load it then.
-`config.md` is only needed if you will write into `btrs/` — reviews normally report inline.
 
 ### Step 1: Determine review scope
 
@@ -91,7 +86,7 @@ Format the output as:
 {Issues that must be fixed before merge. Security vulnerabilities, data loss risks, broken functionality.}
 
 ### Major
-{Issues that should be fixed. Convention violations, missing error handling, missing tests.}
+{Issues that should be fixed. Convention violations, missing error handling, missing tests where the spec or rigor level required them (tests are otherwise optional and report-only, never merge-blocking).}
 
 ### Minor
 {Issues that would be nice to fix. Style inconsistencies, verbose code, missing docs.}

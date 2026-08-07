@@ -35,14 +35,18 @@ This protocol replaces always-on strict enforcement with risk-aware auto-detecti
 - Default when no other mode clearly applies
 
 **Requirements:**
-- Tests for new behavior (write tests, but strict RED-GREEN-REFACTOR cycle not required)
-- Run tests and confirm they pass before claiming done
+- Tests are **recommended, not required**. Write them when the user asks, when the
+  dispatch context requires them, or when the change is about to go into a PR/MR and
+  the user accepts the offer
+- Before creating a PR/MR, offer to write tests for the new behavior; proceed without
+  them if declined
+- If tests were written, run them and confirm they pass before claiming done
 - Inline self-review checklist before completion:
 
 ```
 ## Self-Review
 - [ ] Code compiles/runs without errors
-- [ ] Tests pass for new behavior
+- [ ] If tests were written, they pass
 - [ ] Follows existing project patterns (checked conventions)
 - [ ] No duplicated utilities (grepped codebase)
 - [ ] No hardcoded values that should be config/env
@@ -67,8 +71,14 @@ This protocol replaces always-on strict enforcement with risk-aware auto-detecti
 - Anything involving user data, PII, or compliance
 
 **Requirements:**
-- Full TDD: RED-GREEN-REFACTOR cycle (see `~/.claude/btrs/skills/shared/discipline-reference.md` Section 1)
-- 5-step verification gate (see `~/.claude/btrs/skills/shared/discipline-reference.md` Section 2):
+- Full TDD — the RED-GREEN-REFACTOR cycle:
+  1. **RED:** Write one minimal failing test. Verify it fails *for the right reason*
+     (expected behavior absent, not a syntax/import error). If it passes immediately,
+     it tests existing behavior — fix the test.
+  2. **GREEN:** Write the simplest code that makes it pass. No "while I'm here" additions.
+  3. **REFACTOR:** Clean up while green. No new behavior during refactor.
+  4. Production code written before its failing test gets deleted and redone test-first.
+- 5-step verification gate:
   1. IDENTIFY the verification command
   2. RUN it fresh
   3. READ the full output
@@ -76,7 +86,7 @@ This protocol replaces always-on strict enforcement with risk-aware auto-detecti
   5. CLAIM only then
 - Forbidden words in completion claims: "should", "probably", "seems to", "I believe", "likely"
 - No premature celebration before verification
-- Contributing factor sweep for bug fixes (see `~/.claude/btrs/skills/shared/discipline-reference.md` Section 3)
+- Contributing factor sweep for bug fixes (see Phase 3.5 in `~/.claude/btrs/skills/btrs-fix/SKILL.md`)
 
 **Announce:** `Rigor: strict — {reason (e.g., "auth-related, security-sensitive")}`
 
@@ -103,7 +113,7 @@ The user can always override:
 
 The user explicitly requests skipping any protocol? Acknowledge and proceed. The user always takes precedence.
 
-The key word is **explicitly**. "Implement this feature" without mentioning tests is NOT permission to skip standard rigor. "Just write the code, skip tests" IS explicit.
+Note the default: at quick and standard rigor, tests are already optional — "implement this feature" means implement it, offering tests before a PR/MR. Saying "write tests" or "use strict mode" opts in; strict-mode triggers (security, production, migrations) opt in automatically.
 
 When invoking the escape clause, state it: "Skipping {rule} per your request."
 
@@ -114,5 +124,5 @@ When invoking the escape clause, state it: "Skipping {rule} per your request."
 | Rigor | Tests Required | Verification | Review | Token Cost |
 |-------|---------------|-------------|--------|------------|
 | Quick | No | File existence | None | Low |
-| Standard | Yes (new behavior) | Run tests + inline checklist | Self-review | Medium |
+| Standard | No (offered before PR/MR, written on request) | Inline checklist (+ run any tests written) | Self-review | Medium |
 | Strict | Full TDD (R-G-R) | 5-step gate + evidence | Full protocol | High |

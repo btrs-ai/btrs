@@ -26,7 +26,7 @@ BTRS v3 auto-detects the appropriate rigor level:
 | Level | When | What |
 |-------|------|------|
 | Quick | Config, docs, small changes | File checks only, no tests |
-| Standard | Features, refactoring, code changes | Tests + inline self-review |
+| Standard | Features, refactoring, code changes | Inline self-review; tests offered before PR, written on request |
 | Strict | Security, production, migrations, 5+ files | Full TDD + 5-step verification |
 
 Override with "use strict mode" or "quick is fine".
@@ -56,7 +56,7 @@ Override with "use strict mode" or "quick is fine".
 
 ## Session Continuity
 
-Type `/btrs` once and all subsequent messages route through BTRS automatically via a UserPromptSubmit hook.
+Type `/btrs` once per session. A UserPromptSubmit hook injects the routing instruction on the first prompt of a session (in-scope directories); after that the router stays in context and keeps routing without re-injection.
 
 ## Project Vault
 

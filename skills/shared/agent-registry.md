@@ -21,24 +21,32 @@ Routing table for the `/btrs` and `/btrs-dispatch` skills. Tier 1 agents are alw
 | docs, documentation, API docs, guide, tutorial, README | `documentation` | Technical writing |
 | coordinate, multi-agent, complex, plan, breakdown, orchestrate | `boss` | Coordination |
 
+`research` and `documentation` run on Sonnet (set in their frontmatter `model:` field);
+all other Tier 1 agents inherit the session model.
+
 ### Tier 2 — On-Demand Agents
 
 Available via `/btrs-dispatch`. Not loaded by default.
 
-| Keywords | Agent | Domain |
-|----------|-------|--------|
-| desktop, Electron, Tauri, native app | `desktop-engineer` | Desktop apps |
-| compliance, GDPR, SOC2, HIPAA, IAM, secrets | `security-ops` | Infra security |
-| cloud, AWS, Azure, GCP, Terraform, IaC | `cloud-ops` | Deep cloud |
-| pipeline, GitHub Actions, Jenkins | `cicd-ops` | Deep CI/CD |
-| Kubernetes, container, Helm, compose | `container-ops` | Deep containers |
-| Prometheus, Grafana, alerts, logs, APM | `monitoring-ops` | Deep observability |
-| product, roadmap, requirements, PRD, user stories | `product` | Product mgmt |
-| marketing, campaign, SEO, content, growth | `marketing` | Marketing |
-| sales, pipeline, revenue, pricing, CRM | `sales` | Sales |
-| accounting, finance, invoice, budget, P&L | `accounting` | Finance |
-| customer, support, retention, NPS, onboarding | `customer-success` | Customer success |
-| analytics, BI, dashboard, metrics, KPI, data | `data-analyst` | Analytics |
+| Keywords | Agent | Domain | Model |
+|----------|-------|--------|-------|
+| desktop, Electron, Tauri, native app | `desktop-engineer` | Desktop apps | inherit |
+| compliance, GDPR, SOC2, HIPAA, IAM, secrets | `security-ops` | Infra security | inherit |
+| cloud, AWS, Azure, GCP, Terraform, IaC | `cloud-ops` | Deep cloud | inherit |
+| pipeline, GitHub Actions, Jenkins | `cicd-ops` | Deep CI/CD | inherit |
+| Kubernetes, container, Helm, compose | `container-ops` | Deep containers | inherit |
+| Prometheus, Grafana, alerts, logs, APM | `monitoring-ops` | Deep observability | inherit |
+| product, roadmap, requirements, PRD, user stories | `product` | Product mgmt | sonnet |
+| marketing, campaign, SEO, content, growth | `marketing` | Marketing | sonnet |
+| sales, pipeline, revenue, pricing, CRM | `sales` | Sales | sonnet |
+| accounting, finance, invoice, budget, P&L | `accounting` | Finance | sonnet |
+| customer, support, retention, NPS, onboarding | `customer-success` | Customer success | sonnet |
+| analytics, BI, dashboard, metrics, KPI, data | `data-analyst` | Analytics | sonnet |
+
+The Model column tells `/btrs-dispatch` which model to pass when spawning the agent:
+`sonnet` agents run on Claude Sonnet (`model: "sonnet"` on the Agent call) — cheaper
+with no meaningful quality loss for their domains; `inherit` agents run on the
+session model.
 
 ## Routing Rules
 

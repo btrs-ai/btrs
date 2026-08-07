@@ -15,8 +15,11 @@ PROJECT_DIR="$(pwd)"
 HASH="$(echo "$PROJECT_DIR" | shasum -a 256 | cut -c1-12)"
 
 # ── Session marker (was Step -1) ─────────────────────────────────────────────
+# Note: do NOT remove /tmp/btrs-routed-$HASH here. The router skill is already
+# running when boot executes; clearing the marker would re-arm the
+# UserPromptSubmit hook and re-inject routing instructions on the next message.
 touch "/tmp/btrs-session-$HASH"
-rm -f "/tmp/btrs-routed-$HASH"
+touch "/tmp/btrs-routed-$HASH"
 
 # ── Scope check ──────────────────────────────────────────────────────────────
 SCOPE_FILE="$HOME/.claude/btrs/scope.conf"

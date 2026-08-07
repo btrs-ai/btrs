@@ -1,12 +1,8 @@
 ---
 name: btrs
 description: >
-  The single entry point for BTRS. Routes any request to the right skill or
-  agent automatically. Type /btrs + what you want — it figures out the rest.
-  Auto-initializes projects on first use. Use when the user says "btrs", wants
-  to build something, needs help with any aspect of their project, or says
-  things like "build", "fix", "deploy", "review", "plan", "audit", "research",
-  "analyze".
+  The single entry point for BTRS. Classifies any request and routes it to the
+  right skill or agent automatically. Auto-initializes projects on first use.
 disable-model-invocation: true
 allowed-tools: Agent, Read, Write, Edit, Grep, Glob, Bash(git *), Bash(npm *), Bash(npx *), Bash(touch *), Bash(shasum *)
 argument-hint: <what you want to do>
@@ -39,11 +35,12 @@ whole point of the single call. Read an indexed file only when the request needs
 #### Session Awareness
 
 Use the `btrs/status.md` section already in the boot output — do not Read it again.
-5. If active work exists:
+
+1. If active work exists:
    - If `$ARGUMENTS` relates to active work → "Continuing work on [active spec]" and resume.
    - If `$ARGUMENTS` is unrelated → present active work and ask: "You have active work on [X]. Want to pause it and start this, or finish [X] first?"
    - If `$ARGUMENTS` is empty (bare `/btrs`) → show status summary and ask what to work on.
-6. If no active work or user wants to proceed → continue to Step 1.
+2. If no active work or user wants to proceed → continue to Step 1.
 
 ## Step 1: Classify and route
 
@@ -57,7 +54,7 @@ Based on `$ARGUMENTS`, classify and route:
 | Review/audit | "Review", "audit", "tech debt", "scan", "quality" | Read and follow `~/.claude/btrs/skills/btrs-review/SKILL.md` |
 | Research/analyze | "Compare", "research", "evaluate", "brainstorm", "analyze", "explore" | Read and follow `~/.claude/btrs/skills/btrs-research/SKILL.md` |
 | Direct dispatch | Agent name mentioned explicitly | Read and follow `~/.claude/btrs/skills/btrs-dispatch/SKILL.md` |
-| Status/health | "Status", "health", "what's active" | Read `btrs/status.md` and report |
+| Status/health | "Status", "health", "what's active" | Report from the `btrs/status.md` section already in the boot output |
 | Unclear | Ambiguous or insufficient detail | Ask 1-2 clarifying questions |
 
 ### Quick answer

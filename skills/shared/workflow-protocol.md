@@ -8,12 +8,11 @@ This protocol defines the expected order of operations and status display requir
 
 These are expectations, not a rigid pipeline. Apply relevant rules based on task type.
 
-- **Worktree before implementation:** Create isolated branch/worktree before any code changes.
+- **Branch before implementation:** Create an isolated branch before any code changes.
 - **Plan before multi-step work:** No multi-file implementations without a plan.
-- **TDD during implementation:** Follow the discipline protocol's TDD mandate.
+- **Rigor during implementation:** Follow the assessed rigor level (see `rigor-protocol.md`); tests are optional below strict.
 - **Review after implementation:** Code review is required before branch completion.
-- **Sanity check before finish:** `btrs-sanity-check` must pass before `btrs-finish`.
-- **Verify before claiming complete:** Follow the discipline protocol's verification mandate.
+- **Verify before claiming complete:** No completion claims without fresh evidence.
 
 ---
 
@@ -21,18 +20,18 @@ These are expectations, not a rigid pipeline. Apply relevant rules based on task
 
 Every skill and agent dispatch MUST provide live visibility into what is happening. Silent execution erodes trust.
 
-### Rule 1: Task Checklist for Every Skill
+### Rule 1: Task Checklist for Multi-Step Work
 
-When any skill starts, create TaskCreate items for each major step. Update to in_progress when starting, completed when done. The user sees real-time progress.
+When a skill run involves 3+ distinct steps or agent dispatches, create TaskCreate
+items for the major steps and update them as you go. Single-step or trivial runs
+skip the checklist — announcing the action is enough.
 
 Example:
 
 ```
 ☑ Reading project conventions
-☑ Checking btrs/status.md for active work
 ☐ Classifying request  ← (spinner: "Classifying request...")
 ☐ Dispatching btrs-web-engineer
-☐ Running sanity check
 ☐ Verification
 ```
 
@@ -44,28 +43,10 @@ When dispatching any agent, announce explicitly before dispatch:
 Dispatching btrs-web-engineer to implement Dashboard analytics widget
   Context: React + TypeScript project, Zustand for state, Tailwind CSS
   Injected: TDD protocol, project conventions
-  Working in: btrs-worktrees/feat-dashboard/
+  Working in: feature/dashboard branch
 ```
 
-### Rule 3: Pass-by-Pass Status for Multi-Step Checks
-
-Skills with multiple internal passes (especially btrs-sanity-check) display each pass as a task item with its result:
-
-```
-Sanity Check:
-  ☑ Regression — 47 tests passed, 0 new failures
-  ☑ Leak & Resource — clean
-  ☑ Dead Code — 1 unused import found (flagged)
-  ☐ Debug Artifacts  ← (spinner)
-  ☐ Behavioral Regression
-  ☐ Dependency Health
-  ☐ Dependency Justification
-  ☐ Type Safety
-  ☐ Duplication
-  ☐ Performance
-```
-
-### Rule 4: Verification Evidence Display
+### Rule 3: Verification Evidence Display
 
 Every verification claim must show actual evidence inline:
 
@@ -77,13 +58,13 @@ Verification:
   ✓ Claim confirmed: "All tests pass"
 ```
 
-### Rule 5: Workflow Position Indicator
+### Rule 4: Workflow Position Indicator
 
 For multi-step workflows, display current position:
 
 ```
-Workflow: brainstorm → plan → [worktree] → execute → sanity-check → finish
-                               ^^^^^^^^^ you are here
+Workflow: plan → [build] → review → verify → report
+                  ^^^^^ you are here
 ```
 
 ---
